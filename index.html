@@ -125,6 +125,16 @@
       color: #b91c1c;
       border: 1px solid #fecaca;
     }
+
+    /* Ícones da comunidade */
+    .community-icon {
+      transition: all 0.3s ease;
+    }
+
+    .community-icon:hover {
+      transform: scale(1.1) rotate(5deg);
+      filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+    }
   </style>
 </head>
 <body>
@@ -134,7 +144,7 @@
   <!-- Sticky CTA Mobile -->
   <div class="lg:hidden fixed bottom-0 inset-x-0 bg-emerald-600 z-40 shadow-lg flex justify-center animate-bounce">
     <a href="#formulario" class="w-full text-center text-white font-semibold py-3 px-4">
-      <i class="fas fa-arrow-right mr-2"></i> Quero o DAQ Essencial – R$ 497/ano
+      <i class="fas fa-bolt mr-2"></i> Quero parar de estudar errado – R$ 497/ano
     </a>
   </div>
 
@@ -156,7 +166,7 @@
         
         <div class="mt-8 flex flex-wrap gap-4">
           <a href="#formulario" class="bg-emerald-600 hover:bg-emerald-700 transition-all text-white font-semibold py-3 px-8 rounded-xl shadow-lg shadow-emerald-500/30 transform hover:scale-105">
-            <i class="fas fa-arrow-right mr-2"></i> Quero Começar Agora
+            <i class="fas fa-bolt mr-2"></i> Quero aprender do jeito certo, agora
           </a>
           <a href="https://wa.me/5564999965777" target="_blank" rel="noopener" class="flex items-center gap-2 text-emerald-700 font-semibold hover:text-emerald-800">
             <i class="fab fa-whatsapp text-xl"></i> Fale conosco
@@ -330,6 +340,61 @@
     </div>
   </section>
 
+  <!-- Seção de Comunidade (Pertenecimento) -->
+  <section class="py-16 bg-gradient-to-r from-amber-50 to-white">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row items-center gap-8">
+        <!-- Ícones representando comunidade -->
+        <div class="md:w-1/3 text-center">
+          <div class="inline-flex items-center justify-center relative">
+            <div class="w-32 h-32 rounded-full bg-amber-100 flex items-center justify-center text-amber-600 text-5xl relative z-10">
+              <i class="fas fa-users"></i>
+            </div>
+            <div class="absolute -top-4 -right-4 w-20 h-20 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 text-3xl">
+              <i class="fas fa-comments"></i>
+            </div>
+            <div class="absolute -bottom-4 -left-4 w-20 h-20 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 text-3xl">
+              <i class="fas fa-hands-helping"></i>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Texto -->
+        <div class="md:w-2/3 text-center md:text-left">
+          <h2 class="text-3xl font-bold text-slate-900 mb-4">
+            <i class="fas fa-heart text-amber-500 mr-2"></i> Você não vai estudar sozinho(a)
+          </h2>
+          <p class="text-lg text-slate-700 mb-6">
+            O DAQ não é só um método - é uma comunidade vibrante de concurseiros que estudam com inteligência. Aqui você encontra:
+          </p>
+          
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div class="flex items-start gap-3 bg-white p-4 rounded-lg shadow-sm">
+              <i class="fas fa-check-circle text-emerald-500 mt-1"></i>
+              <span class="text-slate-700">Troca de experiências com outros alunos</span>
+            </div>
+            <div class="flex items-start gap-3 bg-white p-4 rounded-lg shadow-sm">
+              <i class="fas fa-check-circle text-emerald-500 mt-1"></i>
+              <span class="text-slate-700">Dicas exclusivas da Kyrlla e equipe</span>
+            </div>
+            <div class="flex items-start gap-3 bg-white p-4 rounded-lg shadow-sm">
+              <i class="fas fa-check-circle text-emerald-500 mt-1"></i>
+              <span class="text-slate-700">Motivação diária para manter o foco</span>
+            </div>
+            <div class="flex items-start gap-3 bg-white p-4 rounded-lg shadow-sm">
+              <i class="fas fa-check-circle text-emerald-500 mt-1"></i>
+              <span class="text-slate-700">Celebração coletiva das aprovações</span>
+            </div>
+          </div>
+          
+          <p class="mt-6 text-amber-700 font-medium">
+            <i class="fas fa-quote-left mr-1"></i> Quando você entra no DAQ, ganha uma família de estudos que te impulsiona até a aprovação.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Depoimentos -->
 <section class="py-16 bg-slate-50">
   <div class="max-w-6xl mx-auto px-6">
@@ -351,7 +416,7 @@
               <div class="text-amber-500 text-2xl mr-3">
                 <i class="fas fa-quote-left"></i>
               </div>
-              <p class="text-slate-700 italic">"Não participo dos encontros presenciais devido ao meu trabalho, mas graças as dicas da Kyrlla consegui passar no CNU. <strong>O método SPQ foi essencial para minha aprovação!</strong>"</p>
+              <p class="text-slate-700 italic">"Não participo dos encontros presenciais devido ao meu trabalho, mas graças as dicas da Kyrlla consegui passar no CNU. <strong class="font-semibold">O método SPQ foi essencial para minha aprovação!</strong>"</p>
             </div>
             <div class="flex items-center">
               <div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center text-amber-600 mr-3">
@@ -372,7 +437,7 @@
               <div class="text-amber-500 text-2xl mr-3">
                 <i class="fas fa-quote-left"></i>
               </div>
-              <p class="text-slate-700 italic">"Saiu o gabarito preliminar e acertei 38/40... errei só 2 questões. Estou muito feliz por que nunca imaginei alcançar algo assim. <strong>O DAQ mudou minha forma de estudar.</strong>"</p>
+              <p class="text-slate-700 italic">"Saiu o gabarito preliminar e acertei 38/40... errei só 2 questões. Estou muito feliz por que nunca imaginei alcançar algo assim. <strong class="font-semibold">O DAQ mudou minha forma de estudar.</strong>"</p>
             </div>
             <div class="flex items-center">
               <div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center text-amber-600 mr-3">
@@ -393,7 +458,7 @@
               <div class="text-amber-500 text-2xl mr-3">
                 <i class="fas fa-quote-left"></i>
               </div>
-              <p class="text-slate-700 italic">"<strong>Sem malabarismo mental</strong>, planilhas complexas, cálculos de horas, aquelas loucuras que deixam a gente ansioso. <strong>O DAQ trouxe simplicidade e resultados.</strong>"</p>
+              <p class="text-slate-700 italic">"<strong class="font-semibold">Sem malabarismo mental</strong>, planilhas complexas, cálculos de horas, aquelas loucuras que deixam a gente ansioso. <strong class="font-semibold">O DAQ trouxe simplicidade e resultados.</strong>"</p>
             </div>
             <div class="flex items-center">
               <div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center text-amber-600 mr-3">
@@ -414,7 +479,7 @@
               <div class="text-amber-500 text-2xl mr-3">
                 <i class="fas fa-quote-left"></i>
               </div>
-              <p class="text-slate-700 italic">"Não consegui aplicar 100% do método por começar no pós-edital, mas uns 80% eu apliquei. E deu certo. <strong>Deus me deu essa aprovação através do estudo por questões!</strong>"</p>
+              <p class="text-slate-700 italic">"Não consegui aplicar 100% do método por começar no pós-edital, mas uns 80% eu apliquei. E deu certo. <strong class="font-semibold">Deus me deu essa aprovação através do estudo por questões!</strong>"</p>
             </div>
             <div class="flex items-center">
               <div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center text-amber-600 mr-3">
@@ -435,7 +500,7 @@
               <div class="text-amber-500 text-2xl mr-3">
                 <i class="fas fa-quote-left"></i>
               </div>
-              <p class="text-slate-700 italic">"Conheci a Kyrlla e comecei a estudar só por questões e os resultados mudaram da água pro vinho. Se eu puder dar um conselho: <strong>abandona o excesso de teoria e mergulha nas questões.</strong>"</p>
+              <p class="text-slate-700 italic">"Conheci a Kyrlla e comecei a estudar só por questões e os resultados mudaram da água pro vinho. Se eu puder dar um conselho: <strong class="font-semibold">abandona o excesso de teoria e mergulha nas questões.</strong>"</p>
             </div>
             <div class="flex items-center">
               <div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center text-amber-600 mr-3">
@@ -456,7 +521,7 @@
               <div class="text-amber-500 text-2xl mr-3">
                 <i class="fas fa-quote-left"></i>
               </div>
-              <p class="text-slate-700 italic">"<strong>Ganhei 1 ano em 1 mês!!</strong> Estou amando e indico pra todo mundo! Super feliz com minha evolução depois que comecei a aplicar o método SPQ do DAQ Essencial."</p>
+              <p class="text-slate-700 italic">"<strong class="font-semibold">Ganhei 1 ano em 1 mês!!</strong> Estou amando e indico pra todo mundo! Super feliz com minha evolução depois que comecei a aplicar o método SPQ do DAQ Essencial."</p>
             </div>
             <div class="flex items-center">
               <div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center text-amber-600 mr-3">
@@ -477,7 +542,7 @@
               <div class="text-amber-500 text-2xl mr-3">
                 <i class="fas fa-quote-left"></i>
               </div>
-              <p class="text-slate-700 italic">"Sou aluno do DAQ/SPQ e o método é ótimo, super recomendo e indico. Ele foi criado pensando em estudar as questões e não apenas resolver questões. Esse é o <strong>pulo do gato</strong>. "</p>
+              <p class="text-slate-700 italic">"Sou aluno do DAQ/SPQ e o método é ótimo, super recomendo e indico. Ele foi criado pensando em estudar as questões e não apenas resolver questões. Esse é o <strong class="font-semibold">pulo do gato</strong>. "</p>
             </div>
             <div class="flex items-center">
               <div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center text-amber-600 mr-3">
@@ -496,7 +561,7 @@
     
     <div class="mt-12 text-center">
       <a href="#formulario" class="inline-block bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 px-8 rounded-lg shadow-lg shadow-emerald-500/30 transition-all transform hover:scale-105">
-        <i class="fas fa-arrow-right mr-2"></i> Quero esses resultados para mim
+        <i class="fas fa-users mr-2"></i> Quero fazer parte dessa transformação
       </a>
     </div>
   </div>
@@ -647,140 +712,6 @@
   </div>
 </section>
 
-<style>
-  .video-carousel-container {
-    overflow: hidden;
-    position: relative;
-  }
-  
-  .video-carousel-track {
-    display: flex;
-    transition: transform 0.5s ease;
-    padding: 0 1rem;
-  }
-  
-  .video-carousel-item {
-    flex: 0 0 auto;
-    padding: 0 0.5rem;
-    box-sizing: border-box;
-  }
-  
-  @media (max-width: 767px) {
-    .video-carousel-item {
-      width: calc(100% - 2rem);
-    }
-  }
-  
-  @media (min-width: 768px) and (max-width: 1023px) {
-    .video-carousel-item {
-      width: calc(50% - 1rem);
-    }
-  }
-  
-  @media (min-width: 1024px) {
-    .video-carousel-item {
-      width: calc(33.333% - 1rem);
-    }
-  }
-</style>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const track = document.getElementById('videoTrack');
-  const items = document.querySelectorAll('.video-carousel-item');
-  const prevBtn = document.querySelector('.video-carousel-prev');
-  const nextBtn = document.querySelector('.video-carousel-next');
-  const videoModal = document.getElementById('videoModal');
-  const youtubePlayer = document.getElementById('youtubePlayer');
-  const closeModalBtn = document.getElementById('closeVideoModal');
-  
-  let currentIndex = 0;
-  let itemWidth = items[0].offsetWidth;
-  let visibleItems;
-  
-  function updateVisibleItems() {
-    if (window.innerWidth < 768) {
-      visibleItems = 1;
-    } else if (window.innerWidth < 1024) {
-      visibleItems = 2;
-    } else {
-      visibleItems = 3;
-    }
-    itemWidth = items[0].offsetWidth;
-    updateTrackPosition();
-  }
-  
-  function updateTrackPosition() {
-    track.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
-  }
-  
-  function goToPrev() {
-    if (currentIndex > 0) {
-      currentIndex--;
-      updateTrackPosition();
-    }
-  }
-  
-  function goToNext() {
-    if (currentIndex < items.length - visibleItems) {
-      currentIndex++;
-      updateTrackPosition();
-    }
-  }
-  
-  // Event Listeners
-  prevBtn.addEventListener('click', goToPrev);
-  nextBtn.addEventListener('click', goToNext);
-  
-  // Abrir vídeo no modal
-  document.querySelectorAll('.video-thumbnail').forEach(thumbnail => {
-    thumbnail.addEventListener('click', function() {
-      const videoId = this.closest('.video-carousel-item').getAttribute('data-video-id');
-      youtubePlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
-      videoModal.classList.remove('hidden');
-      videoModal.classList.add('flex');
-      document.body.style.overflow = 'hidden';
-    });
-  });
-  
-  // Fechar modal
-  closeModalBtn.addEventListener('click', function() {
-    youtubePlayer.src = '';
-    videoModal.classList.add('hidden');
-    videoModal.classList.remove('flex');
-    document.body.style.overflow = 'auto';
-  });
-  
-  // Fechar ao clicar fora
-  videoModal.addEventListener('click', function(e) {
-    if (e.target === videoModal) {
-      youtubePlayer.src = '';
-      videoModal.classList.add('hidden');
-      videoModal.classList.remove('flex');
-      document.body.style.overflow = 'auto';
-    }
-  });
-  
-  // Responsividade
-  window.addEventListener('resize', function() {
-    updateVisibleItems();
-  });
-  
-  // Inicialização
-  updateVisibleItems();
-  
-  // Teclado
-  document.addEventListener('keydown', function(e) {
-    if (!videoModal.classList.contains('hidden') && e.key === 'Escape') {
-      youtubePlayer.src = '';
-      videoModal.classList.add('hidden');
-      videoModal.classList.remove('flex');
-      document.body.style.overflow = 'auto';
-    }
-  });
-});
-</script>
-
   <!-- Pra quem é -->
   <section class="py-16 bg-gradient-to-r from-amber-50 to-orange-50">
     <div class="max-w-5xl mx-auto px-6">
@@ -876,7 +807,7 @@ document.addEventListener('DOMContentLoaded', function() {
           </ul>
           
           <a href="#formulario" class="inline-block w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg shadow-emerald-500/20 transition-all transform hover:scale-105">
-            <i class="fas fa-arrow-right mr-2"></i> Quero Começar Agora
+            <i class="fas fa-trophy mr-2"></i> Quero meu plano de aprovação hoje
           </a>
         </div>
         
@@ -999,7 +930,7 @@ document.addEventListener('DOMContentLoaded', function() {
         Pronto pra parar de estudar como todo mundo estuda... e começar a estudar como quem vai passar?
       </p>
       <a href="#formulario" class="inline-block bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 px-8 rounded-lg shadow-lg shadow-emerald-500/30 transition-all transform hover:scale-105">
-        <i class="fas fa-arrow-right mr-2"></i> Quero meu DAQ Essencial
+        <i class="fas fa-flag-checkered mr-2"></i> Quero minha vaga na próxima aprovação
       </a>
     </div>
   </section>
