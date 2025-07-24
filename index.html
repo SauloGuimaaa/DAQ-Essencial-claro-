@@ -375,7 +375,7 @@
             </div>
             <div class="flex items-start gap-3 bg-white p-4 rounded-lg shadow-sm">
               <i class="fas fa-check-circle text-emerald-500 mt-1"></i>
-              <span class="text-slate-700">Dicas exclusivas da Kyrlla e equipe</span>
+              <span class="text-slate-700">Suporte automatizado para tirar todas as suas dúvidas</span>
             </div>
             <div class="flex items-start gap-3 bg-white p-4 rounded-lg shadow-sm">
               <i class="fas fa-check-circle text-emerald-500 mt-1"></i>
@@ -567,7 +567,7 @@
   </div>
 </section>
 
-  <!-- Seção Depoimentos em Vídeo -->
+  <!-- Substitua a seção de vídeos por esta versão corrigida -->
 <section class="py-16 bg-gradient-to-b from-slate-50 to-white">
   <div class="max-w-7xl mx-auto px-6">
     <div class="text-center mb-12">
@@ -579,14 +579,14 @@
       </p>
     </div>
 
-    <!-- Carrossel de Vídeos - ATUALIZADO -->
+    <!-- Carrossel de Vídeos - VERSÃO CORRIGIDA -->
     <div class="relative">
       <div class="overflow-hidden">
-        <div class="video-carousel-track flex gap-4 px-4" id="videoTrack">
+        <div class="video-carousel-track flex gap-4 px-4 transition-transform duration-500" id="videoTrack">
           <!-- Item 1 -->
           <div class="video-carousel-item flex-shrink-0 w-[calc(100%-2rem)] md:w-1/2 lg:w-1/3" data-video-id="Ben8sTjaVLI">
             <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 h-full">
-              <div class="video-thumbnail relative cursor-pointer group">
+              <div class="video-thumbnail relative cursor-pointer group" onclick="openVideoModal('Ben8sTjaVLI')">
                 <img src="https://img.youtube.com/vi/Ben8sTjaVLI/maxresdefault.jpg" 
                      alt="Depoimento Aluno DAQ" 
                      class="w-full h-48 md:h-56 object-cover">
@@ -606,7 +606,7 @@
           <!-- Item 2 -->
           <div class="video-carousel-item flex-shrink-0 w-[calc(100%-2rem)] md:w-1/2 lg:w-1/3" data-video-id="c9liS9Sk6cc">
             <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 h-full">
-              <div class="video-thumbnail relative cursor-pointer group">
+              <div class="video-thumbnail relative cursor-pointer group" onclick="openVideoModal('c9liS9Sk6cc')">
                 <img src="https://img.youtube.com/vi/c9liS9Sk6cc/maxresdefault.jpg" 
                      alt="Depoimento Aluno DAQ" 
                      class="w-full h-48 md:h-56 object-cover">
@@ -626,7 +626,7 @@
           <!-- Item 3 -->
           <div class="video-carousel-item flex-shrink-0 w-[calc(100%-2rem)] md:w-1/2 lg:w-1/3" data-video-id="Z1-uV0VOk5U">
             <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 h-full">
-              <div class="video-thumbnail relative cursor-pointer group">
+              <div class="video-thumbnail relative cursor-pointer group" onclick="openVideoModal('Z1-uV0VOk5U')">
                 <img src="https://img.youtube.com/vi/Z1-uV0VOk5U/maxresdefault.jpg" 
                      alt="Depoimento Aluno DAQ" 
                      class="w-full h-48 md:h-56 object-cover">
@@ -646,7 +646,7 @@
           <!-- Item 4 -->
           <div class="video-carousel-item flex-shrink-0 w-[calc(100%-2rem)] md:w-1/2 lg:w-1/3" data-video-id="s-ivfFmnGbs">
             <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 h-full">
-              <div class="video-thumbnail relative cursor-pointer group">
+              <div class="video-thumbnail relative cursor-pointer group" onclick="openVideoModal('s-ivfFmnGbs')">
                 <img src="https://img.youtube.com/vi/s-ivfFmnGbs/maxresdefault.jpg" 
                      alt="Depoimento Aluno DAQ" 
                      class="w-full h-48 md:h-56 object-cover">
@@ -666,7 +666,7 @@
           <!-- Item 5 -->
           <div class="video-carousel-item flex-shrink-0 w-[calc(100%-2rem)] md:w-1/2 lg:w-1/3" data-video-id="IBPbX_tK14E">
             <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 h-full">
-              <div class="video-thumbnail relative cursor-pointer group">
+              <div class="video-thumbnail relative cursor-pointer group" onclick="openVideoModal('IBPbX_tK14E')">
                 <img src="https://img.youtube.com/vi/IBPbX_tK14E/maxresdefault.jpg" 
                      alt="Depoimento Aluno DAQ" 
                      class="w-full h-48 md:h-56 object-cover">
@@ -685,7 +685,7 @@
         </div>
       </div>
 
-      <!-- Navegação -->
+      <!-- Navegação - VERSÃO CORRIGIDA -->
       <div class="flex justify-center mt-8 space-x-3">
         <button class="video-carousel-prev w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-amber-500 hover:bg-amber-50 transition-colors">
           <i class="fas fa-chevron-left"></i>
@@ -695,22 +695,123 @@
         </button>
       </div>
     </div>
-
-    <!-- Modal do Vídeo -->
-    <div id="videoModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black bg-opacity-80 p-4">
-      <div class="relative w-full max-w-4xl">
-        <button id="closeVideoModal" class="absolute -top-10 right-0 text-white hover:text-amber-400 text-2xl">
-          <i class="fas fa-times"></i>
-        </button>
-        <div class="aspect-w-16 aspect-h-9 bg-black">
-          <iframe id="youtubePlayer" class="w-full h-96" frameborder="0" allowfullscreen
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
-          </iframe>
-        </div>
-      </div>
-    </div>
   </div>
 </section>
+
+<!-- Modal do Vídeo - VERSÃO CORRIGIDA -->
+<div id="videoModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black bg-opacity-80 p-4">
+  <div class="relative w-full max-w-4xl mx-4">
+    <button id="closeVideoModal" class="absolute -top-10 right-0 text-white hover:text-amber-400 text-2xl">
+      <i class="fas fa-times"></i>
+    </button>
+    <div class="aspect-w-16 aspect-h-9 bg-black">
+      <iframe id="youtubePlayer" class="w-full h-96" frameborder="0" allowfullscreen
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+      </iframe>
+    </div>
+  </div>
+</div>
+
+<script>
+  // JavaScript para o carrossel de vídeos - VERSÃO CORRIGIDA
+  document.addEventListener('DOMContentLoaded', function() {
+    const track = document.getElementById('videoTrack');
+    const items = document.querySelectorAll('.video-carousel-item');
+    const prevBtn = document.querySelector('.video-carousel-prev');
+    const nextBtn = document.querySelector('.video-carousel-next');
+    
+    let currentIndex = 0;
+    let itemsPerView = 1;
+    let itemWidth = 0;
+    
+    function updateResponsiveSettings() {
+      if (window.innerWidth >= 1024) {
+        itemsPerView = 3;
+      } else if (window.innerWidth >= 768) {
+        itemsPerView = 2;
+      } else {
+        itemsPerView = 1;
+      }
+      
+      // Calcula a largura do item baseado no container
+      const containerWidth = track.parentElement.offsetWidth;
+      itemWidth = (containerWidth / itemsPerView) - 16; // Subtrai o gap
+      
+      // Ajusta a largura dos itens
+      items.forEach(item => {
+        item.style.width = `${itemWidth}px`;
+      });
+    }
+    
+    function updateCarousel() {
+      track.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+    }
+    
+    function goToNext() {
+      const maxIndex = items.length - itemsPerView;
+      if (currentIndex < maxIndex) {
+        currentIndex++;
+        updateCarousel();
+      } else {
+        // Volta para o início se estiver no final
+        currentIndex = 0;
+        updateCarousel();
+      }
+    }
+    
+    function goToPrev() {
+      if (currentIndex > 0) {
+        currentIndex--;
+        updateCarousel();
+      } else {
+        // Vai para o final se estiver no início
+        currentIndex = Math.max(0, items.length - itemsPerView);
+        updateCarousel();
+      }
+    }
+    
+    // Inicializa o carrossel
+    updateResponsiveSettings();
+    updateCarousel();
+    
+    // Event listeners
+    nextBtn.addEventListener('click', goToNext);
+    prevBtn.addEventListener('click', goToPrev);
+    
+    window.addEventListener('resize', function() {
+      updateResponsiveSettings();
+      updateCarousel();
+    });
+    
+    // Funções do modal de vídeo
+    window.openVideoModal = function(videoId) {
+      const modal = document.getElementById('videoModal');
+      const iframe = document.getElementById('youtubePlayer');
+      
+      iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    };
+    
+    document.getElementById('closeVideoModal').addEventListener('click', function() {
+      const modal = document.getElementById('videoModal');
+      const iframe = document.getElementById('youtubePlayer');
+      
+      iframe.src = '';
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
+    });
+    
+    document.getElementById('videoModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        const iframe = document.getElementById('youtubePlayer');
+        iframe.src = '';
+        this.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+    });
+  });
+</script>
 
   <!-- Pra quem é -->
   <section class="py-16 bg-gradient-to-r from-amber-50 to-orange-50">
