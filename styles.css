@@ -1,0 +1,74 @@
+/* Estilos do Carrossel de Depoimentos */
+.depoimentos-section {
+  position: relative;
+}
+
+.depoimentos-carrossel {
+  overflow: hidden;
+  padding: 1rem 0;
+}
+
+.depoimentos-track {
+  display: flex;
+  transition: transform 0.5s ease;
+  will-change: transform;
+}
+
+.depoimento-slide {
+  transition: all 0.3s ease;
+}
+
+.depoimento-imagem-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.depoimento-imagem-container img {
+  transition: transform 0.5s ease;
+}
+
+.depoimento-imagem-container:hover img {
+  transform: scale(1.05);
+}
+
+.depoimento-overlay {
+  transition: all 0.3s ease;
+}
+
+.depoimento-imagem-container:hover .depoimento-overlay {
+  opacity: 1;
+}
+
+.depoimento-imagem-container:hover .depoimento-overlay div {
+  transform: scale(1);
+}
+
+.depoimento-indicador.active {
+  background-color: #f59e0b;
+  transform: scale(1.2);
+}
+
+/* Responsividade */
+@media (max-width: 767px) {
+  .depoimento-slide {
+    width: 100%;
+    padding: 0 1rem;
+  }
+  
+  .depoimento-prev,
+  .depoimento-next {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .depoimento-slide {
+    width: 50%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .depoimento-slide {
+    width: 33.333%;
+  }
+}

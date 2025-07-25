@@ -174,3 +174,147 @@ document.addEventListener("DOMContentLoaded", () => {
 
   form && form.addEventListener("submit", enviarFormulario);
 });
+
+/* ========== CARROSSEL DE DEPOIMENTOS ========== */
+
+// Carrossel de Depoimentos
+document.addEventListener('DOMContentLoaded', function() {
+  const track = document.querySelector('.depoimentos-track');
+  const slides = document.querySelectorAll('.depoimento-slide');
+  const prevBtn = document.querySelector('.depoimento-prev');
+  const nextBtn = document.querySelector('.depoimento-next');
+  const indicators = document.querySelectorAll('.depoimento-indicador');
+  
+  if (!track || !slides.length) return;
+  
+  let currentIndex = 0;
+  let slideWidth = slides[0].offsetWidth;
+  let slidesPerView = 1;
+  let autoScrollInterval;
+  
+  // Atualizar slides visíveis com base no tamanho da tela
+  function updateSlidesPerView() {
+    if (window.innerWidth >= 1024) {
+      slidesPerView = 3;
+    } else if (window.innerWidth >= 768) {
+      slidesPerView = 2;
+    } else {
+      slidesPerView = 1;
+    }
+    
+    slideWidth = slides[0].offsetWidth;
+    updateIndicators();
+    goToSlide(currentIndex);
+  }
+  
+  // Ir para slide específico
+  function goToSlide(index) {
+    // Ajusta o índice para não ultrapassar os limites
+    const maxIndex = Math.max(slides.length - slidesPerView, 0);
+    currentIndex = Math.min(Math.max(index, 0), maxIndex);
+    
+    const offset = -currentIndex * slideWidth;
+    track.style.transform = `translateX(${offset}px)`;
+    
+    updateIndicators();
+  }
+  
+  // Atualizar indicadores
+  function updateIndicators() {
+    const totalGroups = Math.ceil(slides.length / slidesPerView);
+    const activeGroup = Math.floor(currentIndex / slidesPerView);
+    
+    indicators.forEach((indicator, i) => {
+      if (i < totalGroups) {
+        indicator.classList.toggle('active', i === activeGroup);
+        indicator.style.display = 'block';
+      } else {
+        indicator.style.display = 'none';
+      }
+    });
+  }
+  
+  // Navegação por indicadores
+  indicators.forEach((indicator, i) => {
+    indicator.addEventListener('click', () => {
+      goToSlide(i * slidesPerView);
+      resetAutoScroll();
+    });
+  });
+  
+  // Navegação anterior
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      goToSlide(currentIndex - slidesPerView);
+      resetAutoScroll();
+    });
+  }
+  
+  // Navegação próxima
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      goToSlide(currentIndex + slidesPerView);
+      resetAutoScroll();
+    });
+  }
+  
+  // Auto-scroll
+  function startAutoScroll() {
+    stopAutoScroll();
+    autoScrollInterval = setInterval(() => {
+      const maxIndex = Math.max(slides.length - slidesPerView, 0);
+      const nextIndex = currentIndex >= maxIndex ? 0 : currentIndex + slidesPerView;
+      goToSlide(nextIndex);
+    }, 5000);
+  }
+  
+  function stopAutoScroll() {
+    clearInterval(autoScrollInterval);
+  }
+  
+  function resetAutoScroll() {
+    stopAutoScroll();
+    startAutoScroll();
+  }
+  
+  // Event listeners para pausar auto-scroll
+  track.addEventListener('mouseenter', stopAutoScroll);
+  track.addEventListener('mouseleave', startAutoScroll);
+  
+  // Atualizar ao redimensionar
+  window.addEventListener('resize', () => {
+    slideWidth = slides[0].offsetWidth;
+    updateSlidesPerView();
+  });
+  
+  // Inicialização
+  updateSlidesPerView();
+  startAutoScroll();
+  
+  // Modal para imagens ampliadas
+  const imageContainers = document.querySelectorAll('.depoimento-imagem-container');
+  const modal = document.getElementById('imagemModal');
+  const modalImg = document.getElementById('imagemAmpliada');
+  
+  imageContainers.forEach(container => {
+    container.addEventListener('click', function() {
+      const imgSrc = this.querySelector('img').src;
+      modal.style.display = 'flex';
+      modalImg.src = imgSrc;
+      document.body.style.overflow = 'hidden';
+    });
+  });
+  
+  // Fechar modal
+  window.fecharModalImagem = function() {
+    modal.style.display = 'none';
+    document.body.style.overflow = '';
+  };
+  
+  // Fechar ao clicar fora
+  modal.addEventListener('click', function(e) {
+    if (e.target === modal) {
+      fecharModalImagem();
+    }
+  });
+});
