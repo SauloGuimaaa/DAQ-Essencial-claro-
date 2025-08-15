@@ -4,191 +4,99 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DAQ Essencial – Aprenda com a prova, na prática</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <meta name="description" content="Método SPQ para estudo por questões em concursos públicos">
+
+  <!-- Pré-carregamentos críticos -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.tailwindcss.com">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
   
-  <!-- Swiper para depoimentos -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-  <script src="main.js"></script>
+  <!-- CSS crítico inline -->
   <style>
-    body { 
-      font-family: 'Inter', sans-serif; 
-      scroll-behavior: smooth;
-      background-color: #f8fafc;
-      color: #1e293b;
-    }
-    
-    /* Efeito de destaque no texto */
-    .highlight-text {
-      position: relative;
-      display: inline-block;
-    }
-    
-    .highlight-text::after {
-      content: '';
-      position: absolute;
-      bottom: 2px;
-      left: 0;
-      width: 100%;
-      height: 8px;
-      background-color: rgba(249, 115, 22, 0.3);
-      z-index: -1;
-      border-radius: 2px;
-    }
-    
-    /* Barra de progresso scroll */
-    #scrollBar { 
-      position: fixed; 
-      top: 0; 
-      left: 0; 
-      height: 4px; 
-      background: #f59e0b; 
-      width: 0%; 
-      z-index: 50; 
-    }
-    
-    /* Efeito shine */
-    .shine {
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .shine::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 200%;
-      height: 100%;
-      background: linear-gradient(70deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%);
-      animation: shine 7s linear infinite;
-    }
-    
-    @keyframes shine {
-      0% { left: -100%; }
-      100% { left: 100%; }
-    }
-    
-    /* Animação do FAQ */
-    .faq-content {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease-out;
-      padding: 0 25px;
-    }
-    
-    .faq-content.active {
-      max-height: 500px;
-      padding: 0 25px 25px;
-    }
-    
-    .rotate-180 {
-      transform: rotate(180deg);
-    }
-    
-    /* Cards com hover */
-    .feature-card {
-      transition: all 0.3s ease;
-    }
-    
-    .feature-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Modal do formulário */
-    #formulario-lead {
-      display: none;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    /* Feedback do formulário */
-    .form-feedback {
-      padding: 12px;
-      border-radius: 8px;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .form-feedback.sucesso {
-      background-color: #ecfdf5;
-      color: #065f46;
-      border: 1px solid #a7f3d0;
-    }
-
-    .form-feedback.erro {
-      background-color: #fef2f2;
-      color: #b91c1c;
-      border: 1px solid #fecaca;
-    }
-
-    /* Ícones da comunidade */
-    .community-icon {
-      transition: all 0.3s ease;
-    }
-
-    .community-icon:hover {
-      transform: scale(1.1) rotate(5deg);
-      filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
-    }
+    /* CSS mínimo para conteúdo acima do fold */
+    :root{--bg:#f8fafc;--text:#1e293b;--muted:#64748b;--accent:#f59e0b;--emerald:#10b981;}
+    *{box-sizing:border-box} html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;line-height:1.4;}
+    #scrollBar{position:fixed;top:0;left:0;height:4px;background:var(--accent);width:0%;z-index:60;transition:width 120ms linear}
+    .hero-content{opacity:0;transform:translateY(20px);transition:opacity 0.6s, transform 0.6s;}
+    .hero-loaded .hero-content{opacity:1;transform:translateY(0);}
+    img{max-width:100%;height:auto;vertical-align:middle;}
+    .loading-skeleton{background:#eee;border-radius:4px;}
   </style>
+
+  <!-- CSS não crítico carregado assincronamente -->
+  <link rel="stylesheet" href="styles.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="styles.css"></noscript>
+
+  <!-- Pré-carregar fontes -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"></noscript>
+
+  <!-- Pré-carregar Font Awesome -->
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+
+  <!-- Favicon otimizado -->
+  <link rel="icon" href="img/favicon.ico" type="image/ico">
 </head>
-<body>
+<body class="bg-slate-50 text-slate-900">
   <!-- Barra de progresso -->
   <div id="scrollBar"></div>
 
-  <!-- Sticky CTA Mobile - Versão WhatsApp -->
+  <!-- Sticky CTA Mobile -->
   <div class="lg:hidden fixed bottom-0 inset-x-0 bg-emerald-600 z-40 shadow-lg flex justify-center animate-bounce">
-    <a href="https://wa.me/5564999965777" target="_blank" rel="noopener" class="w-full text-center text-white font-semibold py-3 px-4">
-      <i class="fab fa-whatsapp mr-2"></i> Fale conosco no WhatsApp
+    <a href="#" onclick="return mostrarFormulario(event)" class="w-full text-center text-white font-semibold py-3 px-4">
+      <i class="fas fa-bolt mr-2"></i> Quero parar de estudar errado - R$ 497/ano
     </a>
+  </div>
+
+  <!-- Sticky CTA Desktop -->
+  <div class="hidden lg:block fixed bottom-6 right-6 z-40 animate-bounce">
+    <button onclick="window.mostrarFormulario()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 px-6 rounded-xl shadow-lg shadow-emerald-500/30 transform hover:scale-105 transition-all flex items-center">
+      <i class="fas fa-bolt mr-2"></i> Quero parar de estudar errado
+      <span class="ml-2 bg-white text-emerald-600 text-xs font-bold px-2 py-1 rounded-full">R$ 497/ano</span>
+    </button>
   </div>
 
   <!-- Hero Section -->
   <header class="relative bg-gradient-to-b from-white to-slate-50 py-16 md:py-24 overflow-hidden">
     <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1529070538774-1843cb3265df?auto=format&fit=crop&w=1350&q=80')] bg-cover bg-center opacity-5"></div>
     <div class="relative max-w-7xl mx-auto px-6 lg:flex items-center gap-12">
-      <!-- Content -->
       <div class="lg:w-1/2">
         <span class="inline-block text-sm font-semibold text-amber-600 uppercase tracking-widest mb-4">
           <i class="fas fa-star mr-1"></i> DAQ ESSENCIAL
         </span>
-        <h1 class="mt-2 text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-slate-900">
+        <h1 class="mt-2 text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
           Aprenda com a <span class="text-amber-500">prova</span>, na prática
         </h1>
         <p class="mt-6 text-lg text-slate-600 max-w-lg">
           Você estuda tudo… menos o que <span class="highlight-text font-semibold">realmente cai</span>? Descubra o método que transforma cada questão em um mapa direto para sua aprovação.
         </p>
-        
         <div class="mt-8 flex flex-wrap gap-4">
-          <a href="#formulario" class="bg-emerald-600 hover:bg-emerald-700 transition-all text-white font-semibold py-3 px-8 rounded-xl shadow-lg shadow-emerald-500/30 transform hover:scale-105">
+          <a href="#" onclick="return mostrarFormulario(event)" class="bg-emerald-600 hover:bg-emerald-700 transition-all text-white font-semibold py-3 px-8 rounded-xl shadow-lg shadow-emerald-500/30 transform hover:scale-105">
             <i class="fas fa-bolt mr-2"></i> Quero aprender do jeito certo, agora
           </a>
-          <a href="https://wa.me/5564999965777" target="_blank" rel="noopener" class="flex items-center gap-2 text-emerald-700 font-semibold hover:text-emerald-800">
+          <a href="https://wa.me/64999965777?text=Oi%20Kyrlla%2C%20vim%20da%20p%C3%A1gina%20de%20vendas.%20Quero%20mais%20detalhes%20do%20DAQ%20Essencial" target="_blank" rel="noopener" class="flex items-center gap-2 text-emerald-700 font-semibold hover:text-emerald-800">
             <i class="fab fa-whatsapp text-xl"></i> Fale conosco
           </a>
         </div>
-        
-        <!-- Logos bancas -->
         <div class="mt-12 flex items-center gap-4 flex-wrap">
           <span class="text-sm text-slate-500">Aprovado em bancas como:</span>
           <div class="flex gap-6 items-center">
-            <img src="img/FGV.png" class="h-6 grayscale opacity-70" alt="FGV" loading="lazy"/>
+            <img src="img/FGV.webp" class="h-6 grayscale opacity-70" alt="FGV" loading="lazy"/>
             <img src="img/cespe.webp" class="h-6 grayscale opacity-70" alt="Cespe" loading="lazy"/>
-            <img src="img/fcc-1.jpg" class="h-6 grayscale opacity-70" alt="FCC" loading="lazy"/>
+            <img src="img/fcc-1.webp" class="h-6 grayscale opacity-70" alt="FCC" loading="lazy"/>
           </div>
         </div>
       </div>
-      
-      <!-- Image -->
       <div class="mt-12 lg:mt-0 lg:w-1/2 relative">
         <div class="relative">
-          <img class="w-full max-w-lg mx-auto rounded-2xl shadow-xl border-4 border-white" src="img/Aluno estudando.png" alt="Estudo por questões" loading="lazy" />
-          <!-- Badge na imagem -->
+          <img class="w-full max-w-lg mx-auto rounded-2xl shadow-xl border-4 border-white"
+               src="img/Aluno estudando.webp"
+               srcset="img/Aluno estudando-640.webp 640w, img/Aluno estudando.webp 1280w"
+               sizes="(max-width: 640px) 100vw, 50vw"
+               alt="Estudo por questões"
+               loading="lazy" />
           <div class="absolute -bottom-4 -right-4 bg-amber-500 text-white font-bold py-2 px-4 rounded-lg shadow-lg">
             Método Comprovado
           </div>
@@ -196,6 +104,7 @@
       </div>
     </div>
   </header>
+
 
   <!-- USP Stripe -->
   <section class="bg-amber-50 py-4 text-center text-sm font-medium text-amber-800 tracking-wide shine">
@@ -430,7 +339,7 @@
           <div class="depoimento-slide flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-4">
             <div class="bg-white rounded-xl shadow-lg overflow-hidden h-full transition-transform duration-300 hover:shadow-xl hover:-translate-y-1">
               <div class="depoimento-imagem-container h-48 relative overflow-hidden">
-                <img src="img/depoimento_1.jpg" alt="Aluno aprovado no CNU" class="w-full h-full object-cover transition-transform duration-500">
+                <img src="img/depoimento_1.webp" alt="Aluno aprovado no CNU" class="w-full h-full object-cover transition-transform duration-500">
                 <div class="depoimento-overlay absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 transition-opacity duration-300">
                   <div class="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center transform scale-90 transition-transform duration-300">
                     <i class="fas fa-search-plus text-white text-xl"></i>
@@ -454,7 +363,7 @@
           <div class="depoimento-slide flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-4">
             <div class="bg-white rounded-xl shadow-lg overflow-hidden h-full transition-transform duration-300 hover:shadow-xl hover:-translate-y-1">
               <div class="depoimento-imagem-container h-48 relative overflow-hidden">
-                <img src="img/depoimento_2.jpg" alt="Aluno com alto desempenho" class="w-full h-full object-cover transition-transform duration-500">
+                <img src="img/depoimento_2.webp" alt="Aluno com alto desempenho" class="w-full h-full object-cover transition-transform duration-500">
                 <div class="depoimento-overlay absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 transition-opacity duration-300">
                   <div class="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center transform scale-90 transition-transform duration-300">
                     <i class="fas fa-search-plus text-white text-xl"></i>
@@ -478,7 +387,7 @@
           <div class="depoimento-slide flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-4">
             <div class="bg-white rounded-xl shadow-lg overflow-hidden h-full transition-transform duration-300 hover:shadow-xl hover:-translate-y-1">
               <div class="depoimento-imagem-container h-48 relative overflow-hidden">
-                <img src="img/Depoimento_3.jpg" alt="Aluna com evolução rápida" class="w-full h-full object-cover transition-transform duration-500">
+                <img src="img/Depoimento_3.webp" alt="Aluna com evolução rápida" class="w-full h-full object-cover transition-transform duration-500">
                 <div class="depoimento-overlay absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 transition-opacity duration-300">
                   <div class="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center transform scale-90 transition-transform duration-300">
                     <i class="fas fa-search-plus text-white text-xl"></i>
@@ -502,7 +411,7 @@
           <div class="depoimento-slide flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-4">
             <div class="bg-white rounded-xl shadow-lg overflow-hidden h-full transition-transform duration-300 hover:shadow-xl hover:-translate-y-1">
               <div class="depoimento-imagem-container h-48 relative overflow-hidden">
-                <img src="img/depoimento_4.jpg" alt="Aluno elogiando método simples" class="w-full h-full object-cover transition-transform duration-500">
+                <img src="img/depoimento_4.webp" alt="Aluno elogiando método simples" class="w-full h-full object-cover transition-transform duration-500">
                 <div class="depoimento-overlay absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 transition-opacity duration-300">
                   <div class="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center transform scale-90 transition-transform duration-300">
                     <i class="fas fa-search-plus text-white text-xl"></i>
@@ -526,7 +435,7 @@
           <div class="depoimento-slide flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-4">
             <div class="bg-white rounded-xl shadow-lg overflow-hidden h-full transition-transform duration-300 hover:shadow-xl hover:-translate-y-1">
               <div class="depoimento-imagem-container h-48 relative overflow-hidden">
-                <img src="img/depoimento_5.jpg" alt="Aluno aprovado no TRE-RJ" class="w-full h-full object-cover transition-transform duration-500">
+                <img src="img/depoimento_5.webp" alt="Aluno aprovado no TRE-RJ" class="w-full h-full object-cover transition-transform duration-500">
                 <div class="depoimento-overlay absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 transition-opacity duration-300">
                   <div class="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center transform scale-90 transition-transform duration-300">
                     <i class="fas fa-search-plus text-white text-xl"></i>
@@ -550,7 +459,7 @@
           <div class="depoimento-slide flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-4">
             <div class="bg-white rounded-xl shadow-lg overflow-hidden h-full transition-transform duration-300 hover:shadow-xl hover:-translate-y-1">
               <div class="depoimento-imagem-container h-48 relative overflow-hidden">
-                <img src="img/depoimento_6.jpg" alt="Aluno com virada de chave" class="w-full h-full object-cover transition-transform duration-500">
+                <img src="img/depoimento_6.webp" alt="Aluno com virada de chave" class="w-full h-full object-cover transition-transform duration-500">
                 <div class="depoimento-overlay absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 transition-opacity duration-300">
                   <div class="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center transform scale-90 transition-transform duration-300">
                     <i class="fas fa-search-plus text-white text-xl"></i>
@@ -583,7 +492,7 @@
     <!-- CTA -->
     <div class="text-center mt-12">
       <p class="text-lg text-slate-700 mb-6">Você também pode transformar sua preparação com o Método SPQ</p>
-      <a href="#formulario" class="inline-block bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 px-8 rounded-lg shadow-lg shadow-emerald-500/30 transition-all transform hover:scale-105">
+      <a href="#" onclick="return mostrarFormulario(event)" class="inline-block bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 px-8 rounded-lg shadow-lg shadow-emerald-500/30 transition-all transform hover:scale-105">
         <i class="fas fa-flag-checkered mr-2"></i> Quero minha vaga na próxima aprovação
       </a>
     </div>
@@ -899,6 +808,66 @@
     </div>
   </section>
 
+  <!-- Seção Conheça a Fundadora - Versão Nova -->
+<section class="py-16 bg-gradient-to-r from-amber-50 to-white">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="flex flex-col md:flex-row items-center gap-12">
+      <!-- Imagem da fundadora - Versão Ajustada -->
+      <div class="md:w-2/5 lg:w-1/3 text-center px-4">
+        <div class="relative inline-block">
+          <img src="img/Kyrlla-2.webp" 
+              alt="Kyrlla Pattyelly - Mentora especializada em preparação para concursos" 
+              class="w-full max-w-md rounded-2xl shadow-xl border-4 border-white"
+              loading="lazy"
+              style="min-width: 280px;">
+          <div class="absolute -bottom-4 -right-4 bg-amber-500 text-white font-bold py-2 px-4 rounded-lg shadow-lg">
+            <i class="fas fa-medal mr-1"></i> Auditora Fiscal
+          </div>
+        </div>
+      </div>
+      
+      <!-- Texto sobre a fundadora -->
+      <div class="md:w-2/3">
+        <span class="inline-block text-sm font-semibold text-amber-600 uppercase tracking-widest mb-2">
+          <i class="fas fa-user-graduate mr-1"></i> CONHEÇA A FUNDADORA
+        </span>
+        <h2 class="text-3xl font-bold text-slate-900 mb-4">
+          A mente por trás do método que transformou centenas de concurseiros
+        </h2>
+        
+        <p class="text-lg text-slate-700 mb-6">
+          Kyrlla Pattyelly é Auditora Fiscal, mentora e ex-concurseira que transformou sua jornada de desafios em um método eficiente de estudo por questões.
+        </p>
+        
+        <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-emerald-500 mb-6">
+          <p class="text-slate-700 italic mb-4">
+            "Sabe aquela sensação de estudar horas e não ver resultado? Eu vivi isso na pele. Depois de anos enfrentando a pressão dos concursos, descobri que o segredo estava na <strong class="font-semibold">forma</strong> de estudar, não apenas no tempo dedicado."
+          </p>
+          <p class="text-slate-700">
+            Essa percepção deu origem ao <strong class="text-amber-600">Método SPQ</strong>, um sistema baseado em prática inteligente, análise estatística e constância - tudo que eu gostaria de ter conhecido quando comecei.
+          </p>
+        </div>
+        
+        <!-- Conquistas -->
+        <div class="grid sm:grid-cols-3 gap-4">
+          <div class="bg-white p-4 rounded-lg shadow-sm text-center">
+            <span class="block text-2xl font-bold text-amber-600">+5</span>
+            <span class="text-sm text-slate-600">anos transformando a vida de concurseiros</span>
+          </div>
+          <div class="bg-white p-4 rounded-lg shadow-sm text-center">
+            <span class="block text-2xl font-bold text-amber-600">1.000+</span>
+            <span class="text-sm text-slate-600">alunos mentorados</span>
+          </div>
+          <div class="bg-white p-4 rounded-lg shadow-sm text-center">
+            <span class="block text-2xl font-bold text-amber-600">100%</span>
+            <span class="text-sm text-slate-600">comprometida com seu sucesso</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
   <!-- Investimento -->
   <section id="checkout" class="py-16 bg-emerald-50">
     <div class="max-w-4xl mx-auto px-6">
@@ -919,7 +888,8 @@
           </span>
           <h3 class="text-xl font-bold text-slate-800 mb-4">DAQ Essencial</h3>
           <p class="text-5xl font-bold text-emerald-600 mb-2">R$ 497</p>
-          <p class="text-slate-500 mb-6">/ano</p>
+          <p class="text-slate-500 mb-2">/ano</p>
+          <p class="text-lg text-slate-600 mb-4">ou 12x de R$ 51,40</p>
           
           <ul class="space-y-3 text-left text-slate-700 mb-8">
             <li class="flex items-start gap-2">
@@ -940,7 +910,7 @@
             </li>
           </ul>
           
-          <a href="#formulario" class="inline-block w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg shadow-emerald-500/20 transition-all transform hover:scale-105">
+          <a href="#" onclick="return mostrarFormulario(event)" class="inline-block w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg shadow-emerald-500/20 transition-all transform hover:scale-105">
             <i class="fas fa-trophy mr-2"></i> Quero meu plano de aprovação hoje
           </a>
         </div>
@@ -1063,7 +1033,7 @@
       <p class="text-lg text-slate-600 mb-8">
         Pronto pra parar de estudar como todo mundo estuda... e começar a estudar como quem vai passar?
       </p>
-      <a href="#formulario" class="inline-block bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 px-8 rounded-lg shadow-lg shadow-emerald-500/30 transition-all transform hover:scale-105">
+      <a href="#" onclick="return mostrarFormulario(event)" class="inline-block bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 px-8 rounded-lg shadow-lg shadow-emerald-500/30 transition-all transform hover:scale-105">
         <i class="fas fa-flag-checkered mr-2"></i> Quero minha vaga na próxima aprovação
       </a>
     </div>
@@ -1088,7 +1058,7 @@
           <a href="https://www.youtube.com/@soporquestoes" target="_blank" rel="noopener noreferrer" class="text-xl hover:text-amber-500 transition-colors" aria-label="YouTube">
             <i class="fab fa-youtube"></i>
           </a>
-          <a href="https://wa.me/5564999965777" target="_blank" rel="noopener noreferrer" class="text-xl hover:text-amber-500 transition-colors" aria-label="WhatsApp">
+          <a href="https://wa.me/64999965777?text=Oi%20Kyrlla%2C%20vim%20da%20p%C3%A1gina%20de%20vendas.%20Quero%20mais%20detalhes%20do%20DAQ%20Essencial" target="_blank" rel="noopener noreferrer" class="text-xl hover:text-amber-500 transition-colors" aria-label="WhatsApp">
             <i class="fab fa-whatsapp"></i>
           </a>
         </div>
@@ -1097,7 +1067,7 @@
   </footer>
 
   <!-- Modal do Formulário (ATUALIZADO) -->
-  <div id="formulario" class="fixed inset-0 z-50 hidden items-center justify-center bg-black bg-opacity-70 transition-opacity">
+  <div id="formModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black bg-opacity-70 transition-opacity">
     <div class="relative bg-white rounded-xl p-8 max-w-md w-full mx-4 shadow-2xl">
       <button onclick="fecharFormulario()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700">
         <i class="fas fa-times text-2xl"></i>
@@ -1107,93 +1077,76 @@
       <p class="text-slate-600 mb-6">Preencha para acessar o checkout</p>
       
       <form id="formNI" class="space-y-4">
-        <div class="form-feedback hidden"></div>
-        
-        <div>
-          <label for="nome" class="block text-sm font-medium text-slate-700 mb-1">Nome Completo</label>
-          <input type="text" id="nome" name="nome" required 
-                 class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg placeholder-slate-400 focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
-                 placeholder="Seu nome completo">
-        </div>
-        
-        <div>
-          <label for="email" class="block text-sm font-medium text-slate-700 mb-1">E-mail</label>
-          <input type="email" id="email" name="email" required 
-                 class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg placeholder-slate-400 focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
-                 placeholder="seu@email.com">
-        </div>
-        
-        <div>
-          <label for="whatsapp" class="block text-sm font-medium text-slate-700 mb-1">WhatsApp</label>
-          <input type="tel" id="whatsapp" name="whatsapp" required 
-                 class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg placeholder-slate-400 focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
-                 placeholder="(99) 99999-9999"
-                 oninput="formatarTelefone(this)">
-        </div>
-        
-        <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-300">
-          <i class="fas fa-paper-plane mr-2"></i> Quero o DAQ Essencial
-        </button>
-        
-        <p class="text-xs text-slate-500 text-center">
-          Ao informar meus dados, concordo com a <a href="#" class="text-emerald-600 hover:underline">Política de Privacidade</a>.
-        </p>
+          <div class="form-feedback hidden"></div>
+          
+          <div>
+            <label for="nome" class="block text-sm font-medium text-slate-700 mb-1">Nome Completo</label>
+            <input type="text" id="nome" name="nome" required 
+                  class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg placeholder-slate-400 focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                  placeholder="Seu nome completo">
+          </div>
+          
+          <div>
+            <label for="email" class="block text-sm font-medium text-slate-700 mb-1">E-mail</label>
+            <input type="email" id="email" name="email" required 
+                  class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg placeholder-slate-400 focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                  placeholder="seu@email.com">
+          </div>
+          
+          <div>
+            <label for="whatsapp" class="block text-sm font-medium text-slate-700 mb-1">WhatsApp</label>
+            <input type="tel" id="whatsapp" name="whatsapp" required 
+                  class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg placeholder-slate-400 focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                  placeholder="(99) 99999-9999"
+                  oninput="formatarTelefone(this)">
+          </div>
+          
+          <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-300">
+            <i class="fas fa-paper-plane mr-2"></i> Quero o DAQ Essencial
+          </button>
+          
+          <p class="text-xs text-slate-500 text-center">
+            Ao informar meus dados, concordo com a <a href="#" class="text-emerald-600 hover:underline">Política de Privacidade</a>.
+          </p>
       </form>
     </div>
   </div>
 
-  <!-- Swiper JS -->
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <!-- Scripts no final do body com defer -->
+  <script src="https://cdn.tailwindcss.com" defer></script>
+  <script src="main.js" defer></script>
+  
+  <!-- Carregar Swiper apenas quando necessário -->
   <script>
-    // Inicializar Swiper (depoimentos)
-    var swiper = new Swiper(".mySwiper", {
-      slidesPerView: 1,
-      spaceBetween: 20,
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-      },
-      autoplay: {
-        delay: 5000,
-        disableOnInteraction: false,
-      },
-      breakpoints: {
-        768: {
-          slidesPerView: 2,
-          spaceBetween: 30,
-        },
-        1024: {
-          slidesPerView: 3,
-          spaceBetween: 30,
-        },
+    document.addEventListener('scroll', function() {
+      if(window.scrollY > 500) {
+        var script = document.createElement('script');
+        script.src = 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js';
+        script.onload = function() {
+          new Swiper(".mySwiper", {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            pagination: { el: ".swiper-pagination", clickable: true },
+            autoplay: { delay: 5000, disableOnInteraction: false },
+            breakpoints: {
+              768: { slidesPerView: 2, spaceBetween: 30 },
+              1024: { slidesPerView: 3, spaceBetween: 30 }
+            }
+          });
+        };
+        document.body.appendChild(script);
+        this.removeEventListener('scroll', arguments.callee);
       }
-    });
-
-    // Barra de progresso scroll
-    const scrollBar = document.getElementById('scrollBar');
-    window.addEventListener('scroll', () => {
-      const height = document.documentElement.scrollHeight - window.innerHeight;
-      const scrolled = (window.scrollY / height) * 100;
-      scrollBar.style.width = scrolled + '%';
-    });
-
-    // Toggle FAQ
-    function toggleFAQ(button) {
-      const faqItem = button.parentElement;
-      const content = faqItem.querySelector('.faq-content');
-      const icon = button.querySelector('i');
-      
-      content.classList.toggle('active');
-      icon.classList.toggle('rotate-180');
-    }
-
-    // Event listeners para os botões CTA (ATUALIZADO)
-    document.querySelectorAll('a[href="#formulario"], a[href="#checkout"]').forEach(btn => {
-      btn.addEventListener('click', function(e) {
-        e.preventDefault();
-        window.mostrarFormulario();
-      });
-    });
+    }, { once: true, passive: true });
   </script>
+  
+  <!-- Google Analytics com carregamento otimizado -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'AW-583505601', { transport_type: 'beacon' });
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-583505601"></script>
 </body>
 </html>

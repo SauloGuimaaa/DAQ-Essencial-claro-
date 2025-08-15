@@ -1,199 +1,170 @@
-/* ========== UTILITÁRIOS GERAIS ========== */
+// main.js - versão ultra-otimizada para mobile
 
-function formatarTelefone(input) {
-  // Se for um elemento input, pega o value, senão assume que é uma string
-  const value = typeof input === 'object' ? input.value : input;
-  const numbers = value.replace(/\D/g, "").substring(0, 11);
-  
-  // Formatação visual para o usuário
-  if (typeof input === 'object') {
-    input.value = numbers.replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3");
+(function() {
+  'use strict';
+
+  // 1. Gerenciamento de recursos
+  function loadResources() {
+    // Carregar Font Awesome se necessário
+    if (!document.fonts.check('1em FontAwesome')) {
+      const fa = document.createElement('link');
+      fa.rel = 'stylesheet';
+      fa.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css';
+      document.head.appendChild(fa);
+    }
   }
-  
-  return numbers; // Retorna apenas números para envio
-}
 
-/* ========== CONTROLE DO MODAL ========== */
-function openModal() {
-  const modal = document.getElementById("formulario");
-  if (!modal) return;
-  modal.classList.remove("hidden");
-  modal.classList.add("flex");
-  requestAnimationFrame(() => (modal.style.opacity = "1"));
-}
+  // 2. Barra de progresso de scroll
+  function initScrollProgress() {
+    const scrollBar = document.getElementById('scrollBar');
+    if (scrollBar) {
+      window.addEventListener('scroll', function() {
+        const height = document.documentElement.scrollHeight - window.innerHeight;
+        const scrolled = (window.scrollY / height) * 100;
+        scrollBar.style.width = scrolled + '%';
+      }, { passive: true });
+    }
+  }
 
-function closeModal() {
-  const modal = document.getElementById("formulario");
-  if (!modal) return;
-  modal.style.opacity = "0";
-  setTimeout(() => {
-    modal.classList.add("hidden");
-    modal.classList.remove("flex");
-  }, 300);
-}
+  // 3. Carregamento otimizado de imagens
+  function lazyLoadImages() {
+    const images = document.querySelectorAll('img[data-src]');
+    
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const img = entry.target;
+          img.src = img.dataset.src;
+          img.classList.add('loaded');
+          observer.unobserve(img);
+        }
+      });
+    }, { rootMargin: '200px' });
 
-window.mostrarFormulario = openModal;
-window.fecharFormulario = closeModal;
+    images.forEach(img => imageObserver.observe(img));
+  }
 
-/* ========== LÓGICA DE ENVIO ========== */
-document.addEventListener("DOMContentLoaded", () => {  
-  const HOTMART_CHECKOUT = "https://pay.hotmart.com/K70495535U";
-  const N8N_WEBHOOK_URL = "https://soporquestoes.app.n8n.cloud/webhook/f50b8bea-8786-46b6-9c52-09a3a0209865";
-
-  const form = document.getElementById("formNI");
-  const submitBtn = form?.querySelector("button[type='submit']");
-
-  const feedback = (msg, tipo = "erro") => {
-    document.querySelectorAll(".form-feedback").forEach((e) => e.remove());
-    const div = document.createElement("div");
-    div.className = `form-feedback ${tipo}`;
-    div.innerHTML = `<i class="fas ${tipo === "sucesso" ? "fa-check-circle" : "fa-exclamation-circle"}"></i> ${msg}`;
-    form.prepend(div);
-    setTimeout(() => div.remove(), 5000);
+  // 4. Gerenciamento de modais otimizado
+function initModals() {
+  // Modal do formulário
+  window.mostrarFormulario = function(e) {
+    if (e) e.preventDefault(); // Previne comportamento padrão
+    const modal = document.getElementById('formModal');
+    if (modal) {
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      // Foca no primeiro campo do formulário
+      const firstInput = modal.querySelector('input');
+      if (firstInput) firstInput.focus();
+    }
+    return false; // Previne comportamento padrão do link
   };
 
-  const sanitize = (str) => str.replace(/[<>&"]/g, (c) => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;", '"': "&quot;" }[c]));
-
-  async function enviarParaN8N(dados) {
-  if (!N8N_WEBHOOK_URL) {
-    console.warn("URL do webhook N8N não configurada");
-    return { success: false, message: "Webhook não configurado" };
-  }
-
-  try {
-    // Criar payload mais simples e compatível
-    const payload = {
-      data: {
-        nome: sanitize(dados.nome),
-        email: sanitize(dados.email),
-        telefone: `55${dados.whatsapp}`,
-        produto: dados.produto,
-        valor: dados.valor,
-        origem: dados.origem,
-        key: '123ABC',
-        data_cadastro: new Date().toISOString(),
-        url_checkout: HOTMART_CHECKOUT
-      }
-    };
-
-    console.log("Payload para N8N:", JSON.stringify(payload, null, 2));
-
-    const response = await fetch(N8N_WEBHOOK_URL, {
-      method: "POST",
-      headers: { 
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      },
-      body: JSON.stringify(payload)
-    });
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(`Erro HTTP ${response.status}: ${errorText}`);
+  window.fecharFormulario = function(e) {
+    if (e) e.preventDefault();
+    const modal = document.getElementById('formModal');
+    if (modal) {
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
     }
+    return false;
+  };
 
-    // Tentar obter a resposta como JSON ou texto
-    try {
-      const responseData = await response.json();
-      return { success: true, response: responseData };
-    } catch (e) {
-      return { success: true, response: await response.text() };
+  // Fechar ao clicar fora (melhorado para mobile)
+  document.addEventListener('click', function(e) {
+    const modal = document.getElementById('formModal');
+    if (e.target === modal) {
+      fecharFormulario(e);
     }
-  } catch (e) {
-    console.error("Erro ao enviar para N8N:", e);
-    return {
-      success: false,
-      message: e.message
-    };
-  }
+  }, { passive: true });
+
+  // Adiciona event listeners para todos os botões CTA
+  document.querySelectorAll('[onclick*="mostrarFormulario"]').forEach(btn => {
+    btn.addEventListener('click', mostrarFormulario, { passive: false });
+    btn.addEventListener('touchstart', mostrarFormulario, { passive: false });
+  });
 }
 
-  async function enviarFormulario(e) {
-    e.preventDefault();
-    if (!form || !submitBtn) return;
+  // 5. Formulário otimizado
+  function initForm() {
+    const form = document.getElementById('formNI');
+    if (!form) return;
 
-    const dados = {
-      nome: form.nome.value.trim(),
-      email: form.email.value.trim(),
-     whatsapp: formatarTelefone(form.whatsapp), // Usando a função corrigida
-      produto: "DAQ Essencial",
-      valor: "497",
-      origem: "Landing Page DAQ"
-    };
-
-    // Validações
-    if (dados.nome.length < 3) return feedback("Nome incompleto (mín. 3 letras)");
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(dados.email)) return feedback("E‑mail inválido");
-    if (dados.whatsapp.length < 11) return feedback("Telefone incompleto (DDD + número)");
-
-
-    // UI carregando
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
-
-    try {
-      // 1) Envia para N8N
-      const resultadoN8N = await enviarParaN8N(dados);
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
       
-      if (!resultadoN8N.success) {
-        throw new Error(resultadoN8N.message);
+      const formData = new FormData(form);
+      const data = {
+        nome: formData.get('nome'),
+        email: formData.get('email'),
+        whatsapp: formatarTelefone(formData.get('whatsapp'))
+      };
+
+      // Validação simples
+      if (data.nome.length < 3) return showFeedback('Nome muito curto');
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) return showFeedback('E-mail inválido');
+      if (data.whatsapp.replace(/\D/g,'').length < 11) return showFeedback('Telefone incompleto');
+
+      // Envio otimizado
+      try {
+        const response = await fetch('https://n8n.srv928140.hstgr.cloud/webhook/13c8579f-e98e-463c-839e-0795865e6dfa', {
+          method: 'POST',
+          body: JSON.stringify(data),
+          headers: { 'Content-Type': 'application/json' }
+        });
+        
+        if (response.ok) {
+          window.location.href = `https://pay.hotmart.com/K70495535U?checkoutMode=1011&name=${encodeURIComponent(data.nome)}&email=${encodeURIComponent(data.email)}`;
+        }
+      } catch (error) {
+        showFeedback('Erro ao enviar, tente novamente');
       }
+    });
 
-      feedback("Cadastro realizado com sucesso! Redirecionando...", "sucesso");
-      form.reset();
-      
-      // Pequeno delay para o usuário ver o feedback
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      closeModal();
+    function formatarTelefone(tel) {
+      const nums = tel.replace(/\D/g,'');
+      return nums.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+    }
 
-      // 2) Redireciona ao checkout
-      const checkoutURL = new URL(HOTMART_CHECKOUT);
-      checkoutURL.searchParams.append("name", dados.nome);
-      checkoutURL.searchParams.append("email", dados.email);
-      checkoutURL.searchParams.append("phone", `55${dados.whatsapp}`);
-      window.location.href = checkoutURL.toString();
-
-    } catch (erro) {
-      console.error("Erro no envio:", erro);
-      feedback("Recebemos seus dados! Redirecionando para o checkout...", "sucesso");
-      
-      // Pequeno delay para o usuário ver o feedback
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      closeModal();
-
-      // Redireciona mesmo em caso de erro
-      const fallbackURL = new URL(HOTMART_CHECKOUT);
-      fallbackURL.searchParams.append("name", dados.nome);
-      fallbackURL.searchParams.append("email", dados.email);
-      window.location.href = fallbackURL.toString();
-    } finally {
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = '<i class="fas fa-paper-plane mr-2"></i> Quero o DAQ Essencial';
+    function showFeedback(msg) {
+      const feedback = document.createElement('div');
+      feedback.className = 'form-feedback';
+      feedback.textContent = msg;
+      form.prepend(feedback);
+      setTimeout(() => feedback.remove(), 3000);
     }
   }
 
-  form && form.addEventListener("submit", enviarFormulario);
-});
+  // Inicialização otimizada
+  document.addEventListener('DOMContentLoaded', function() {
+    // Marcar hero como carregado
+    document.body.classList.add('hero-loaded');
 
-/* ========== CARROSSEL DE DEPOIMENTOS ========== */
+    // Inicializações prioritárias
+    initScrollProgress();
+    initModals();
+    initForm();
 
-// Carrossel de Depoimentos
-document.addEventListener('DOMContentLoaded', function() {
+    // Carregar recursos não críticos após 1s
+    setTimeout(() => {
+      loadResources();
+      lazyLoadImages();
+    }, 1000);
+  });
+
+  
+  // Adicione este código ao seu main.js
+
+function initDepoimentosCarousel() {
   const track = document.querySelector('.depoimentos-track');
-  const slides = document.querySelectorAll('.depoimento-slide');
-  const prevBtn = document.querySelector('.depoimento-prev');
-  const nextBtn = document.querySelector('.depoimento-next');
-  const indicators = document.querySelectorAll('.depoimento-indicador');
-  
-  if (!track || !slides.length) return;
-  
-  let currentIndex = 0;
-  let slideWidth = slides[0].offsetWidth;
+  if (!track) return;
+
+  // Configurações responsivas
   let slidesPerView = 1;
-  let autoScrollInterval;
+  let slideWidth = 0;
   
-  // Atualizar slides visíveis com base no tamanho da tela
-  function updateSlidesPerView() {
+  function updateCarousel() {
+    // Atualiza slides visíveis baseado na largura da tela
     if (window.innerWidth >= 1024) {
       slidesPerView = 3;
     } else if (window.innerWidth >= 768) {
@@ -202,119 +173,136 @@ document.addEventListener('DOMContentLoaded', function() {
       slidesPerView = 1;
     }
     
-    slideWidth = slides[0].offsetWidth;
-    updateIndicators();
-    goToSlide(currentIndex);
-  }
-  
-  // Ir para slide específico
-  function goToSlide(index) {
-    // Ajusta o índice para não ultrapassar os limites
-    const maxIndex = Math.max(slides.length - slidesPerView, 0);
-    currentIndex = Math.min(Math.max(index, 0), maxIndex);
-    
-    const offset = -currentIndex * slideWidth;
-    track.style.transform = `translateX(${offset}px)`;
-    
+    slideWidth = track.children[0].offsetWidth;
     updateIndicators();
   }
-  
-  // Atualizar indicadores
-  function updateIndicators() {
-    const totalGroups = Math.ceil(slides.length / slidesPerView);
-    const activeGroup = Math.floor(currentIndex / slidesPerView);
-    
-    indicators.forEach((indicator, i) => {
-      if (i < totalGroups) {
-        indicator.classList.toggle('active', i === activeGroup);
-        indicator.style.display = 'block';
-      } else {
-        indicator.style.display = 'none';
+
+  // Lazy load para imagens
+  function lazyLoadDepoimentoImages() {
+    const images = track.querySelectorAll('img[loading="lazy"]');
+    images.forEach(img => {
+      if (img.getAttribute('data-src')) {
+        img.src = img.getAttribute('data-src');
       }
     });
   }
-  
-  // Navegação por indicadores
-  indicators.forEach((indicator, i) => {
-    indicator.addEventListener('click', () => {
-      goToSlide(i * slidesPerView);
-      resetAutoScroll();
-    });
-  });
-  
-  // Navegação anterior
-  if (prevBtn) {
-    prevBtn.addEventListener('click', () => {
-      goToSlide(currentIndex - slidesPerView);
-      resetAutoScroll();
+
+  // Atualiza indicadores
+  function updateIndicators() {
+    const indicators = document.querySelectorAll('.depoimento-indicador');
+    if (!indicators.length) return;
+    
+    const totalGroups = Math.ceil(track.children.length / slidesPerView);
+    indicators.forEach((indicator, i) => {
+      indicator.style.display = i < totalGroups ? 'block' : 'none';
     });
   }
-  
-  // Navegação próxima
-  if (nextBtn) {
-    nextBtn.addEventListener('click', () => {
-      goToSlide(currentIndex + slidesPerView);
-      resetAutoScroll();
-    });
+
+  // Navegação
+  function setupNavigation() {
+    const prevBtn = document.querySelector('.depoimento-prev');
+    const nextBtn = document.querySelector('.depoimento-next');
+    
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        currentIndex = Math.max(0, currentIndex - slidesPerView);
+        updateCarouselPosition();
+      });
+    }
+    
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        currentIndex = Math.min(
+          track.children.length - slidesPerView, 
+          currentIndex + slidesPerView
+        );
+        updateCarouselPosition();
+      });
+    }
   }
-  
-  // Auto-scroll
-  function startAutoScroll() {
-    stopAutoScroll();
-    autoScrollInterval = setInterval(() => {
-      const maxIndex = Math.max(slides.length - slidesPerView, 0);
-      const nextIndex = currentIndex >= maxIndex ? 0 : currentIndex + slidesPerView;
-      goToSlide(nextIndex);
-    }, 5000);
+
+  function updateCarouselPosition() {
+    track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+    updateIndicators();
   }
-  
-  function stopAutoScroll() {
-    clearInterval(autoScrollInterval);
-  }
-  
-  function resetAutoScroll() {
-    stopAutoScroll();
-    startAutoScroll();
-  }
-  
-  // Event listeners para pausar auto-scroll
-  track.addEventListener('mouseenter', stopAutoScroll);
-  track.addEventListener('mouseleave', startAutoScroll);
+
+  // Inicialização
+  let currentIndex = 0;
+  updateCarousel();
+  lazyLoadDepoimentoImages();
+  setupNavigation();
   
   // Atualizar ao redimensionar
   window.addEventListener('resize', () => {
-    slideWidth = slides[0].offsetWidth;
-    updateSlidesPerView();
-  });
-  
-  // Inicialização
-  updateSlidesPerView();
-  startAutoScroll();
-  
-  // Modal para imagens ampliadas
-  const imageContainers = document.querySelectorAll('.depoimento-imagem-container');
-  const modal = document.getElementById('imagemModal');
-  const modalImg = document.getElementById('imagemAmpliada');
-  
-  imageContainers.forEach(container => {
-    container.addEventListener('click', function() {
-      const imgSrc = this.querySelector('img').src;
-      modal.style.display = 'flex';
-      modalImg.src = imgSrc;
-      document.body.style.overflow = 'hidden';
+    updateCarousel();
+  }, { passive: true });
+}
+
+  // Chamar a função quando a seção estiver visível
+  const depoimentosObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        initDepoimentosCarousel();
+        depoimentosObserver.unobserve(entry.target);
+      }
     });
-  });
-  
-  // Fechar modal
-  window.fecharModalImagem = function() {
-    modal.style.display = 'none';
-    document.body.style.overflow = '';
-  };
-  
-  // Fechar ao clicar fora
-  modal.addEventListener('click', function(e) {
-    if (e.target === modal) {
-      fecharModalImagem();
+  }, { threshold: 0.1 });
+
+  const depoimentosSection = document.querySelector('.depoimentos-section');
+  if (depoimentosSection) {
+    depoimentosObserver.observe(depoimentosSection);
+  }
+
+  function initFAQ() {
+  const faqItems = document.querySelectorAll('.faq-content');
+  if (!faqItems.length) return;
+
+  // Delegation de eventos para melhor performance
+  document.addEventListener('click', function(e) {
+    const button = e.target.closest('[onclick*="toggleFAQ"]');
+    if (button) {
+      e.preventDefault();
+      const faqItem = button.parentElement;
+      const content = faqItem.querySelector('.faq-content');
+      const icon = button.querySelector('i');
+      
+      // Alternar estado
+      const isOpening = !content.classList.contains('active');
+      
+      // Fechar todos os outros itens primeiro
+      if (isOpening) {
+        document.querySelectorAll('.faq-content.active').forEach(item => {
+          item.classList.remove('active');
+          item.previousElementSibling.querySelector('i').classList.remove('rotate-180');
+        });
+      }
+      
+      // Alternar o item atual
+      content.classList.toggle('active');
+      icon.classList.toggle('rotate-180');
+      
+      // Animar suavemente
+      if (isOpening) {
+        content.style.maxHeight = content.scrollHeight + 'px';
+      } else {
+        content.style.maxHeight = '0';
+      }
+    }
+  }, { passive: true });
+}
+
+// Inicializar quando a seção FAQ estiver visível
+const faqObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      initFAQ();
+      faqObserver.unobserve(entry.target);
     }
   });
-});
+}, { threshold: 0.1 });
+
+const faqSection = document.querySelector('#faq');
+if (faqSection) {
+  faqObserver.observe(faqSection);
+}
+})();
