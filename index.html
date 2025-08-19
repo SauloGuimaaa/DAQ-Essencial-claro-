@@ -6,61 +6,51 @@
   <title>DAQ Essencial – Aprenda com a prova, na prática</title>
   <meta name="description" content="Método SPQ para estudo por questões em concursos públicos">
 
-  <!-- Pré-carregamentos críticos -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://cdn.tailwindcss.com">
   <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="preconnect" href="https://www.googletagmanager.com">
+
+  <link rel="preload" fetchpriority="high" as="image" href="img/Aluno-estudando.webp" type="image/webp">
   
-  <!-- CSS crítico inline -->
   <style>
-    /* CSS mínimo para conteúdo acima do fold */
+    /* CSS mínimo para conteúdo acima do fold (evita tela branca) */
     :root{--bg:#f8fafc;--text:#1e293b;--muted:#64748b;--accent:#f59e0b;--emerald:#10b981;}
     *{box-sizing:border-box} html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;line-height:1.4;}
     #scrollBar{position:fixed;top:0;left:0;height:4px;background:var(--accent);width:0%;z-index:60;transition:width 120ms linear}
     .hero-content{opacity:0;transform:translateY(20px);transition:opacity 0.6s, transform 0.6s;}
     .hero-loaded .hero-content{opacity:1;transform:translateY(0);}
     img{max-width:100%;height:auto;vertical-align:middle;}
-    .loading-skeleton{background:#eee;border-radius:4px;}
   </style>
 
-  <!-- CSS não crítico carregado assincronamente -->
-  <link rel="stylesheet" href="styles.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="styles.css">
   <noscript><link rel="stylesheet" href="styles.css"></noscript>
 
-  <!-- Pré-carregar fontes -->
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"></noscript>
-
-  <!-- Pré-carregar Font Awesome -->
   <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
 
-  <!-- Favicon otimizado -->
   <link rel="icon" href="img/favicon.ico" type="image/ico">
 </head>
 <body class="bg-slate-50 text-slate-900">
-  <!-- Barra de progresso -->
   <div id="scrollBar"></div>
 
-  <!-- Sticky CTA Mobile -->
-  <div class="lg:hidden fixed bottom-0 inset-x-0 bg-emerald-600 z-40 shadow-lg flex justify-center animate-bounce">
-    <a href="#" onclick="return mostrarFormulario(event)" class="w-full text-center text-white font-semibold py-3 px-4">
+  <div class="lg:hidden fixed bottom-0 inset-x-0 bg-emerald-600 z-50 shadow-lg flex justify-center animate-bounce">
+    <a href="#" class="js-open-form w-full text-center text-white font-semibold py-3 px-4">
       <i class="fas fa-bolt mr-2"></i> Quero parar de estudar errado - R$ 497/ano
     </a>
   </div>
 
-  <!-- Sticky CTA Desktop -->
   <div class="hidden lg:block fixed bottom-6 right-6 z-40 animate-bounce">
-    <button onclick="window.mostrarFormulario()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 px-6 rounded-xl shadow-lg shadow-emerald-500/30 transform hover:scale-105 transition-all flex items-center">
+    <button class="js-open-form bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 px-6 rounded-xl shadow-lg shadow-emerald-500/30 transform hover:scale-105 transition-all flex items-center">
       <i class="fas fa-bolt mr-2"></i> Quero parar de estudar errado
       <span class="ml-2 bg-white text-emerald-600 text-xs font-bold px-2 py-1 rounded-full">R$ 497/ano</span>
     </button>
   </div>
 
-  <!-- Hero Section -->
   <header class="relative bg-gradient-to-b from-white to-slate-50 py-16 md:py-24 overflow-hidden">
-    <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1529070538774-1843cb3265df?auto=format&fit=crop&w=1350&q=80')] bg-cover bg-center opacity-5"></div>
+    <div class="absolute inset-0 hero-background-image bg-cover bg-center opacity-5"></div>
     <div class="relative max-w-7xl mx-auto px-6 lg:flex items-center gap-12">
       <div class="lg:w-1/2">
         <span class="inline-block text-sm font-semibold text-amber-600 uppercase tracking-widest mb-4">
@@ -73,7 +63,7 @@
           Você estuda tudo… menos o que <span class="highlight-text font-semibold">realmente cai</span>? Descubra o método que transforma cada questão em um mapa direto para sua aprovação.
         </p>
         <div class="mt-8 flex flex-wrap gap-4">
-          <a href="#" onclick="return mostrarFormulario(event)" class="bg-emerald-600 hover:bg-emerald-700 transition-all text-white font-semibold py-3 px-8 rounded-xl shadow-lg shadow-emerald-500/30 transform hover:scale-105">
+          <a href="#" class="js-open-form bg-emerald-600 hover:bg-emerald-700 transition-all text-white font-semibold py-3 px-8 rounded-xl shadow-lg shadow-emerald-500/30 transform hover:scale-105">
             <i class="fas fa-bolt mr-2"></i> Quero aprender do jeito certo, agora
           </a>
           <a href="https://wa.me/64999965777?text=Oi%20Kyrlla%2C%20vim%20da%20p%C3%A1gina%20de%20vendas.%20Quero%20mais%20detalhes%20do%20DAQ%20Essencial" target="_blank" rel="noopener" class="flex items-center gap-2 text-emerald-700 font-semibold hover:text-emerald-800">
@@ -83,20 +73,20 @@
         <div class="mt-12 flex items-center gap-4 flex-wrap">
           <span class="text-sm text-slate-500">Aprovado em bancas como:</span>
           <div class="flex gap-6 items-center">
-            <img src="img/FGV.webp" class="h-6 grayscale opacity-70" alt="FGV" loading="lazy"/>
-            <img src="img/cespe.webp" class="h-6 grayscale opacity-70" alt="Cespe" loading="lazy"/>
-            <img src="img/fcc-1.webp" class="h-6 grayscale opacity-70" alt="FCC" loading="lazy"/>
+            <img src="img/FGV.webp" class="h-6" alt="FGV" loading="lazy" width="80" height="24"/>
+            <img src="img/cespe.webp" class="h-6" alt="Cespe" loading="lazy" width="90" height="24"/>
+            <img src="img/fcc-1.webp" class="h-6" alt="FCC" loading="lazy" width="50" height="24"/>
           </div>
         </div>
       </div>
       <div class="mt-12 lg:mt-0 lg:w-1/2 relative">
         <div class="relative">
           <img class="w-full max-w-lg mx-auto rounded-2xl shadow-xl border-4 border-white"
-               src="img/Aluno estudando.webp"
-               srcset="img/Aluno estudando-640.webp 640w, img/Aluno estudando.webp 1280w"
+               src="img/Aluno-estudando.webp"
+               width="1280" height="853"
+               srcset="img/Aluno-estudando-640.webp 640w, img/Aluno-estudando.webp 1280w"
                sizes="(max-width: 640px) 100vw, 50vw"
-               alt="Estudo por questões"
-               loading="lazy" />
+               alt="Estudo por questões" />
           <div class="absolute -bottom-4 -right-4 bg-amber-500 text-white font-bold py-2 px-4 rounded-lg shadow-lg">
             Método Comprovado
           </div>
@@ -105,17 +95,12 @@
     </div>
   </header>
 
-
-  <!-- USP Stripe -->
   <section class="bg-amber-50 py-4 text-center text-sm font-medium text-amber-800 tracking-wide shine">
     <div class="max-w-4xl mx-auto px-6">
       <i class="fas fa-bolt mr-2"></i> SEM PDF • SEM VIDEOAULA INFINITA • SEM TEORIA QUE VOCÊ NÃO USA
     </div>
   </section>
-
-  <!-- O que não é / O que é -->
-    <section class="max-w-6xl mx-auto px-6 py-16 grid md:grid-cols-2 gap-8 md:gap-12">
-    <!-- Container "O que não é" -->
+  <section class="max-w-6xl mx-auto px-6 py-16 grid md:grid-cols-2 gap-8 md:gap-12">
     <div class="bg-white p-8 rounded-xl shadow-sm border-l-4 border-rose-500">
         <h2 class="text-xl font-bold text-rose-600 mb-4 flex items-center gap-2">
         <i class="fas fa-times-circle"></i> O que o DAQ <span class="underline decoration-rose-400">não</span> é
@@ -135,1018 +120,542 @@
         </li>
         </ul>
     </div>
-  
-  <!-- Container "O que é" -->
-  <div class="bg-white p-8 rounded-xl shadow-sm border-l-4 border-emerald-500">
-    <h2 class="text-xl font-bold text-emerald-600 mb-4 flex items-center gap-2">
-      <i class="fas fa-check-circle"></i> O que o DAQ <span class="underline decoration-emerald-400">é</span>
-    </h2>
-    <blockquote class="italic text-slate-700 border-l-4 border-emerald-500 pl-4 py-2 mb-4">
-      Um método direto, simples e transformador pra você aprender <strong class="font-semibold">fazendo questões</strong> com lógica de banca.
-    </blockquote>
-    <ul class="space-y-3">
-      <li class="flex items-start gap-3">
-        <i class="fas fa-check text-emerald-500 mt-1"></i>
-        <span>Foco no que realmente cai na prova</span>
-      </li>
-      <li class="flex items-start gap-3">
-        <i class="fas fa-check text-emerald-500 mt-1"></i>
-        <span>Adaptável à sua rotina</span>
-      </li>
-      <li class="flex items-start gap-3">
-        <i class="fas fa-check text-emerald-500 mt-1"></i>
-        <span>Resultados mensuráveis</span>
-      </li>
-    </ul>
-  </div>
-</section>
-
-  <!-- Roadmap SPQ -->
-  <section class="bg-slate-50 py-16">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold text-slate-900 mb-2">
-          <i class="fas fa-search text-amber-500 mr-2"></i> Como funciona o Método SPQ
+    <div class="bg-white p-8 rounded-xl shadow-sm border-l-4 border-emerald-500">
+        <h2 class="text-xl font-bold text-emerald-600 mb-4 flex items-center gap-2">
+        <i class="fas fa-check-circle"></i> O que o DAQ <span class="underline decoration-emerald-400">é</span>
         </h2>
-        <p class="text-slate-600 max-w-2xl mx-auto">
-          Um passo a passo claro para estudar por questões com lógica de prova
-        </p>
-      </div>
-      
-      <div class="grid md:grid-cols-4 gap-6">
-        <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-amber-400 feature-card">
-          <span class="text-amber-500 font-bold text-2xl">1</span>
-          <h3 class="font-semibold mt-2">Análise do Edital</h3>
-          <p class="text-sm text-slate-600 mt-2">Identifique os tópicos que realmente importam</p>
-        </div>
-        
-        <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-amber-400 feature-card">
-          <span class="text-amber-500 font-bold text-2xl">2</span>
-          <h3 class="font-semibold mt-2">Seleção de Questões</h3>
-          <p class="text-sm text-slate-600 mt-2">Filtre as questões mais relevantes</p>
-        </div>
-        
-        <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-amber-400 feature-card">
-          <span class="text-amber-500 font-bold text-2xl">3</span>
-          <h3 class="font-semibold mt-2">Estudo Ativo</h3>
-          <p class="text-sm text-slate-600 mt-2">Aprenda estudando questões</p>
-        </div>
-        
-        <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-amber-400 feature-card">
-          <span class="text-amber-500 font-bold text-2xl">4</span>
-          <h3 class="font-semibold mt-2">Revisão Estratégica</h3>
-          <p class="text-sm text-slate-600 mt-2">Consolide o conhecimento</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Benefícios -->
-  <!-- Benefícios - VERSÃO CORRIGIDA -->
-<section id="beneficios" class="py-16 bg-white">
-  <div class="max-w-6xl mx-auto px-6">
-    <div class="text-center mb-12">
-      <h2 class="text-3xl font-bold text-slate-900 mb-2">
-        <i class="fas fa-graduation-cap text-amber-500 mr-2"></i> O que você vai receber
-      </h2>
-      <p class="text-slate-600 max-w-2xl mx-auto">
-        Tudo que você precisa para transformar sua forma de estudar
-      </p>
-    </div>
-    
-    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-      <!-- Item 1 -->
-      <div class="bg-slate-50 p-6 rounded-xl shadow-sm border border-slate-200 text-center feature-card h-full">
-        <div class="text-amber-500 text-3xl mb-4">
-          <i class="fas fa-project-diagram"></i>
-        </div>
-        <h3 class="font-semibold mb-2">Método SPQ</h3>
-        <p class="text-sm text-slate-600">Passo a passo claro para estudar por questões com lógica de prova</p>
-      </div>
-
-      <!-- Item 2 -->
-      <div class="bg-slate-50 p-6 rounded-xl shadow-sm border border-slate-200 text-center feature-card h-full">
-        <div class="text-amber-500 text-3xl mb-4">
-          <i class="fas fa-play-circle"></i>
-        </div>
-        <h3 class="font-semibold mb-2">Aprenda a estudar com IA</h3>
-        <p class="text-sm text-slate-600">Aprenda a montar questões inéditas e estudar discursivas com profundidade</p>
-      </div>
-      
-      <!-- Item 3 -->
-      <div class="bg-slate-50 p-6 rounded-xl shadow-sm border border-slate-200 text-center feature-card h-full">
-        <div class="text-amber-500 text-3xl mb-4">
-          <i class="fas fa-laptop"></i>
-        </div>
-        <h3 class="font-semibold mb-2">Aprenda a usar o TEC Concursos</h3>
-        <p class="text-sm text-slate-600">Use com intenção estratégica, e não como banco de questões solto</p>
-      </div>
-      
-      <!-- Item 4 -->
-      <div class="bg-slate-50 p-6 rounded-xl shadow-sm border border-slate-200 text-center feature-card h-full">
-        <div class="text-amber-500 text-3xl mb-4">
-          <i class="fas fa-users"></i>
-        </div>
-        <h3 class="font-semibold mb-2">Acesso a comunidade de alunos</h3>
-        <p class="text-sm text-slate-600">Espaço exclusivo para interação e networking entre os alunos do DAQ</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-  <!-- Seção de Comunidade (Pertenecimento) -->
-  <section class="py-16 bg-gradient-to-r from-amber-50 to-white">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="flex flex-col md:flex-row items-center gap-8">
-        <!-- Ícones representando comunidade -->
-        <div class="md:w-1/3 text-center">
-          <div class="inline-flex items-center justify-center relative">
-            <div class="w-32 h-32 rounded-full bg-amber-100 flex items-center justify-center text-amber-600 text-5xl relative z-10">
-              <i class="fas fa-users"></i>
-            </div>
-            <div class="absolute -top-4 -right-4 w-20 h-20 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 text-3xl">
-              <i class="fas fa-comments"></i>
-            </div>
-            <div class="absolute -bottom-4 -left-4 w-20 h-20 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 text-3xl">
-              <i class="fas fa-hands-helping"></i>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Texto -->
-        <div class="md:w-2/3 text-center md:text-left">
-          <h2 class="text-3xl font-bold text-slate-900 mb-4">
-            <i class="fas fa-heart text-amber-500 mr-2"></i> Você não vai estudar sozinho(a)
-          </h2>
-          <p class="text-lg text-slate-700 mb-6">
-            O DAQ não é só um método - é uma comunidade vibrante de concurseiros que estudam com inteligência. Aqui você encontra:
-          </p>
-          
-          <div class="grid sm:grid-cols-2 gap-4">
-            <div class="flex items-start gap-3 bg-white p-4 rounded-lg shadow-sm">
-              <i class="fas fa-check-circle text-emerald-500 mt-1"></i>
-              <span class="text-slate-700">Troca de experiências com outros alunos</span>
-            </div>
-            <div class="flex items-start gap-3 bg-white p-4 rounded-lg shadow-sm">
-              <i class="fas fa-check-circle text-emerald-500 mt-1"></i>
-              <span class="text-slate-700">Suporte automatizado para tirar todas as suas dúvidas</span>
-            </div>
-            <div class="flex items-start gap-3 bg-white p-4 rounded-lg shadow-sm">
-              <i class="fas fa-check-circle text-emerald-500 mt-1"></i>
-              <span class="text-slate-700">Motivação diária para manter o foco</span>
-            </div>
-            <div class="flex items-start gap-3 bg-white p-4 rounded-lg shadow-sm">
-              <i class="fas fa-check-circle text-emerald-500 mt-1"></i>
-              <span class="text-slate-700">Celebração coletiva das aprovações</span>
-            </div>
-          </div>
-          
-          <p class="mt-6 text-amber-700 font-medium">
-            <i class="fas fa-quote-left mr-1"></i> Quando você entra no DAQ, ganha uma família de estudos que te impulsiona até a aprovação.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Seção Depoimentos -->
-<section class="depoimentos-section py-16 bg-slate-50">
-  <div class="max-w-7xl mx-auto px-6">
-    <div class="text-center mb-12">
-      <h2 class="text-3xl font-bold text-slate-900 mb-2">
-        <i class="fas fa-quote-left text-amber-500 mr-2"></i> O que nossos alunos dizem
-      </h2>
-      <p class="text-slate-600 max-w-2xl mx-auto">
-        Resultados reais de quem já aplicou o Método SPQ
-      </p>
-    </div>
-    
-    <!-- Carrossel Container -->
-    <div class="relative">
-      <!-- Navegação -->
-      <button class="depoimento-prev absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 w-12 h-12 bg-white rounded-full shadow-md flex items-center justify-center text-amber-500 hover:bg-amber-50 transition-colors">
-        <i class="fas fa-chevron-left"></i>
-      </button>
-      
-      <button class="depoimento-next absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 w-12 h-12 bg-white rounded-full shadow-md flex items-center justify-center text-amber-500 hover:bg-amber-50 transition-colors">
-        <i class="fas fa-chevron-right"></i>
-      </button>
-      
-      <!-- Carrossel Track -->
-      <div class="depoimentos-carrossel overflow-hidden">
-        <div class="depoimentos-track flex transition-transform duration-500 ease-in-out">
-          <!-- Depoimento 1 -->
-          <div class="depoimento-slide flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-4">
-            <div class="bg-white rounded-xl shadow-lg overflow-hidden h-full transition-transform duration-300 hover:shadow-xl hover:-translate-y-1">
-              <div class="depoimento-imagem-container h-48 relative overflow-hidden">
-                <img src="img/depoimento_1.webp" alt="Aluno aprovado no CNU" class="w-full h-full object-cover transition-transform duration-500">
-                <div class="depoimento-overlay absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 transition-opacity duration-300">
-                  <div class="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center transform scale-90 transition-transform duration-300">
-                    <i class="fas fa-search-plus text-white text-xl"></i>
-                  </div>
-                </div>
-              </div>
-              <div class="p-6">
-                <div class="flex items-start mb-4">
-                  <i class="fas fa-quote-left text-amber-400 text-2xl mr-3 mt-1"></i>
-                  <p class="text-slate-700">"Não participo dos encontros presenciais devido ao meu trabalho, mas <strong class="font-semibold">graças as suas dicas consegui passar no CNU.</strong> Consegui nota para 12 órgãos estou aguardando a nota da redação."</p>
-                </div>
-                <div class="border-t border-slate-100 pt-4">
-                  <h4 class="font-semibold text-slate-800">Aluno DAQ</h4>
-                  <p class="text-sm text-slate-500">Aprovado CNU</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Depoimento 2 -->
-          <div class="depoimento-slide flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-4">
-            <div class="bg-white rounded-xl shadow-lg overflow-hidden h-full transition-transform duration-300 hover:shadow-xl hover:-translate-y-1">
-              <div class="depoimento-imagem-container h-48 relative overflow-hidden">
-                <img src="img/depoimento_2.webp" alt="Aluno com alto desempenho" class="w-full h-full object-cover transition-transform duration-500">
-                <div class="depoimento-overlay absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 transition-opacity duration-300">
-                  <div class="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center transform scale-90 transition-transform duration-300">
-                    <i class="fas fa-search-plus text-white text-xl"></i>
-                  </div>
-                </div>
-              </div>
-              <div class="p-6">
-                <div class="flex items-start mb-4">
-                  <i class="fas fa-quote-left text-amber-400 text-2xl mr-3 mt-1"></i>
-                  <p class="text-slate-700">"Saiu o gabarito preliminar e <strong class="font-semibold">acertei 38/40... errei só 2 questões.</strong> Estou muito feliz por que nunca imaginei alcançar algo assim. O DAQ mudou minha forma de estudar."</p>
-                </div>
-                <div class="border-t border-slate-100 pt-4">
-                  <h4 class="font-semibold text-slate-800">Aluno DAQ</h4>
-                  <p class="text-sm text-slate-500">Evolução evidente</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Depoimento 3 -->
-          <div class="depoimento-slide flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-4">
-            <div class="bg-white rounded-xl shadow-lg overflow-hidden h-full transition-transform duration-300 hover:shadow-xl hover:-translate-y-1">
-              <div class="depoimento-imagem-container h-48 relative overflow-hidden">
-                <img src="img/Depoimento_3.webp" alt="Aluna com evolução rápida" class="w-full h-full object-cover transition-transform duration-500">
-                <div class="depoimento-overlay absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 transition-opacity duration-300">
-                  <div class="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center transform scale-90 transition-transform duration-300">
-                    <i class="fas fa-search-plus text-white text-xl"></i>
-                  </div>
-                </div>
-              </div>
-              <div class="p-6">
-                <div class="flex items-start mb-4">
-                  <i class="fas fa-quote-left text-amber-400 text-2xl mr-3 mt-1"></i>
-                  <p class="text-slate-700">"<strong class="font-semibold">Ganhei 1 ano em 1 mês!!</strong> Estou amando e indico pra todo mundo! Super feliz com minha evolução depois que comecei a aplicar o método SPQ do DAQ Essencial."</p>
-                </div>
-                <div class="border-t border-slate-100 pt-4">
-                  <h4 class="font-semibold text-slate-800">Fernanda Sodero</h4>
-                  <p class="text-sm text-slate-500">Evolução rápida</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Depoimento 4 -->
-          <div class="depoimento-slide flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-4">
-            <div class="bg-white rounded-xl shadow-lg overflow-hidden h-full transition-transform duration-300 hover:shadow-xl hover:-translate-y-1">
-              <div class="depoimento-imagem-container h-48 relative overflow-hidden">
-                <img src="img/depoimento_4.webp" alt="Aluno elogiando método simples" class="w-full h-full object-cover transition-transform duration-500">
-                <div class="depoimento-overlay absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 transition-opacity duration-300">
-                  <div class="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center transform scale-90 transition-transform duration-300">
-                    <i class="fas fa-search-plus text-white text-xl"></i>
-                  </div>
-                </div>
-              </div>
-              <div class="p-6">
-                <div class="flex items-start mb-4">
-                  <i class="fas fa-quote-left text-amber-400 text-2xl mr-3 mt-1"></i>
-                  <p class="text-slate-700">"<strong class="font-semibold">Sem malabarismo mental</strong>, planilhas complexas, cálculos de horas. O DAQ trouxe simplicidade e resultados. É libertador não ter que ficar lendo PDFs gigantes."</p>
-                </div>
-                <div class="border-t border-slate-100 pt-4">
-                  <h4 class="font-semibold text-slate-800">Aluno DAQ</h4>
-                  <p class="text-sm text-slate-500">Método direto ao ponto</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Depoimento 5 -->
-          <div class="depoimento-slide flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-4">
-            <div class="bg-white rounded-xl shadow-lg overflow-hidden h-full transition-transform duration-300 hover:shadow-xl hover:-translate-y-1">
-              <div class="depoimento-imagem-container h-48 relative overflow-hidden">
-                <img src="img/depoimento_5.webp" alt="Aluno aprovado no TRE-RJ" class="w-full h-full object-cover transition-transform duration-500">
-                <div class="depoimento-overlay absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 transition-opacity duration-300">
-                  <div class="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center transform scale-90 transition-transform duration-300">
-                    <i class="fas fa-search-plus text-white text-xl"></i>
-                  </div>
-                </div>
-              </div>
-              <div class="p-6">
-                <div class="flex items-start mb-4">
-                  <i class="fas fa-quote-left text-amber-400 text-2xl mr-3 mt-1"></i>
-                  <p class="text-slate-700">"Não consegui aplicar 100% do método por começar no pós-edital, mas uns 80% eu apliquei. E deu certo. <strong class="font-semibold">Deus me deu essa aprovação através do estudo por questões!</strong>"</p>
-                </div>
-                <div class="border-t border-slate-100 pt-4">
-                  <h4 class="font-semibold text-slate-800">Aluno DAQ</h4>
-                  <p class="text-sm text-slate-500">Aprovado TRE-RJ</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Depoimento 6 -->
-          <div class="depoimento-slide flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-4">
-            <div class="bg-white rounded-xl shadow-lg overflow-hidden h-full transition-transform duration-300 hover:shadow-xl hover:-translate-y-1">
-              <div class="depoimento-imagem-container h-48 relative overflow-hidden">
-                <img src="img/depoimento_6.webp" alt="Aluno com virada de chave" class="w-full h-full object-cover transition-transform duration-500">
-                <div class="depoimento-overlay absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 transition-opacity duration-300">
-                  <div class="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center transform scale-90 transition-transform duration-300">
-                    <i class="fas fa-search-plus text-white text-xl"></i>
-                  </div>
-                </div>
-              </div>
-              <div class="p-6">
-                <div class="flex items-start mb-4">
-                  <i class="fas fa-quote-left text-amber-400 text-2xl mr-3 mt-1"></i>
-                  <p class="text-slate-700">"Conheci a Kyrlla e comecei a estudar só por questões e os resultados mudaram da água pro vinho. Se eu puder dar um conselho: <strong class="font-semibold">abandona o excesso de teoria e mergulha nas questões.</strong>"</p>
-                </div>
-                <div class="border-t border-slate-100 pt-4">
-                  <h4 class="font-semibold text-slate-800">Aluno DAQ</h4>
-                  <p class="text-sm text-slate-500">Virada de chave</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Indicadores -->
-      <div class="flex justify-center mt-8 gap-2">
-        <button class="depoimento-indicador w-3 h-3 rounded-full bg-slate-300 transition-colors" aria-label="Ir para depoimento 1"></button>
-        <button class="depoimento-indicador w-3 h-3 rounded-full bg-slate-300 transition-colors" aria-label="Ir para depoimento 2"></button>
-        <button class="depoimento-indicador w-3 h-3 rounded-full bg-slate-300 transition-colors" aria-label="Ir para depoimento 3"></button>
-      </div>
-    </div>
-    
-    <!-- CTA -->
-    <div class="text-center mt-12">
-      <p class="text-lg text-slate-700 mb-6">Você também pode transformar sua preparação com o Método SPQ</p>
-      <a href="#" onclick="return mostrarFormulario(event)" class="inline-block bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 px-8 rounded-lg shadow-lg shadow-emerald-500/30 transition-all transform hover:scale-105">
-        <i class="fas fa-flag-checkered mr-2"></i> Quero minha vaga na próxima aprovação
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- Modal para imagem ampliada -->
-<div id="imagemModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black bg-opacity-90 p-4">
-  <div class="relative w-full max-w-4xl">
-    <button onclick="fecharModalImagem()" class="absolute -top-10 right-0 text-white hover:text-amber-400 text-3xl">
-      <i class="fas fa-times"></i>
-    </button>
-    <img id="imagemAmpliada" class="w-full max-h-[90vh] object-contain" src="" alt="Depoimento ampliado">
-  </div>
-</div>
-
-  <!-- Substitua a seção de vídeos por esta versão corrigida -->
-<section class="py-16 bg-gradient-to-b from-slate-50 to-white">
-  <div class="max-w-7xl mx-auto px-6">
-    <div class="text-center mb-12">
-      <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-3">
-        <i class="fas fa-play-circle text-amber-500 mr-2"></i> Depoimentos em Vídeo
-      </h2>
-      <p class="text-lg text-slate-600 max-w-2xl mx-auto">
-        Veja e ouça diretamente de alunos que transformaram seus estudos com o DAQ Essencial
-      </p>
-    </div>
-
-    <!-- Carrossel de Vídeos - VERSÃO CORRIGIDA -->
-    <div class="relative">
-      <div class="overflow-hidden">
-        <div class="video-carousel-track flex gap-4 px-4 transition-transform duration-500" id="videoTrack">
-          <!-- Item 1 -->
-          <div class="video-carousel-item flex-shrink-0 w-[calc(100%-2rem)] md:w-1/2 lg:w-1/3" data-video-id="Ben8sTjaVLI">
-            <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 h-full">
-              <div class="video-thumbnail relative cursor-pointer group" onclick="openVideoModal('Ben8sTjaVLI')">
-                <img src="https://img.youtube.com/vi/Ben8sTjaVLI/maxresdefault.jpg" 
-                     alt="Depoimento Aluno DAQ" 
-                     class="w-full h-48 md:h-56 object-cover">
-                <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center group-hover:bg-opacity-20 transition-all">
-                  <div class="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center transform group-hover:scale-110 transition-all">
-                    <i class="fas fa-play text-white text-xl"></i>
-                  </div>
-                </div>
-              </div>
-              <div class="p-5">
-                <h3 class="font-bold text-lg text-slate-800 mb-1">Polícia Penal do Ceará (PP-CE) - Como Fui Aprovado</h3>
-                <p class="text-slate-600 text-sm">Gabriel Barbosa - Aprovado para Policial Penal do Ceará(PP-CE)</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Item 2 -->
-          <div class="video-carousel-item flex-shrink-0 w-[calc(100%-2rem)] md:w-1/2 lg:w-1/3" data-video-id="c9liS9Sk6cc">
-            <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 h-full">
-              <div class="video-thumbnail relative cursor-pointer group" onclick="openVideoModal('c9liS9Sk6cc')">
-                <img src="https://img.youtube.com/vi/c9liS9Sk6cc/maxresdefault.jpg" 
-                     alt="Depoimento Aluno DAQ" 
-                     class="w-full h-48 md:h-56 object-cover">
-                <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center group-hover:bg-opacity-20 transition-all">
-                  <div class="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center transform group-hover:scale-110 transition-all">
-                    <i class="fas fa-play text-white text-xl"></i>
-                  </div>
-                </div>
-              </div>
-              <div class="p-5">
-                <h3 class="font-bold text-lg text-slate-800 mb-1">Senado Federal - Como Fui Aprovado</h3>
-                <p class="text-slate-600 text-sm">Victor Correia - Aprovado em 44º lugar para o cargo de Analista Legislativo, Especialidade Administração do Senado Federal</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Item 3 -->
-          <div class="video-carousel-item flex-shrink-0 w-[calc(100%-2rem)] md:w-1/2 lg:w-1/3" data-video-id="Z1-uV0VOk5U">
-            <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 h-full">
-              <div class="video-thumbnail relative cursor-pointer group" onclick="openVideoModal('Z1-uV0VOk5U')">
-                <img src="https://img.youtube.com/vi/Z1-uV0VOk5U/maxresdefault.jpg" 
-                     alt="Depoimento Aluno DAQ" 
-                     class="w-full h-48 md:h-56 object-cover">
-                <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center group-hover:bg-opacity-20 transition-all">
-                  <div class="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center transform group-hover:scale-110 transition-all">
-                    <i class="fas fa-play text-white text-xl"></i>
-                  </div>
-                </div>
-              </div>
-              <div class="p-5">
-                <h3 class="font-bold text-lg text-slate-800 mb-1">Como Fui Aprovada - TRT-MG</h3>
-                <p class="text-slate-600 text-sm">Lorena Maia - Aprovada em 14º lugar (Negros) para o cargo de Analista Juridiário do TRT-MG</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Item 4 -->
-          <div class="video-carousel-item flex-shrink-0 w-[calc(100%-2rem)] md:w-1/2 lg:w-1/3" data-video-id="s-ivfFmnGbs">
-            <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 h-full">
-              <div class="video-thumbnail relative cursor-pointer group" onclick="openVideoModal('s-ivfFmnGbs')">
-                <img src="https://img.youtube.com/vi/s-ivfFmnGbs/maxresdefault.jpg" 
-                     alt="Depoimento Aluno DAQ" 
-                     class="w-full h-48 md:h-56 object-cover">
-                <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center group-hover:bg-opacity-20 transition-all">
-                  <div class="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center transform group-hover:scale-110 transition-all">
-                    <i class="fas fa-play text-white text-xl"></i>
-                  </div>
-                </div>
-              </div>
-              <div class="p-5">
-                <h3 class="font-bold text-lg text-slate-800 mb-1">Como Fui Aprovado - CBM-MG</h3>
-                <p class="text-slate-600 text-sm">Arthur Vieitas - Aprovado em 291º lugar para o cargo de Soldado do Corpo de Bombeiros Militar de Minas Gerais</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Item 5 -->
-          <div class="video-carousel-item flex-shrink-0 w-[calc(100%-2rem)] md:w-1/2 lg:w-1/3" data-video-id="IBPbX_tK14E">
-            <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 h-full">
-              <div class="video-thumbnail relative cursor-pointer group" onclick="openVideoModal('IBPbX_tK14E')">
-                <img src="https://img.youtube.com/vi/IBPbX_tK14E/maxresdefault.jpg" 
-                     alt="Depoimento Aluno DAQ" 
-                     class="w-full h-48 md:h-56 object-cover">
-                <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center group-hover:bg-opacity-20 transition-all">
-                  <div class="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center transform group-hover:scale-110 transition-all">
-                    <i class="fas fa-play text-white text-xl"></i>
-                  </div>
-                </div>
-              </div>
-              <div class="p-5">
-                <h3 class="font-bold text-lg text-slate-800 mb-1">Como Fui Aprovada - SEDUC-GO</h3>
-                <p class="text-slate-600 text-sm">Renata Nery - Aprovada em 2º lugar para o cargo de Pedagogo - SEDUC-GO.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Navegação - VERSÃO CORRIGIDA -->
-      <div class="flex justify-center mt-8 space-x-3">
-        <button class="video-carousel-prev w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-amber-500 hover:bg-amber-50 transition-colors">
-          <i class="fas fa-chevron-left"></i>
-        </button>
-        <button class="video-carousel-next w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-amber-500 hover:bg-amber-50 transition-colors">
-          <i class="fas fa-chevron-right"></i>
-        </button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Modal do Vídeo - VERSÃO CORRIGIDA -->
-<div id="videoModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black bg-opacity-80 p-4">
-  <div class="relative w-full max-w-4xl mx-4">
-    <button id="closeVideoModal" class="absolute -top-10 right-0 text-white hover:text-amber-400 text-2xl">
-      <i class="fas fa-times"></i>
-    </button>
-    <div class="aspect-w-16 aspect-h-9 bg-black">
-      <iframe id="youtubePlayer" class="w-full h-96" frameborder="0" allowfullscreen
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
-      </iframe>
-    </div>
-  </div>
-</div>
-
-<script>
-  // JavaScript para o carrossel de vídeos - VERSÃO CORRIGIDA
-  document.addEventListener('DOMContentLoaded', function() {
-    const track = document.getElementById('videoTrack');
-    const items = document.querySelectorAll('.video-carousel-item');
-    const prevBtn = document.querySelector('.video-carousel-prev');
-    const nextBtn = document.querySelector('.video-carousel-next');
-    
-    let currentIndex = 0;
-    let itemsPerView = 1;
-    let itemWidth = 0;
-    
-    function updateResponsiveSettings() {
-      if (window.innerWidth >= 1024) {
-        itemsPerView = 3;
-      } else if (window.innerWidth >= 768) {
-        itemsPerView = 2;
-      } else {
-        itemsPerView = 1;
-      }
-      
-      // Calcula a largura do item baseado no container
-      const containerWidth = track.parentElement.offsetWidth;
-      itemWidth = (containerWidth / itemsPerView) - 16; // Subtrai o gap
-      
-      // Ajusta a largura dos itens
-      items.forEach(item => {
-        item.style.width = `${itemWidth}px`;
-      });
-    }
-    
-    function updateCarousel() {
-      track.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
-    }
-    
-    function goToNext() {
-      const maxIndex = items.length - itemsPerView;
-      if (currentIndex < maxIndex) {
-        currentIndex++;
-        updateCarousel();
-      } else {
-        // Volta para o início se estiver no final
-        currentIndex = 0;
-        updateCarousel();
-      }
-    }
-    
-    function goToPrev() {
-      if (currentIndex > 0) {
-        currentIndex--;
-        updateCarousel();
-      } else {
-        // Vai para o final se estiver no início
-        currentIndex = Math.max(0, items.length - itemsPerView);
-        updateCarousel();
-      }
-    }
-    
-    // Inicializa o carrossel
-    updateResponsiveSettings();
-    updateCarousel();
-    
-    // Event listeners
-    nextBtn.addEventListener('click', goToNext);
-    prevBtn.addEventListener('click', goToPrev);
-    
-    window.addEventListener('resize', function() {
-      updateResponsiveSettings();
-      updateCarousel();
-    });
-    
-    // Funções do modal de vídeo
-    window.openVideoModal = function(videoId) {
-      const modal = document.getElementById('videoModal');
-      const iframe = document.getElementById('youtubePlayer');
-      
-      iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
-      modal.classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
-    };
-    
-    document.getElementById('closeVideoModal').addEventListener('click', function() {
-      const modal = document.getElementById('videoModal');
-      const iframe = document.getElementById('youtubePlayer');
-      
-      iframe.src = '';
-      modal.classList.add('hidden');
-      document.body.style.overflow = '';
-    });
-    
-    document.getElementById('videoModal').addEventListener('click', function(e) {
-      if (e.target === this) {
-        const iframe = document.getElementById('youtubePlayer');
-        iframe.src = '';
-        this.classList.add('hidden');
-        document.body.style.overflow = '';
-      }
-    });
-  });
-</script>
-
-  <!-- Pra quem é -->
-  <section class="py-16 bg-gradient-to-r from-amber-50 to-orange-50">
-    <div class="max-w-5xl mx-auto px-6">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold text-amber-600 mb-2">
-          <i class="fas fa-fire mr-2"></i> Pra quem é o DAQ Essencial?
-        </h2>
-        <p class="text-slate-700 max-w-2xl mx-auto">
-          Se você se identifica com algum desses pontos, o método foi feito para você
-        </p>
-      </div>
-      
-      <div class="grid md:grid-cols-2 gap-6">
-        <ul class="space-y-4">
-          <li class="flex items-start gap-3 bg-white p-4 rounded-lg shadow-sm">
-            <span class="text-amber-500 text-xl mt-1">
-              <i class="fas fa-check"></i>
-            </span>
-            <span class="text-slate-700">
-              Pra quem estuda há anos e continua travado
-            </span>
-          </li>
-          <li class="flex items-start gap-3 bg-white p-4 rounded-lg shadow-sm">
-            <span class="text-amber-500 text-xl mt-1">
-              <i class="fas fa-check"></i>
-            </span>
-            <span class="text-slate-700">
-              Pra quem acerta pouco mesmo estudando muito
-            </span>
-          </li>
+        <blockquote class="italic text-slate-700 border-l-4 border-emerald-500 pl-4 py-2 mb-4">
+        Um método direto, simples e transformador pra você aprender <strong class="font-semibold">fazendo questões</strong> com lógica de banca.
+        </blockquote>
+        <ul class="space-y-3">
+        <li class="flex items-start gap-3">
+            <i class="fas fa-check text-emerald-500 mt-1"></i>
+            <span>Foco no que realmente cai na prova</span>
+        </li>
+        <li class="flex items-start gap-3">
+            <i class="fas fa-check text-emerald-500 mt-1"></i>
+            <span>Adaptável à sua rotina</span>
+        </li>
+        <li class="flex items-start gap-3">
+            <i class="fas fa-check text-emerald-500 mt-1"></i>
+            <span>Resultados mensuráveis</span>
+        </li>
         </ul>
-        <ul class="space-y-4">
-          <li class="flex items-start gap-3 bg-white p-4 rounded-lg shadow-sm">
-            <span class="text-amber-500 text-xl mt-1">
-              <i class="fas fa-check"></i>
-            </span>
-            <span class="text-slate-700">
-              Pra quem já entendeu que o problema não é o concurso: é o método
-            </span>
-          </li>
-          <li class="flex items-start gap-3 bg-white p-4 rounded-lg shadow-sm">
-            <span class="text-amber-500 text-xl mt-1">
-              <i class="fas fa-check"></i>
-            </span>
-            <span class="text-slate-700">
-              Pra quem quer estudar com raciocínio, não com decoreba
-            </span>
-          </li>
-        </ul>
-      </div>
     </div>
-  </section>
-
-  <!-- Seção Conheça a Fundadora - Versão Nova -->
-<section class="py-16 bg-gradient-to-r from-amber-50 to-white">
-  <div class="max-w-6xl mx-auto px-6">
-    <div class="flex flex-col md:flex-row items-center gap-12">
-      <!-- Imagem da fundadora - Versão Ajustada -->
-      <div class="md:w-2/5 lg:w-1/3 text-center px-4">
-        <div class="relative inline-block">
-          <img src="img/Kyrlla-2.webp" 
-              alt="Kyrlla Pattyelly - Mentora especializada em preparação para concursos" 
-              class="w-full max-w-md rounded-2xl shadow-xl border-4 border-white"
-              loading="lazy"
-              style="min-width: 280px;">
-          <div class="absolute -bottom-4 -right-4 bg-amber-500 text-white font-bold py-2 px-4 rounded-lg shadow-lg">
-            <i class="fas fa-medal mr-1"></i> Auditora Fiscal
-          </div>
-        </div>
-      </div>
-      
-      <!-- Texto sobre a fundadora -->
-      <div class="md:w-2/3">
-        <span class="inline-block text-sm font-semibold text-amber-600 uppercase tracking-widest mb-2">
-          <i class="fas fa-user-graduate mr-1"></i> CONHEÇA A FUNDADORA
-        </span>
-        <h2 class="text-3xl font-bold text-slate-900 mb-4">
-          A mente por trás do método que transformou centenas de concurseiros
-        </h2>
-        
-        <p class="text-lg text-slate-700 mb-6">
-          Kyrlla Pattyelly é Auditora Fiscal, mentora e ex-concurseira que transformou sua jornada de desafios em um método eficiente de estudo por questões.
-        </p>
-        
-        <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-emerald-500 mb-6">
-          <p class="text-slate-700 italic mb-4">
-            "Sabe aquela sensação de estudar horas e não ver resultado? Eu vivi isso na pele. Depois de anos enfrentando a pressão dos concursos, descobri que o segredo estava na <strong class="font-semibold">forma</strong> de estudar, não apenas no tempo dedicado."
-          </p>
-          <p class="text-slate-700">
-            Essa percepção deu origem ao <strong class="text-amber-600">Método SPQ</strong>, um sistema baseado em prática inteligente, análise estatística e constância - tudo que eu gostaria de ter conhecido quando comecei.
-          </p>
-        </div>
-        
-        <!-- Conquistas -->
-        <div class="grid sm:grid-cols-3 gap-4">
-          <div class="bg-white p-4 rounded-lg shadow-sm text-center">
-            <span class="block text-2xl font-bold text-amber-600">+5</span>
-            <span class="text-sm text-slate-600">anos transformando a vida de concurseiros</span>
-          </div>
-          <div class="bg-white p-4 rounded-lg shadow-sm text-center">
-            <span class="block text-2xl font-bold text-amber-600">1.000+</span>
-            <span class="text-sm text-slate-600">alunos mentorados</span>
-          </div>
-          <div class="bg-white p-4 rounded-lg shadow-sm text-center">
-            <span class="block text-2xl font-bold text-amber-600">100%</span>
-            <span class="text-sm text-slate-600">comprometida com seu sucesso</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-  <!-- Investimento -->
-  <section id="checkout" class="py-16 bg-emerald-50">
-    <div class="max-w-4xl mx-auto px-6">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold text-slate-900 mb-2">
-          <i class="fas fa-tag text-emerald-600 mr-2"></i> Investimento
-        </h2>
-        <p class="text-slate-600 max-w-2xl mx-auto">
-          Um método que muda a sua lógica de estudo pra sempre
-        </p>
-      </div>
-      
-      <div class="grid md:grid-cols-2 gap-8 items-center">
-        <!-- Card de preço -->
-        <div class="bg-white p-8 rounded-2xl shadow-lg border-2 border-emerald-200 text-center relative">
-          <span class="absolute -top-3 -right-3 bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full animate-pulse">
-            7 dias de garantia
-          </span>
-          <h3 class="text-xl font-bold text-slate-800 mb-4">DAQ Essencial</h3>
-          <p class="text-5xl font-bold text-emerald-600 mb-2">R$ 497</p>
-          <p class="text-slate-500 mb-2">/ano</p>
-          <p class="text-lg text-slate-600 mb-4">ou 12x de R$ 51,40</p>
-          
-          <ul class="space-y-3 text-left text-slate-700 mb-8">
-            <li class="flex items-start gap-2">
-              <i class="fas fa-check text-emerald-500 mt-1"></i>
-              <span>Método SPQ completo</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <i class="fas fa-check text-emerald-500 mt-1"></i>
-              <span>Aulas sobre como usar IA</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <i class="fas fa-check text-emerald-500 mt-1"></i>
-              <span>Comunidade de alunos</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <i class="fas fa-check text-emerald-500 mt-1"></i>
-              <span>7 dias de garantia</span>
-            </li>
-          </ul>
-          
-          <a href="#" onclick="return mostrarFormulario(event)" class="inline-block w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg shadow-emerald-500/20 transition-all transform hover:scale-105">
-            <i class="fas fa-trophy mr-2"></i> Quero meu plano de aprovação hoje
-          </a>
-        </div>
-        
-        <!-- Bônus -->
-        <div>
-          <h4 class="text-xl font-semibold text-amber-600 mb-4 flex items-center">
-            <i class="fas fa-gift mr-2"></i> Bônus especiais:
-          </h4>
-          
-          <div class="space-y-4">
-            <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-100">
-              <h5 class="font-semibold text-slate-800 flex items-center gap-2">
-                <i class="fas fa-map-marked-alt text-amber-500"></i> Mini Treinamento
-              </h5>
-              <p class="text-sm text-slate-600 mt-1">Mapa de Interpretação de Questões</p>
-            </div>
-            
-            <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-100">
-              <h5 class="font-semibold text-slate-800 flex items-center gap-2">
-                <i class="fas fa-tasks text-amber-500"></i> Checklist Exclusivo
-              </h5>
-              <p class="text-sm text-slate-600 mt-1">Os 7 erros que sabotam sua lógica de prova</p>
-            </div>
-            
-            <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-100">
-              <h5 class="font-semibold text-slate-800 flex items-center gap-2">
-                <i class="fas fa-star text-amber-500"></i> Acesso Prioritário
-              </h5>
-              <p class="text-sm text-slate-600 mt-1">Às vagas da mentoria SPQ</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="mt-8 text-center text-sm text-slate-500">
-        <i class="fas fa-lock mr-1"></i> Pagamento 100% seguro • Renovação automática • Suporte em até 24h
-      </div>
-    </div>
-  </section>
-
-  <!-- Garantia -->
-  <section class="py-16 bg-white">
-    <div class="max-w-4xl mx-auto px-6">
-      <div class="bg-slate-50 p-8 rounded-xl border border-slate-200">
-        <div class="flex flex-col md:flex-row items-center gap-8">
-          <div class="md:w-1/3 text-center">
-            <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-emerald-100 text-emerald-600 text-3xl">
-              <i class="fas fa-shield-alt"></i>
-            </div>
-          </div>
-          <div class="md:w-2/3 text-center md:text-left">
-            <h2 class="text-2xl font-bold text-slate-900 mb-2">
-              <i class="fas fa-sync-alt text-emerald-500 mr-2"></i> Garantia de satisfação
+    </section>
+    <section class="bg-slate-50 py-16">
+        <div class="max-w-6xl mx-auto px-6">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-slate-900 mb-2">
+            <i class="fas fa-search text-amber-500 mr-2"></i> Como funciona o Método SPQ
             </h2>
-            <p class="text-slate-600">
-              Você tem 7 dias pra testar o DAQ. Se não curtir, basta um clique e devolvemos seu dinheiro. Sem perguntas. Sem ressentimentos.
+            <p class="text-slate-600 max-w-2xl mx-auto">
+            Um passo a passo claro para estudar por questões com lógica de prova
             </p>
-            <p class="text-sm text-slate-500 mt-4">
-              <i class="fas fa-info-circle mr-1"></i> Risco zero para você
+        </div>
+        <div class="grid md:grid-cols-4 gap-6">
+            <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-amber-400 feature-card">
+            <span class="text-amber-500 font-bold text-2xl">1</span>
+            <h3 class="font-semibold mt-2">Análise do Edital</h3>
+            <p class="text-sm text-slate-600 mt-2">Identifique os tópicos que realmente importam</p>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-amber-400 feature-card">
+            <span class="text-amber-500 font-bold text-2xl">2</span>
+            <h3 class="font-semibold mt-2">Seleção de Questões</h3>
+            <p class="text-sm text-slate-600 mt-2">Filtre as questões mais relevantes</p>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-amber-400 feature-card">
+            <span class="text-amber-500 font-bold text-2xl">3</span>
+            <h3 class="font-semibold mt-2">Estudo Ativo</h3>
+            <p class="text-sm text-slate-600 mt-2">Aprenda estudando questões</p>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-amber-400 feature-card">
+            <span class="text-amber-500 font-bold text-2xl">4</span>
+            <h3 class="font-semibold mt-2">Revisão Estratégica</h3>
+            <p class="text-sm text-slate-600 mt-2">Consolide o conhecimento</p>
+            </div>
+        </div>
+        </div>
+    </section>
+    <section id="beneficios" class="py-16 bg-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-slate-900 mb-2">
+                <i class="fas fa-graduation-cap text-amber-500 mr-2"></i> O que você vai receber
+            </h2>
+            <p class="text-slate-600 max-w-2xl mx-auto">
+                Tudo que você precisa para transformar sua forma de estudar
             </p>
-          </div>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="bg-slate-50 p-6 rounded-xl shadow-sm border border-slate-200 text-center feature-card h-full">
+                <div class="text-amber-500 text-3xl mb-4"><i class="fas fa-project-diagram"></i></div>
+                <h3 class="font-semibold mb-2">Método SPQ</h3>
+                <p class="text-sm text-slate-600">Passo a passo claro para estudar por questões com lógica de prova</p>
+            </div>
+            <div class="bg-slate-50 p-6 rounded-xl shadow-sm border border-slate-200 text-center feature-card h-full">
+                <div class="text-amber-500 text-3xl mb-4"><i class="fas fa-play-circle"></i></div>
+                <h3 class="font-semibold mb-2">Aprenda a estudar com IA</h3>
+                <p class="text-sm text-slate-600">Aprenda a montar questões inéditas e estudar discursivas com profundidade</p>
+            </div>
+            <div class="bg-slate-50 p-6 rounded-xl shadow-sm border border-slate-200 text-center feature-card h-full">
+                <div class="text-amber-500 text-3xl mb-4"><i class="fas fa-laptop"></i></div>
+                <h3 class="font-semibold mb-2">Aprenda a usar o TEC Concursos</h3>
+                <p class="text-sm text-slate-600">Use com intenção estratégica, e não como banco de questões solto</p>
+            </div>
+            <div class="bg-slate-50 p-6 rounded-xl shadow-sm border border-slate-200 text-center feature-card h-full">
+                <div class="text-amber-500 text-3xl mb-4"><i class="fas fa-users"></i></div>
+                <h3 class="font-semibold mb-2">Acesso a comunidade de alunos</h3>
+                <p class="text-sm text-slate-600">Espaço exclusivo para interação e networking entre os alunos do DAQ</p>
+            </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
+    </section>
+    <section class="py-16 bg-gradient-to-r from-amber-50 to-white">
+        <div class="max-w-6xl mx-auto px-6">
+        <div class="flex flex-col md:flex-row items-center gap-8">
+            <div class="md:w-1/3 text-center">
+            <div class="inline-flex items-center justify-center relative">
+                <div class="w-32 h-32 rounded-full bg-amber-100 flex items-center justify-center text-amber-600 text-5xl relative z-10"><i class="fas fa-users"></i></div>
+                <div class="absolute -top-4 -right-4 w-20 h-20 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 text-3xl"><i class="fas fa-comments"></i></div>
+                <div class="absolute -bottom-4 -left-4 w-20 h-20 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 text-3xl"><i class="fas fa-hands-helping"></i></div>
+            </div>
+            </div>
+            <div class="md:w-2/3 text-center md:text-left">
+            <h2 class="text-3xl font-bold text-slate-900 mb-4"><i class="fas fa-heart text-amber-500 mr-2"></i> Você não vai estudar sozinho(a)</h2>
+            <p class="text-lg text-slate-700 mb-6">O DAQ não é só um método - é uma comunidade vibrante de concurseiros que estudam com inteligência. Aqui você encontra:</p>
+            <div class="grid sm:grid-cols-2 gap-4">
+                <div class="flex items-start gap-3 bg-white p-4 rounded-lg shadow-sm"><i class="fas fa-check-circle text-emerald-500 mt-1"></i><span class="text-slate-700">Troca de experiências com outros alunos</span></div>
+                <div class="flex items-start gap-3 bg-white p-4 rounded-lg shadow-sm"><i class="fas fa-check-circle text-emerald-500 mt-1"></i><span class="text-slate-700">Suporte automatizado para tirar todas as suas dúvidas</span></div>
+                <div class="flex items-start gap-3 bg-white p-4 rounded-lg shadow-sm"><i class="fas fa-check-circle text-emerald-500 mt-1"></i><span class="text-slate-700">Motivação diária para manter o foco</span></div>
+                <div class="flex items-start gap-3 bg-white p-4 rounded-lg shadow-sm"><i class="fas fa-check-circle text-emerald-500 mt-1"></i><span class="text-slate-700">Celebração coletiva das aprovações</span></div>
+            </div>
+            <p class="mt-6 text-amber-700 font-medium"><i class="fas fa-quote-left mr-1"></i> Quando você entra no DAQ, ganha uma família de estudos que te impulsiona até a aprovação.</p>
+            </div>
+        </div>
+        </div>
+    </section>
+    <section class="depoimentos-section py-16 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-slate-900 mb-2"><i class="fas fa-quote-left text-amber-500 mr-2"></i> O que nossos alunos dizem</h2>
+            <p class="text-slate-600 max-w-2xl mx-auto">Resultados reais de quem já aplicou o Método SPQ</p>
+            </div>
+            <div class="relative">
+            <button class="depoimento-prev absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 w-12 h-12 bg-white rounded-full shadow-md flex items-center justify-center text-amber-500 hover:bg-amber-50 transition-colors"><i class="fas fa-chevron-left"></i></button>
+            <button class="depoimento-next absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 w-12 h-12 bg-white rounded-full shadow-md flex items-center justify-center text-amber-500 hover:bg-amber-50 transition-colors"><i class="fas fa-chevron-right"></i></button>
+            <div class="depoimentos-carrossel overflow-hidden">
+                <div class="depoimentos-track flex transition-transform duration-500 ease-in-out">
+                <div class="depoimento-slide flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-4">
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden h-full transition-transform duration-300 hover:shadow-xl hover:-translate-y-1">
+                    <div class="depoimento-imagem-container h-48 relative overflow-hidden">
+                        <img src="img/depoimento_1.webp" alt="Aluno aprovado no CNU" class="w-full h-full object-cover transition-transform duration-500" loading="lazy" width="600" height="400">
+                        <div class="depoimento-overlay absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                        <div class="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center transform scale-90 transition-transform duration-300"><i class="fas fa-search-plus text-white text-xl"></i></div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-start mb-4"><i class="fas fa-quote-left text-amber-400 text-2xl mr-3 mt-1"></i><p class="text-slate-700">"Não participo dos encontros presenciais devido ao meu trabalho, mas <strong class="font-semibold">graças as suas dicas consegui passar no CNU.</strong> Consegui nota para 12 órgãos estou aguardando a nota da redação."</p></div>
+                        <div class="border-t border-slate-100 pt-4"><h4 class="font-semibold text-slate-800">Aluno DAQ</h4><p class="text-sm text-slate-500">Aprovado CNU</p></div>
+                    </div>
+                    </div>
+                </div>
+                <div class="depoimento-slide flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-4">
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden h-full transition-transform duration-300 hover:shadow-xl hover:-translate-y-1">
+                    <div class="depoimento-imagem-container h-48 relative overflow-hidden">
+                        <img src="img/depoimento_2.webp" alt="Aluno com alto desempenho" class="w-full h-full object-cover transition-transform duration-500" loading="lazy" width="600" height="400">
+                        <div class="depoimento-overlay absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                        <div class="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center transform scale-90 transition-transform duration-300"><i class="fas fa-search-plus text-white text-xl"></i></div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-start mb-4"><i class="fas fa-quote-left text-amber-400 text-2xl mr-3 mt-1"></i><p class="text-slate-700">"Saiu o gabarito preliminar e <strong class="font-semibold">acertei 38/40... errei só 2 questões.</strong> Estou muito feliz por que nunca imaginei alcançar algo assim. O DAQ mudou minha forma de estudar."</p></div>
+                        <div class="border-t border-slate-100 pt-4"><h4 class="font-semibold text-slate-800">Aluno DAQ</h4><p class="text-sm text-slate-500">Evolução evidente</p></div>
+                    </div>
+                    </div>
+                </div>
+                <div class="depoimento-slide flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-4">
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden h-full transition-transform duration-300 hover:shadow-xl hover:-translate-y-1">
+                    <div class="depoimento-imagem-container h-48 relative overflow-hidden">
+                        <img src="img/Depoimento_3.webp" alt="Aluna com evolução rápida" class="w-full h-full object-cover transition-transform duration-500" loading="lazy" width="600" height="400">
+                        <div class="depoimento-overlay absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                        <div class="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center transform scale-90 transition-transform duration-300"><i class="fas fa-search-plus text-white text-xl"></i></div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-start mb-4"><i class="fas fa-quote-left text-amber-400 text-2xl mr-3 mt-1"></i><p class="text-slate-700">"<strong class="font-semibold">Ganhei 1 ano em 1 mês!!</strong> Estou amando e indico pra todo mundo! Super feliz com minha evolução depois que comecei a aplicar o método SPQ do DAQ Essencial."</p></div>
+                        <div class="border-t border-slate-100 pt-4"><h4 class="font-semibold text-slate-800">Fernanda Sodero</h4><p class="text-sm text-slate-500">Evolução rápida</p></div>
+                    </div>
+                    </div>
+                </div>
+                <div class="depoimento-slide flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-4">
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden h-full transition-transform duration-300 hover:shadow-xl hover:-translate-y-1">
+                    <div class="depoimento-imagem-container h-48 relative overflow-hidden">
+                        <img src="img/depoimento_4.webp" alt="Aluno elogiando método simples" class="w-full h-full object-cover transition-transform duration-500" loading="lazy" width="600" height="400">
+                        <div class="depoimento-overlay absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                        <div class="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center transform scale-90 transition-transform duration-300"><i class="fas fa-search-plus text-white text-xl"></i></div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-start mb-4"><i class="fas fa-quote-left text-amber-400 text-2xl mr-3 mt-1"></i><p class="text-slate-700">"<strong class="font-semibold">Sem malabarismo mental</strong>, planilhas complexas, cálculos de horas. O DAQ trouxe simplicidade e resultados. É libertador não ter que ficar lendo PDFs gigantes."</p></div>
+                        <div class="border-t border-slate-100 pt-4"><h4 class="font-semibold text-slate-800">Aluno DAQ</h4><p class="text-sm text-slate-500">Método direto ao ponto</p></div>
+                    </div>
+                    </div>
+                </div>
+                <div class="depoimento-slide flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-4">
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden h-full transition-transform duration-300 hover:shadow-xl hover:-translate-y-1">
+                    <div class="depoimento-imagem-container h-48 relative overflow-hidden">
+                        <img src="img/depoimento_5.webp" alt="Aluno aprovado no TRE-RJ" class="w-full h-full object-cover transition-transform duration-500" loading="lazy" width="600" height="400">
+                        <div class="depoimento-overlay absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                        <div class="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center transform scale-90 transition-transform duration-300"><i class="fas fa-search-plus text-white text-xl"></i></div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-start mb-4"><i class="fas fa-quote-left text-amber-400 text-2xl mr-3 mt-1"></i><p class="text-slate-700">"Não consegui aplicar 100% do método por começar no pós-edital, mas uns 80% eu apliquei. E deu certo. <strong class="font-semibold">Deus me deu essa aprovação através do estudo por questões!</strong>"</p></div>
+                        <div class="border-t border-slate-100 pt-4"><h4 class="font-semibold text-slate-800">Aluno DAQ</h4><p class="text-sm text-slate-500">Aprovado TRE-RJ</p></div>
+                    </div>
+                    </div>
+                </div>
+                <div class="depoimento-slide flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-4">
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden h-full transition-transform duration-300 hover:shadow-xl hover:-translate-y-1">
+                    <div class="depoimento-imagem-container h-48 relative overflow-hidden">
+                        <img src="img/depoimento_6.webp" alt="Aluno com virada de chave" class="w-full h-full object-cover transition-transform duration-500" loading="lazy" width="600" height="400">
+                        <div class="depoimento-overlay absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 transition-opacity duration-300">
+                        <div class="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center transform scale-90 transition-transform duration-300"><i class="fas fa-search-plus text-white text-xl"></i></div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-start mb-4"><i class="fas fa-quote-left text-amber-400 text-2xl mr-3 mt-1"></i><p class="text-slate-700">"Conheci a Kyrlla e comecei a estudar só por questões e os resultados mudaram da água pro vinho. Se eu puder dar um conselho: <strong class="font-semibold">abandona o excesso de teoria e mergulha nas questões.</strong>"</p></div>
+                        <div class="border-t border-slate-100 pt-4"><h4 class="font-semibold text-slate-800">Aluno DAQ</h4><p class="text-sm text-slate-500">Virada de chave</p></div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="flex justify-center mt-8 gap-2">
+                <button class="depoimento-indicador w-3 h-3 rounded-full bg-slate-300 transition-colors" aria-label="Ir para depoimento 1"></button>
+                <button class="depoimento-indicador w-3 h-3 rounded-full bg-slate-300 transition-colors" aria-label="Ir para depoimento 2"></button>
+                <button class="depoimento-indicador w-3 h-3 rounded-full bg-slate-300 transition-colors" aria-label="Ir para depoimento 3"></button>
+            </div>
+            </div>
+            <div class="text-center mt-12">
+            <p class="text-lg text-slate-700 mb-6">Você também pode transformar sua preparação com o Método SPQ</p>
+            <a href="#" class="js-open-form inline-block bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 px-8 rounded-lg shadow-lg shadow-emerald-500/30 transition-all transform hover:scale-105"><i class="fas fa-flag-checkered mr-2"></i> Quero minha vaga na próxima aprovação</a>
+            </div>
+        </div>
+    </section>
 
-  <!-- FAQ -->
-  <section class="py-16 bg-slate-50">
-    <div class="max-w-4xl mx-auto px-6">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold text-slate-900 mb-2">
-          <i class="fas fa-question-circle text-amber-500 mr-2"></i> Perguntas frequentes
-        </h2>
-        <p class="text-slate-600 max-w-2xl mx-auto">
-          Tire suas dúvidas sobre o DAQ Essencial
-        </p>
-      </div>
-      
-      <div class="space-y-4">
-        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-          <button class="flex justify-between items-center w-full text-left" onclick="toggleFAQ(this)">
-            <h4 class="font-semibold text-lg text-slate-800">Como funciona o acesso ao conteúdo?</h4>
-            <i class="fas fa-chevron-down text-amber-500 transition-transform"></i>
-          </button>
-          <div class="faq-content mt-4 text-slate-600">
-            <p>Após a confirmação do pagamento, você receberá acesso imediato à plataforma com todo o material, incluindo a aula gravada, materiais de apoio e orientações para começar.</p>
-          </div>
-        </div>
-        
-        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-          <button class="flex justify-between items-center w-full text-left" onclick="toggleFAQ(this)">
-            <h4 class="font-semibold text-lg text-slate-800">Preciso assinar a plataforma TEC Concursos?</h4>
-            <i class="fas fa-chevron-down text-amber-500 transition-transform"></i>
-          </button>
-          <div class="faq-content mt-4 text-slate-600">
-            <p>Sim, o método foi desenvolvido para ser aplicado usando a plataforma TEC Concursos, que é a mais completa para estudos por questões. O DAQ Essencial não inclui a assinatura do TEC, mas te ensina a usá-lo com máxima eficiência.</p>
-          </div>
-        </div>
-        
-        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-          <button class="flex justify-between items-center w-full text-left" onclick="toggleFAQ(this)">
-            <h4 class="font-semibold text-lg text-slate-800">O método serve para qualquer concurso?</h4>
-            <i class="fas fa-chevron-down text-amber-500 transition-transform"></i>
-          </button>
-          <div class="faq-content mt-4 text-slate-600">
-            <p>Sim! O DAQ Essencial é um método universal de estudo por questões que pode ser aplicado a qualquer concurso público. As técnicas são adaptáveis a todas as áreas e níveis de concursos.</p>
-          </div>
-        </div>
-      </div>
+    <div id="imagemModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black bg-opacity-90 p-4">
+    <div class="relative w-full max-w-4xl">
+        <button onclick="fecharModalImagem()" class="absolute -top-10 right-0 text-white hover:text-amber-400 text-3xl"><i class="fas fa-times"></i></button>
+        <img id="imagemAmpliada" class="w-full max-h-[90vh] object-contain" src="" alt="Depoimento ampliado" width="1280" height="720">
     </div>
-  </section>
-
-  <!-- CTA Final -->
-  <section class="py-16 bg-gradient-to-b from-slate-50 to-white">
-    <div class="max-w-2xl mx-auto px-6 text-center">
-      <h2 class="text-3xl font-bold text-slate-900 mb-4">
-        <i class="fas fa-calendar-check text-amber-500 mr-2"></i> A mudança começa agora
-      </h2>
-      <p class="text-lg text-slate-600 mb-8">
-        Pronto pra parar de estudar como todo mundo estuda... e começar a estudar como quem vai passar?
-      </p>
-      <a href="#" onclick="return mostrarFormulario(event)" class="inline-block bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 px-8 rounded-lg shadow-lg shadow-emerald-500/30 transition-all transform hover:scale-105">
-        <i class="fas fa-flag-checkered mr-2"></i> Quero minha vaga na próxima aprovação
-      </a>
     </div>
-  </section>
 
-  <!-- Footer -->
-  <footer class="py-8 bg-slate-900 text-slate-400">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="flex flex-col md:flex-row justify-between items-center">
-        <div class="mb-4 md:mb-0">
-          <p class="text-sm">
-            <i class="fas fa-copyright mr-1"></i> 2025 DAQ Essencial. Todos os direitos reservados.
-          </p>
-        <p class="mt-6 text-sm text-slate-500">
-            *Kyrlla Pattyelly* – Auditora Fiscal • Criadora do SPQ • Mentora de milhares de aprovados
-        </p>
+    <section class="py-16 bg-gradient-to-b from-slate-50 to-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-3"><i class="fas fa-play-circle text-amber-500 mr-2"></i> Depoimentos em Vídeo</h2>
+            <p class="text-lg text-slate-600 max-w-2xl mx-auto">Veja e ouça diretamente de alunos que transformaram seus estudos com o DAQ Essencial</p>
+            </div>
+            <div class="relative">
+            <div class="overflow-hidden">
+                <div class="video-carousel-track flex gap-4 px-4 transition-transform duration-500" id="videoTrack">
+                
+                <div class="video-carousel-item flex-shrink-0 w-[calc(100%-2rem)] md:w-1/2 lg:w-1/3" data-video-id="Ben8sTjaVLI">
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 h-full">
+                    <div class="video-thumbnail relative cursor-pointer group" onclick="openVideoModal('Ben8sTjaVLI')">
+                        <img src="https://img.youtube.com/vi/Ben8sTjaVLI/hqdefault.jpg" 
+                            srcset="https://img.youtube.com/vi/Ben8sTjaVLI/hqdefault.jpg 480w, https://img.youtube.com/vi/Ben8sTjaVLI/mqdefault.jpg 320w"
+                            sizes="(max-width: 767px) 90vw, 33vw"
+                            alt="Depoimento Aluno DAQ: Polícia Penal do Ceará" class="w-full h-48 md:h-56 object-cover" loading="lazy" width="480" height="270">
+                        <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center group-hover:bg-opacity-20 transition-all"><div class="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center transform group-hover:scale-110 transition-all"><i class="fas fa-play text-white text-xl"></i></div></div>
+                    </div>
+                    <div class="p-5"><h3 class="font-bold text-lg text-slate-800 mb-1">Polícia Penal do Ceará (PP-CE) - Como Fui Aprovado</h3><p class="text-slate-600 text-sm">Gabriel Barbosa - Aprovado para Policial Penal do Ceará(PP-CE)</p></div>
+                    </div>
+                </div>
+
+                <div class="video-carousel-item flex-shrink-0 w-[calc(100%-2rem)] md:w-1/2 lg:w-1/3" data-video-id="c9liS9Sk6cc">
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 h-full">
+                    <div class="video-thumbnail relative cursor-pointer group" onclick="openVideoModal('c9liS9Sk6cc')">
+                        <img src="https://img.youtube.com/vi/c9liS9Sk6cc/hqdefault.jpg" 
+                            srcset="https://img.youtube.com/vi/c9liS9Sk6cc/hqdefault.jpg 480w, https://img.youtube.com/vi/c9liS9Sk6cc/mqdefault.jpg 320w"
+                            sizes="(max-width: 767px) 90vw, 33vw"
+                            alt="Depoimento Aluno DAQ: Senado Federal" class="w-full h-48 md:h-56 object-cover" loading="lazy" width="480" height="270">
+                        <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center group-hover:bg-opacity-20 transition-all"><div class="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center transform group-hover:scale-110 transition-all"><i class="fas fa-play text-white text-xl"></i></div></div>
+                    </div>
+                    <div class="p-5"><h3 class="font-bold text-lg text-slate-800 mb-1">Senado Federal - Como Fui Aprovado</h3><p class="text-slate-600 text-sm">Victor Correia - Aprovado em 44º lugar para o cargo de Analista Legislativo, Especialidade Administração do Senado Federal</p></div>
+                    </div>
+                </div>
+
+                <div class="video-carousel-item flex-shrink-0 w-[calc(100%-2rem)] md:w-1/2 lg:w-1/3" data-video-id="Z1-uV0VOk5U">
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 h-full">
+                    <div class="video-thumbnail relative cursor-pointer group" onclick="openVideoModal('Z1-uV0VOk5U')">
+                        <img src="https://img.youtube.com/vi/Z1-uV0VOk5U/hqdefault.jpg" 
+                            srcset="https://img.youtube.com/vi/Z1-uV0VOk5U/hqdefault.jpg 480w, https://img.youtube.com/vi/Z1-uV0VOk5U/mqdefault.jpg 320w"
+                            sizes="(max-width: 767px) 90vw, 33vw"
+                            alt="Depoimento Aluno DAQ: TRT-MG" class="w-full h-48 md:h-56 object-cover" loading="lazy" width="480" height="270">
+                        <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center group-hover:bg-opacity-20 transition-all"><div class="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center transform group-hover:scale-110 transition-all"><i class="fas fa-play text-white text-xl"></i></div></div>
+                    </div>
+                    <div class="p-5"><h3 class="font-bold text-lg text-slate-800 mb-1">Como Fui Aprovada - TRT-MG</h3><p class="text-slate-600 text-sm">Lorena Maia - Aprovada em 14º lugar (Negros) para o cargo de Analista Juridiário do TRT-MG</p></div>
+                    </div>
+                </div>
+
+                <div class="video-carousel-item flex-shrink-0 w-[calc(100%-2rem)] md:w-1/2 lg:w-1/3" data-video-id="s-ivfFmnGbs">
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 h-full">
+                    <div class="video-thumbnail relative cursor-pointer group" onclick="openVideoModal('s-ivfFmnGbs')">
+                        <img src="https://img.youtube.com/vi/s-ivfFmnGbs/hqdefault.jpg" 
+                            srcset="https://img.youtube.com/vi/s-ivfFmnGbs/hqdefault.jpg 480w, https://img.youtube.com/vi/s-ivfFmnGbs/mqdefault.jpg 320w"
+                            sizes="(max-width: 767px) 90vw, 33vw"
+                            alt="Depoimento Aluno DAQ: CBM-MG" class="w-full h-48 md:h-56 object-cover" loading="lazy" width="480" height="270">
+                        <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center group-hover:bg-opacity-20 transition-all"><div class="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center transform group-hover:scale-110 transition-all"><i class="fas fa-play text-white text-xl"></i></div></div>
+                    </div>
+                    <div class="p-5"><h3 class="font-bold text-lg text-slate-800 mb-1">Como Fui Aprovado - CBM-MG</h3><p class="text-slate-600 text-sm">Arthur Vieitas - Aprovado em 291º lugar para o cargo de Soldado do Corpo de Bombeiros Militar de Minas Gerais</p></div>
+                    </div>
+                </div>
+
+                <div class="video-carousel-item flex-shrink-0 w-[calc(100%-2rem)] md:w-1/2 lg:w-1/3" data-video-id="IBPbX_tK14E">
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 h-full">
+                    <div class="video-thumbnail relative cursor-pointer group" onclick="openVideoModal('IBPbX_tK14E')">
+                        <img src="https://img.youtube.com/vi/IBPbX_tK14E/hqdefault.jpg" 
+                            srcset="https://img.youtube.com/vi/IBPbX_tK14E/hqdefault.jpg 480w, https://img.youtube.com/vi/IBPbX_tK14E/mqdefault.jpg 320w"
+                            sizes="(max-width: 767px) 90vw, 33vw"
+                            alt="Depoimento Aluno DAQ: SEDUC-GO" class="w-full h-48 md:h-56 object-cover" loading="lazy" width="480" height="270">
+                        <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center group-hover:bg-opacity-20 transition-all"><div class="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center transform group-hover:scale-110 transition-all"><i class="fas fa-play text-white text-xl"></i></div></div>
+                    </div>
+                    <div class="p-5"><h3 class="font-bold text-lg text-slate-800 mb-1">Como Fui Aprovada - SEDUC-GO</h3><p class="text-slate-600 text-sm">Renata Nery - Aprovada em 2º lugar para o cargo de Pedagogo - SEDUC-GO.</p></div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="flex justify-center mt-8 space-x-3">
+                <button class="video-carousel-prev w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-amber-500 hover:bg-amber-50 transition-colors"><i class="fas fa-chevron-left"></i></button>
+                <button class="video-carousel-next w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-amber-500 hover:bg-amber-50 transition-colors"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            </div>
         </div>
-        <div class="flex gap-4">
-          <a href="https://www.instagram.com/soporquestoes/" target="_blank" rel="noopener noreferrer" class="text-xl hover:text-amber-500 transition-colors" aria-label="Instagram">
-            <i class="fab fa-instagram"></i>
-          </a>
-          <a href="https://www.youtube.com/@soporquestoes" target="_blank" rel="noopener noreferrer" class="text-xl hover:text-amber-500 transition-colors" aria-label="YouTube">
-            <i class="fab fa-youtube"></i>
-          </a>
-          <a href="https://wa.me/64999965777?text=Oi%20Kyrlla%2C%20vim%20da%20p%C3%A1gina%20de%20vendas.%20Quero%20mais%20detalhes%20do%20DAQ%20Essencial" target="_blank" rel="noopener noreferrer" class="text-xl hover:text-amber-500 transition-colors" aria-label="WhatsApp">
-            <i class="fab fa-whatsapp"></i>
-          </a>
+    </section>
+
+    <div id="videoModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black bg-opacity-80 p-4">
+        <div class="relative w-full max-w-4xl mx-4">
+            <button id="closeVideoModal" class="absolute -top-10 right-0 text-white hover:text-amber-400 text-2xl"><i class="fas fa-times"></i></button>
+            
+            <div class="aspect-video bg-black">
+                <iframe id="youtubePlayer" class="w-full h-full" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+            </div>
+
         </div>
-      </div>
     </div>
-  </footer>
 
-  <!-- Modal do Formulário (ATUALIZADO) -->
-  <div id="formModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black bg-opacity-70 transition-opacity">
-    <div class="relative bg-white rounded-xl p-8 max-w-md w-full mx-4 shadow-2xl">
-      <button onclick="fecharFormulario()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700">
-        <i class="fas fa-times text-2xl"></i>
-      </button>
-      
-      <h3 class="text-2xl font-bold text-emerald-600 mb-2">Quero o DAQ Essencial</h3>
-      <p class="text-slate-600 mb-6">Preencha para acessar o checkout</p>
-      
-      <form id="formNI" class="space-y-4">
-          <div class="form-feedback hidden"></div>
-          
-          <div>
-            <label for="nome" class="block text-sm font-medium text-slate-700 mb-1">Nome Completo</label>
-            <input type="text" id="nome" name="nome" required 
-                  class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg placeholder-slate-400 focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
-                  placeholder="Seu nome completo">
-          </div>
-          
-          <div>
-            <label for="email" class="block text-sm font-medium text-slate-700 mb-1">E-mail</label>
-            <input type="email" id="email" name="email" required 
-                  class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg placeholder-slate-400 focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
-                  placeholder="seu@email.com">
-          </div>
-          
-          <div>
-            <label for="whatsapp" class="block text-sm font-medium text-slate-700 mb-1">WhatsApp</label>
-            <input type="tel" id="whatsapp" name="whatsapp" required 
-                  class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg placeholder-slate-400 focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
-                  placeholder="(99) 99999-9999"
-                  oninput="formatarTelefone(this)">
-          </div>
-          
-          <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-300">
-            <i class="fas fa-paper-plane mr-2"></i> Quero o DAQ Essencial
-          </button>
-          
-          <p class="text-xs text-slate-500 text-center">
-            Ao informar meus dados, concordo com a <a href="#" class="text-emerald-600 hover:underline">Política de Privacidade</a>.
-          </p>
-      </form>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const track = document.getElementById('videoTrack');
+        if (!track) return;
+        const items = document.querySelectorAll('.video-carousel-item');
+        const prevBtn = document.querySelector('.video-carousel-prev');
+        const nextBtn = document.querySelector('.video-carousel-next');
+        let currentIndex = 0, itemsPerView = 1, itemWidth = 0;
+        function updateResponsiveSettings() {
+        const w = window.innerWidth;
+        itemsPerView = (w >= 1024) ? 3 : (w >= 768) ? 2 : 1;
+        const containerWidth = track.parentElement.offsetWidth;
+        itemWidth = containerWidth / itemsPerView;
+        items.forEach(item => item.style.width = `${itemWidth - (w < 768 ? 32 : 16)}px`); // Adjust for gap
+        }
+        function updateCarousel() { track.style.transform = `translateX(-${currentIndex * itemWidth}px)`; }
+        function goToNext() { currentIndex = (currentIndex < items.length - itemsPerView) ? currentIndex + 1 : 0; updateCarousel(); }
+        function goToPrev() { currentIndex = (currentIndex > 0) ? currentIndex - 1 : Math.max(0, items.length - itemsPerView); updateCarousel(); }
+        updateResponsiveSettings(); updateCarousel();
+        nextBtn.addEventListener('click', goToNext); prevBtn.addEventListener('click', goToPrev);
+        window.addEventListener('resize', () => { updateResponsiveSettings(); updateCarousel(); });
+    });
+    </script>
+    
+    <section class="py-16 bg-gradient-to-r from-amber-50 to-orange-50">
+        <div class="max-w-5xl mx-auto px-6">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-amber-600 mb-2"><i class="fas fa-fire mr-2"></i> Pra quem é o DAQ Essencial?</h2>
+            <p class="text-slate-700 max-w-2xl mx-auto">Se você se identifica com algum desses pontos, o método foi feito para você</p>
+        </div>
+        <div class="grid md:grid-cols-2 gap-6">
+            <ul class="space-y-4">
+            <li class="flex items-start gap-3 bg-white p-4 rounded-lg shadow-sm"><span class="text-amber-500 text-xl mt-1"><i class="fas fa-check"></i></span><span class="text-slate-700">Pra quem estuda há anos e continua travado</span></li>
+            <li class="flex items-start gap-3 bg-white p-4 rounded-lg shadow-sm"><span class="text-amber-500 text-xl mt-1"><i class="fas fa-check"></i></span><span class="text-slate-700">Pra quem acerta pouco mesmo estudando muito</span></li>
+            </ul>
+            <ul class="space-y-4">
+            <li class="flex items-start gap-3 bg-white p-4 rounded-lg shadow-sm"><span class="text-amber-500 text-xl mt-1"><i class="fas fa-check"></i></span><span class="text-slate-700">Pra quem já entendeu que o problema não é o concurso: é o método</span></li>
+            <li class="flex items-start gap-3 bg-white p-4 rounded-lg shadow-sm"><span class="text-amber-500 text-xl mt-1"><i class="fas fa-check"></i></span><span class="text-slate-700">Pra quem quer estudar com raciocínio, não com decoreba</span></li>
+            </ul>
+        </div>
+        </div>
+    </section>
+    <section class="py-16 bg-gradient-to-r from-amber-50 to-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+            <div class="md:w-2/5 lg:w-1/3 text-center px-4">
+                <div class="relative inline-block">
+                <img src="img/Kyrlla-2.webp" alt="Kyrlla Pattyelly - Mentora especializada em preparação para concursos" class="w-full max-w-md rounded-2xl shadow-xl border-4 border-white" loading="lazy" width="450" height="560" style="min-width: 280px;">
+                <div class="absolute -bottom-4 -right-4 bg-amber-500 text-white font-bold py-2 px-4 rounded-lg shadow-lg"><i class="fas fa-medal mr-1"></i> Auditora Fiscal</div>
+                </div>
+            </div>
+            <div class="md:w-2/3">
+                <span class="inline-block text-sm font-semibold text-amber-600 uppercase tracking-widest mb-2"><i class="fas fa-user-graduate mr-1"></i> CONHEÇA A FUNDADORA</span>
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">A mente por trás do método que transformou centenas de concurseiros</h2>
+                <p class="text-lg text-slate-700 mb-6">Kyrlla Pattyelly é Auditora Fiscal, mentora e ex-concurseira que transformou sua jornada de desafios em um método eficiente de estudo por questões.</p>
+                <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-emerald-500 mb-6">
+                <p class="text-slate-700 italic mb-4">"Sabe aquela sensação de estudar horas e não ver resultado? Eu vivi isso na pele. Depois de anos enfrentando a pressão dos concursos, descobri que o segredo estava na <strong class="font-semibold">forma</strong> de estudar, não apenas no tempo dedicado."</p>
+                <p class="text-slate-700">Essa percepção deu origem ao <strong class="text-amber-600">Método SPQ</strong>, um sistema baseado em prática inteligente, análise estatística e constância - tudo que eu gostaria de ter conhecido quando comecei.</p>
+                </div>
+                <div class="grid sm:grid-cols-3 gap-4">
+                <div class="bg-white p-4 rounded-lg shadow-sm text-center"><span class="block text-2xl font-bold text-amber-600">+5</span><span class="text-sm text-slate-600">anos transformando a vida de concurseiros</span></div>
+                <div class="bg-white p-4 rounded-lg shadow-sm text-center"><span class="block text-2xl font-bold text-amber-600">1.000+</span><span class="text-sm text-slate-600">alunos mentorados</span></div>
+                <div class="bg-white p-4 rounded-lg shadow-sm text-center"><span class="block text-2xl font-bold text-amber-600">100%</span><span class="text-sm text-slate-600">comprometida com seu sucesso</span></div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </section>
+    <section id="checkout" class="py-16 bg-emerald-50">
+        <div class="max-w-4xl mx-auto px-6">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-slate-900 mb-2"><i class="fas fa-tag text-emerald-600 mr-2"></i> Investimento</h2>
+            <p class="text-slate-600 max-w-2xl mx-auto">Um método que muda a sua lógica de estudo pra sempre</p>
+        </div>
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+            <div class="bg-white p-8 rounded-2xl shadow-lg border-2 border-emerald-200 text-center relative">
+            <span class="absolute -top-3 -right-3 bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full animate-pulse">7 dias de garantia</span>
+            <h3 class="text-xl font-bold text-slate-800 mb-4">DAQ Essencial</h3>
+            <p class="text-5xl font-bold text-emerald-600 mb-2 font-poppins">R$ 497</p>
+            <p class="text-slate-500 mb-2">/ano</p>
+            <p class="text-lg text-slate-600 mb-4">ou 12x de R$ 51,40</p>
+            <ul class="space-y-3 text-left text-slate-700 mb-8">
+                <li class="flex items-start gap-2"><i class="fas fa-check text-emerald-500 mt-1"></i><span>Método SPQ completo</span></li>
+                <li class="flex items-start gap-2"><i class="fas fa-check text-emerald-500 mt-1"></i><span>Aulas sobre como usar IA</span></li>
+                <li class="flex items-start gap-2"><i class="fas fa-check text-emerald-500 mt-1"></i><span>Comunidade de alunos</span></li>
+                <li class="flex items-start gap-2"><i class="fas fa-check text-emerald-500 mt-1"></i><span>7 dias de garantia</span></li>
+            </ul>
+            <a href="#" class="js-open-form inline-block w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg shadow-emerald-500/20 transition-all transform hover:scale-105"><i class="fas fa-trophy mr-2"></i> Quero meu plano de aprovação hoje</a>
+            </div>
+            <div>
+            <h4 class="text-xl font-semibold text-amber-600 mb-4 flex items-center"><i class="fas fa-gift mr-2"></i> Bônus especiais:</h4>
+            <div class="space-y-4">
+                <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-100"><h5 class="font-semibold text-slate-800 flex items-center gap-2"><i class="fas fa-map-marked-alt text-amber-500"></i> Mini Treinamento</h5><p class="text-sm text-slate-600 mt-1">Mapa de Interpretação de Questões</p></div>
+                <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-100"><h5 class="font-semibold text-slate-800 flex items-center gap-2"><i class="fas fa-tasks text-amber-500"></i> Checklist Exclusivo</h5><p class="text-sm text-slate-600 mt-1">Os 7 erros que sabotam sua lógica de prova</p></div>
+                <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-100"><h5 class="font-semibold text-slate-800 flex items-center gap-2"><i class="fas fa-star text-amber-500"></i> Acesso Prioritário</h5><p class="text-sm text-slate-600 mt-1">Às vagas da mentoria SPQ</p></div>
+            </div>
+            </div>
+        </div>
+        <div class="mt-8 text-center text-sm text-slate-500"><i class="fas fa-lock mr-1"></i> Pagamento 100% seguro • Renovação automática • Suporte em até 24h</div>
+        </div>
+    </section>
+    <section class="py-16 bg-white">
+        <div class="max-w-4xl mx-auto px-6">
+        <div class="bg-slate-50 p-8 rounded-xl border border-slate-200">
+            <div class="flex flex-col md:flex-row items-center gap-8">
+            <div class="md:w-1/3 text-center"><div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-emerald-100 text-emerald-600 text-3xl"><i class="fas fa-shield-alt"></i></div></div>
+            <div class="md:w-2/3 text-center md:text-left">
+                <h2 class="text-2xl font-bold text-slate-900 mb-2"><i class="fas fa-sync-alt text-emerald-500 mr-2"></i> Garantia de satisfação</h2>
+                <p class="text-slate-600">Você tem 7 dias pra testar o DAQ. Se não curtir, basta um clique e devolvemos seu dinheiro. Sem perguntas. Sem ressentimentos.</p>
+                <p class="text-sm text-slate-500 mt-4"><i class="fas fa-info-circle mr-1"></i> Risco zero para você</p>
+            </div>
+            </div>
+        </div>
+        </div>
+    </section>
+    <section class="py-16 bg-slate-50" id="faq">
+        <div class="max-w-4xl mx-auto px-6">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-slate-900 mb-2"><i class="fas fa-question-circle text-amber-500 mr-2"></i> Perguntas frequentes</h2>
+            <p class="text-slate-600 max-w-2xl mx-auto">Tire suas dúvidas sobre o DAQ Essencial</p>
+        </div>
+        <div class="space-y-4">
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+            <button class="faq-button flex justify-between items-center w-full text-left">
+                <h4 class="font-semibold text-lg text-slate-800">Como funciona o acesso ao conteúdo?</h4>
+                <i class="fas fa-chevron-down text-amber-500 transition-transform"></i>
+            </button>
+            <div class="faq-content mt-4 text-slate-600 overflow-hidden"><p>Após a confirmação do pagamento, você receberá acesso imediato à plataforma com todo o material, incluindo a aula gravada, materiais de apoio e orientações para começar.</p></div>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+            <button class="faq-button flex justify-between items-center w-full text-left">
+                <h4 class="font-semibold text-lg text-slate-800">Preciso assinar a plataforma TEC Concursos?</h4>
+                <i class="fas fa-chevron-down text-amber-500 transition-transform"></i>
+            </button>
+            <div class="faq-content mt-4 text-slate-600 overflow-hidden"><p>Sim, o método foi desenvolvido para ser aplicado usando a plataforma TEC Concursos, que é a mais completa para estudos por questões. O DAQ Essencial não inclui a assinatura do TEC, mas te ensina a usá-lo com máxima eficiência.</p></div>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+            <button class="faq-button flex justify-between items-center w-full text-left">
+                <h4 class="font-semibold text-lg text-slate-800">O método serve para qualquer concurso?</h4>
+                <i class="fas fa-chevron-down text-amber-500 transition-transform"></i>
+            </button>
+            <div class="faq-content mt-4 text-slate-600 overflow-hidden"><p>Sim! O DAQ Essencial é um método universal de estudo por questões que pode ser aplicado a qualquer concurso público. As técnicas são adaptáveis a todas as áreas e níveis de concursos.</p></div>
+            </div>
+        </div>
+        </div>
+    </section>
+    <section class="py-16 bg-gradient-to-b from-slate-50 to-white">
+        <div class="max-w-2xl mx-auto px-6 text-center">
+        <h2 class="text-3xl font-bold text-slate-900 mb-4"><i class="fas fa-calendar-check text-amber-500 mr-2"></i> A mudança começa agora</h2>
+        <p class="text-lg text-slate-600 mb-8">Pronto pra parar de estudar como todo mundo estuda... e começar a estudar como quem vai passar?</p>
+        <a href="#" class="js-open-form inline-block bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 px-8 rounded-lg shadow-lg shadow-emerald-500/30 transition-all transform hover:scale-105"><i class="fas fa-flag-checkered mr-2"></i> Quero minha vaga na próxima aprovação</a>
+        </div>
+    </section>
+    <footer class="py-8 bg-slate-900 text-slate-400">
+        <div class="max-w-6xl mx-auto px-6">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-4 md:mb-0">
+            <p class="text-sm"><i class="fas fa-copyright mr-1"></i> 2025 DAQ Essencial. Todos os direitos reservados.</p>
+            <p class="mt-6 text-sm text-slate-500">*Kyrlla Pattyelly* – Auditora Fiscal • Criadora do SPQ • Mentora de milhares de aprovados</p>
+            </div>
+            <div class="flex gap-4">
+            <a href="https://www.instagram.com/soporquestoes/" target="_blank" rel="noopener noreferrer" class="text-xl hover:text-amber-500 transition-colors" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.youtube.com/@soporquestoes" target="_blank" rel="noopener noreferrer" class="text-xl hover:text-amber-500 transition-colors" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="https://wa.me/64999965777?text=Oi%20Kyrlla%2C%20vim%20da%20p%C3%A1gina%20de%20vendas.%20Quero%20mais%20detalhes%20do%20DAQ%20Essencial" target="_blank" rel="noopener noreferrer" class="text-xl hover:text-amber-500 transition-colors" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+        </div>
+    </footer>
+    <div id="formModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black bg-opacity-70 transition-opacity">
+        <div class="relative bg-white rounded-xl p-8 max-w-md w-full mx-4 shadow-2xl">
+        <button class="js-close-form absolute top-4 right-4 text-slate-400 hover:text-slate-700"><i class="fas fa-times text-2xl"></i></button>
+        <h3 class="text-2xl font-bold text-emerald-600 mb-2">Quero o DAQ Essencial</h3>
+        <p class="text-slate-600 mb-6">Preencha para acessar o checkout</p>
+        <form id="formNI" class="space-y-4">
+            <div class="form-feedback hidden"></div>
+            <div><label for="nome" class="block text-sm font-medium text-slate-700 mb-1">Nome Completo</label><input type="text" id="nome" name="nome" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg placeholder-slate-400 focus:ring-2 focus:ring-emerald-500 focus:border-transparent" placeholder="Seu nome completo"></div>
+            <div><label for="email" class="block text-sm font-medium text-slate-700 mb-1">E-mail</label><input type="email" id="email" name="email" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg placeholder-slate-400 focus:ring-2 focus:ring-emerald-500 focus:border-transparent" placeholder="seu@email.com"></div>
+            <div><label for="whatsapp" class="block text-sm font-medium text-slate-700 mb-1">WhatsApp</label><input type="tel" id="whatsapp" name="whatsapp" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg placeholder-slate-400 focus:ring-2 focus:ring-emerald-500 focus:border-transparent" placeholder="(99) 99999-9999" oninput="formatarTelefone(this)"></div>
+            <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-300"><i class="fas fa-paper-plane mr-2"></i> Quero o DAQ Essencial</button>
+            <p class="text-xs text-slate-500 text-center">Ao informar meus dados, concordo com a <a href="#" class="text-emerald-600 hover:underline">Política de Privacidade</a>.</p>
+        </form>
+        </div>
     </div>
-  </div>
 
-  <!-- Scripts no final do body com defer -->
-  <script src="https://cdn.tailwindcss.com" defer></script>
-  <script src="main.js" defer></script>
-  
-  <!-- Carregar Swiper apenas quando necessário -->
-  <script>
-    document.addEventListener('scroll', function() {
-      if(window.scrollY > 500) {
-        var script = document.createElement('script');
-        script.src = 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js';
-        script.onload = function() {
-          new Swiper(".mySwiper", {
-            slidesPerView: 1,
-            spaceBetween: 20,
-            pagination: { el: ".swiper-pagination", clickable: true },
-            autoplay: { delay: 5000, disableOnInteraction: false },
-            breakpoints: {
-              768: { slidesPerView: 2, spaceBetween: 30 },
-              1024: { slidesPerView: 3, spaceBetween: 30 }
+    <script src="main.js" defer></script>
+    
+    <script>
+        // Carregamento adiado para o Swiper (carrossel de depoimentos)
+        const depoimentosSection = document.querySelector('.depoimentos-section');
+        const observer = new IntersectionObserver((entries, observer) => {
+            if (entries[0].isIntersecting) {
+                var script = document.createElement('script');
+                script.src = 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js';
+                script.onload = function() {
+                new Swiper(".mySwiper", { slidesPerView: 1, spaceBetween: 20, pagination: { el: ".swiper-pagination", clickable: true }, autoplay: { delay: 5000 }, breakpoints: { 768: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } } });
+                };
+                document.body.appendChild(script);
+                observer.disconnect(); // Carrega apenas uma vez
             }
-          });
-        };
-        document.body.appendChild(script);
-        this.removeEventListener('scroll', arguments.callee);
-      }
-    }, { once: true, passive: true });
-  </script>
-  
-  <!-- Google Analytics com carregamento otimizado -->
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'AW-583505601', { transport_type: 'beacon' });
-  </script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-583505601"></script>
+        }, { rootMargin: '200px' });
+        if(depoimentosSection) observer.observe(depoimentosSection);
+    </script>
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-583505601"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'AW-583505601', { transport_type: 'beacon' });
+    </script>
 </body>
 </html>

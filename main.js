@@ -1,12 +1,11 @@
-// main.js - versão ultra-otimizada para mobile
-
+// main.js - versão ultra-otimizada para mobile com correções
 (function() {
   'use strict';
 
   // 1. Gerenciamento de recursos
   function loadResources() {
-    // Carregar Font Awesome se necessário
-    if (!document.fonts.check('1em FontAwesome')) {
+    // Carregar Font Awesome se necessário (COM CORREÇÃO)
+    if (!(document.fonts.check('1em FontAwesome') || document.fonts.check('1em "Font Awesome 6 Free"'))) {
       const fa = document.createElement('link');
       fa.rel = 'stylesheet';
       fa.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css';
@@ -44,46 +43,58 @@
     images.forEach(img => imageObserver.observe(img));
   }
 
-  // 4. Gerenciamento de modais otimizado
-function initModals() {
-  // Modal do formulário
-  window.mostrarFormulario = function(e) {
-    if (e) e.preventDefault(); // Previne comportamento padrão
+  // 4. Gerenciamento de modais otimizado (VERSÃO CORRIGIDA)
+  function initModals() {
     const modal = document.getElementById('formModal');
-    if (modal) {
+    if (!modal) return; // Se o modal não existir, não faz nada
+
+    const openButtons = document.querySelectorAll('.js-open-form');
+    const closeButton = modal.querySelector('.js-close-form');
+
+    // Função para abrir o modal
+    const mostrarFormulario = function(e) {
+      if (e) e.preventDefault();
       modal.classList.remove('hidden');
       document.body.style.overflow = 'hidden';
-      // Foca no primeiro campo do formulário
       const firstInput = modal.querySelector('input');
       if (firstInput) firstInput.focus();
-    }
-    return false; // Previne comportamento padrão do link
-  };
+    };
 
-  window.fecharFormulario = function(e) {
-    if (e) e.preventDefault();
-    const modal = document.getElementById('formModal');
-    if (modal) {
+    // Função para fechar o modal
+    const fecharFormulario = function(e) {
+      if (e) e.preventDefault();
       modal.classList.add('hidden');
       document.body.style.overflow = '';
-    }
-    return false;
-  };
+    };
 
-  // Fechar ao clicar fora (melhorado para mobile)
-  document.addEventListener('click', function(e) {
-    const modal = document.getElementById('formModal');
-    if (e.target === modal) {
-      fecharFormulario(e);
-    }
-  }, { passive: true });
+    // === INÍCIO DA CORREÇÃO PARA MOBILE ===
+    // Adiciona evento de 'click' E 'touchstart' para máxima compatibilidade
+    openButtons.forEach(btn => {
+      ['click', 'touchstart'].forEach(eventType => {
+        btn.addEventListener(eventType, mostrarFormulario);
+      });
+    });
+    // === FIM DA CORREÇÃO PARA MOBILE ===
 
-  // Adiciona event listeners para todos os botões CTA
-  document.querySelectorAll('[onclick*="mostrarFormulario"]').forEach(btn => {
-    btn.addEventListener('click', mostrarFormulario, { passive: false });
-    btn.addEventListener('touchstart', mostrarFormulario, { passive: false });
-  });
-}
+    // Adiciona evento para o botão de fechar
+    if (closeButton) {
+      closeButton.addEventListener('click', fecharFormulario);
+    }
+
+    // Fechar ao clicar na área externa (fundo) do modal
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) {
+        fecharFormulario(e);
+      }
+    });
+    
+    // Bônus: Fechar com a tecla 'Escape'
+    document.addEventListener('keydown', function(e) {
+        if (e.key === "Escape" && !modal.classList.contains('hidden')) {
+            fecharFormulario();
+        }
+    });
+  }
 
   // 5. Formulário otimizado
   function initForm() {
@@ -97,13 +108,13 @@ function initModals() {
       const data = {
         nome: formData.get('nome'),
         email: formData.get('email'),
-        whatsapp: formatarTelefone(formData.get('whatsapp'))
+        whatsapp: formData.get('whatsapp') // A formatação será feita no backend ou antes do envio
       };
 
       // Validação simples
       if (data.nome.length < 3) return showFeedback('Nome muito curto');
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) return showFeedback('E-mail inválido');
-      if (data.whatsapp.replace(/\D/g,'').length < 11) return showFeedback('Telefone incompleto');
+      if (data.whatsapp.replace(/\D/g,'').length < 10) return showFeedback('Telefone inválido');
 
       // Envio otimizado
       try {
@@ -115,23 +126,44 @@ function initModals() {
         
         if (response.ok) {
           window.location.href = `https://pay.hotmart.com/K70495535U?checkoutMode=1011&name=${encodeURIComponent(data.nome)}&email=${encodeURIComponent(data.email)}`;
+        } else {
+          showFeedback('Erro no servidor, tente novamente');
         }
       } catch (error) {
-        showFeedback('Erro ao enviar, tente novamente');
+        showFeedback('Erro ao enviar, verifique sua conexão');
       }
     });
-
-    function formatarTelefone(tel) {
-      const nums = tel.replace(/\D/g,'');
-      return nums.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
-    }
+    
+    // Função global para formatação do telefone no input
+    window.formatarTelefone = function(input) {
+        let value = input.value.replace(/\D/g, '');
+        value = value.substring(0, 11); // Limita a 11 dígitos
+        if (value.length > 10) {
+            value = value.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+        } else if (value.length > 5) {
+            value = value.replace(/(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
+        } else if (value.length > 2) {
+            value = value.replace(/(\d{2})(\d{0,5})/, '($1) $2');
+        } else {
+            value = value.replace(/(\d*)/, '($1');
+        }
+        input.value = value;
+    };
 
     function showFeedback(msg) {
-      const feedback = document.createElement('div');
-      feedback.className = 'form-feedback';
-      feedback.textContent = msg;
-      form.prepend(feedback);
-      setTimeout(() => feedback.remove(), 3000);
+        let feedback = form.querySelector('.form-feedback');
+        if (!feedback) {
+            feedback = document.createElement('div');
+            feedback.className = 'form-feedback';
+            form.prepend(feedback);
+        }
+        feedback.textContent = msg;
+        feedback.style.color = 'red'; // Exemplo de estilo
+        feedback.classList.remove('hidden');
+
+        setTimeout(() => {
+            if(feedback) feedback.remove();
+        }, 3000);
     }
   }
 
@@ -142,167 +174,122 @@ function initModals() {
 
     // Inicializações prioritárias
     initScrollProgress();
-    initModals();
+    initModals(); // Função corrigida
     initForm();
 
-    // Carregar recursos não críticos após 1s
+    // Carregar recursos não críticos após um pequeno atraso
     setTimeout(() => {
       loadResources();
       lazyLoadImages();
-    }, 1000);
+    }, 500);
+    
+    // Inicializar outros componentes que dependem de visibilidade
+    initDepoimentosCarousel();
+    initFAQ();
   });
 
   
-  // Adicione este código ao seu main.js
+  function initDepoimentosCarousel() {
+    const track = document.querySelector('.depoimentos-track');
+    if (!track || track.children.length === 0) return;
 
-function initDepoimentosCarousel() {
-  const track = document.querySelector('.depoimentos-track');
-  if (!track) return;
+    let currentIndex = 0;
+    let slidesPerView = 1;
+    let totalSlides = track.children.length;
 
-  // Configurações responsivas
-  let slidesPerView = 1;
-  let slideWidth = 0;
-  
-  function updateCarousel() {
-    // Atualiza slides visíveis baseado na largura da tela
-    if (window.innerWidth >= 1024) {
-      slidesPerView = 3;
-    } else if (window.innerWidth >= 768) {
-      slidesPerView = 2;
-    } else {
-      slidesPerView = 1;
-    }
-    
-    slideWidth = track.children[0].offsetWidth;
-    updateIndicators();
-  }
-
-  // Lazy load para imagens
-  function lazyLoadDepoimentoImages() {
-    const images = track.querySelectorAll('img[loading="lazy"]');
-    images.forEach(img => {
-      if (img.getAttribute('data-src')) {
-        img.src = img.getAttribute('data-src');
-      }
-    });
-  }
-
-  // Atualiza indicadores
-  function updateIndicators() {
-    const indicators = document.querySelectorAll('.depoimento-indicador');
-    if (!indicators.length) return;
-    
-    const totalGroups = Math.ceil(track.children.length / slidesPerView);
-    indicators.forEach((indicator, i) => {
-      indicator.style.display = i < totalGroups ? 'block' : 'none';
-    });
-  }
-
-  // Navegação
-  function setupNavigation() {
     const prevBtn = document.querySelector('.depoimento-prev');
     const nextBtn = document.querySelector('.depoimento-next');
-    
-    if (prevBtn) {
-      prevBtn.addEventListener('click', () => {
-        currentIndex = Math.max(0, currentIndex - slidesPerView);
-        updateCarouselPosition();
-      });
+    const indicatorsContainer = document.querySelector('.depoimentos-section .flex.justify-center');
+
+    function updateCarouselState() {
+        const screenWidth = window.innerWidth;
+        if (screenWidth >= 1024) {
+            slidesPerView = 3;
+        } else if (screenWidth >= 768) {
+            slidesPerView = 2;
+        } else {
+            slidesPerView = 1;
+        }
+
+        const slideWidth = track.parentElement.offsetWidth / slidesPerView;
+        track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+
+        // Atualizar botões
+        if(prevBtn) prevBtn.disabled = currentIndex === 0;
+        if(nextBtn) nextBtn.disabled = currentIndex >= totalSlides - slidesPerView;
     }
     
     if (nextBtn) {
-      nextBtn.addEventListener('click', () => {
-        currentIndex = Math.min(
-          track.children.length - slidesPerView, 
-          currentIndex + slidesPerView
-        );
-        updateCarouselPosition();
-      });
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < totalSlides - slidesPerView) {
+                currentIndex++;
+                updateCarouselState();
+            }
+        });
     }
-  }
 
-  function updateCarouselPosition() {
-    track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
-    updateIndicators();
-  }
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateCarouselState();
+            }
+        });
+    }
 
-  // Inicialização
-  let currentIndex = 0;
-  updateCarousel();
-  lazyLoadDepoimentoImages();
-  setupNavigation();
-  
-  // Atualizar ao redimensionar
-  window.addEventListener('resize', () => {
-    updateCarousel();
-  }, { passive: true });
-}
-
-  // Chamar a função quando a seção estiver visível
-  const depoimentosObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        initDepoimentosCarousel();
-        depoimentosObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 });
-
-  const depoimentosSection = document.querySelector('.depoimentos-section');
-  if (depoimentosSection) {
-    depoimentosObserver.observe(depoimentosSection);
+    window.addEventListener('resize', updateCarouselState, { passive: true });
+    updateCarouselState(); // Chamar na inicialização
   }
 
   function initFAQ() {
-  const faqItems = document.querySelectorAll('.faq-content');
-  if (!faqItems.length) return;
+    const faqContainer = document.querySelector('#faq');
+    if (!faqContainer) return;
 
-  // Delegation de eventos para melhor performance
-  document.addEventListener('click', function(e) {
-    const button = e.target.closest('[onclick*="toggleFAQ"]');
-    if (button) {
-      e.preventDefault();
-      const faqItem = button.parentElement;
-      const content = faqItem.querySelector('.faq-content');
-      const icon = button.querySelector('i');
+    // Usar delegação de eventos para performance
+    faqContainer.addEventListener('click', function(e) {
+      const button = e.target.closest('.faq-button');
+      if (!button) return; // Se não clicou em um botão, não faz nada
+
+      const content = button.nextElementSibling;
+      const icon = button.querySelector('i.fas');
       
-      // Alternar estado
-      const isOpening = !content.classList.contains('active');
-      
-      // Fechar todos os outros itens primeiro
-      if (isOpening) {
-        document.querySelectorAll('.faq-content.active').forEach(item => {
-          item.classList.remove('active');
-          item.previousElementSibling.querySelector('i').classList.remove('rotate-180');
-        });
-      }
-      
-      // Alternar o item atual
-      content.classList.toggle('active');
-      icon.classList.toggle('rotate-180');
-      
-      // Animar suavemente
+      if (!content || !icon) return; // Garante que os elementos existem
+
+      const isOpening = content.style.maxHeight === '0px' || !content.style.maxHeight;
+
+      // Fecha todos os outros itens do FAQ antes de abrir o novo
+      faqContainer.querySelectorAll('.faq-content').forEach(item => {
+        if (item !== content) {
+          item.style.maxHeight = '0';
+          const otherIcon = item.previousElementSibling.querySelector('i.fas');
+          if (otherIcon) {
+            otherIcon.classList.remove('rotate-180');
+          }
+        }
+      });
+
+      // Abre ou fecha o item clicado
       if (isOpening) {
         content.style.maxHeight = content.scrollHeight + 'px';
+        icon.classList.add('rotate-180');
       } else {
         content.style.maxHeight = '0';
+        icon.classList.remove('rotate-180');
       }
-    }
-  }, { passive: true });
-}
+    });
 
-// Inicializar quando a seção FAQ estiver visível
-const faqObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      initFAQ();
-      faqObserver.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.1 });
+    // Garante que todos comecem fechados
+    faqContainer.querySelectorAll('.faq-content').forEach(item => {
+      item.style.maxHeight = '0';
+    });
+  
 
-const faqSection = document.querySelector('#faq');
-if (faqSection) {
-  faqObserver.observe(faqSection);
-}
+    // Ajusta o max-height inicial para '0' para garantir que a transição funcione
+    document.querySelectorAll('.faq-content').forEach(item => {
+      item.style.maxHeight = '0';
+      item.style.overflow = 'hidden';
+      item.style.transition = 'max-height 0.3s ease-out';
+    });
+  }
+
 })();

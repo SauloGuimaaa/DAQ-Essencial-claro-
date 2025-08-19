@@ -1,6 +1,13 @@
-/* styles.css - versão completa otimizada com Tailwind essencial */
+/* styles.css - Versão Final com todas as classes e correções */
 
-/* 1. Base e Reset */
+/* 1. Reset e Estilos Base */
+:root {
+  color-scheme: light;
+  --tw-bg-slate-50: #f8fafc;
+  --tw-text-slate-900: #1e293b;
+  --tw-font-inter: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
 *,
 ::before,
 ::after {
@@ -15,463 +22,357 @@ html {
   -webkit-text-size-adjust: 100%;
   -moz-tab-size: 4;
   tab-size: 4;
-  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  font-family: var(--tw-font-inter);
 }
 
 body {
   margin: 0;
   line-height: inherit;
-  background-color: #f8fafc;
-  color: #1e293b;
+  background-color: var(--tw-bg-slate-50);
+  color: var(--tw-text-slate-900);
+  scroll-behavior: smooth;
 }
 
-/* 2. Container e Layout */
-.container {
-  width: 100%;
-  margin-right: auto;
-  margin-left: auto;
-  padding-right: 1rem;
-  padding-left: 1rem;
+/* 2. Layout, Container e Espaçamento (sem alterações) */
+.container { width: 100%; margin-right: auto; margin-left: auto; padding-right: 1rem; padding-left: 1rem; }
+.max-w-2xl { max-width: 42rem; }
+.max-w-4xl { max-width: 56rem; }
+.max-w-5xl { max-width: 64rem; }
+.max-w-6xl { max-width: 72rem; }
+.max-w-7xl { max-width: 80rem; }
+.max-w-lg { max-width: 32rem; }
+.max-w-md { max-width: 28rem; }
+.mx-auto { margin-left: auto; margin-right: auto; }
+.mx-4 { margin-left: 1rem; margin-right: 1rem; }
+.m-1 { margin: 0.25rem; }
+.p-4 { padding: 1rem; }
+.p-5 { padding: 1.25rem; }
+.p-6 { padding: 1.5rem; }
+.p-8 { padding: 2rem; }
+.px-2 { padding-left: 0.5rem; padding-right: 0.5rem; }
+.py-1 { padding-top: 0.25rem; padding-bottom: 0.25rem; }
+.px-3 { padding-left: 0.75rem; padding-right: 0.75rem; }
+.px-4 { padding-left: 1rem; padding-right: 1rem; }
+.py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+.py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+.py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+.px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+.px-8 { padding-left: 2rem; padding-right: 2rem; }
+.py-8 { padding-top: 2rem; padding-bottom: 2rem; }
+.py-16 { padding-top: 4rem; padding-bottom: 4rem; }
+.pt-4 { padding-top: 1rem; }
+.pl-4 { padding-left: 1rem; }
+.mb-1 { margin-bottom: 0.25rem; }
+.mb-2 { margin-bottom: 0.5rem; }
+.mb-3 { margin-bottom: 0.75rem; }
+.mb-4 { margin-bottom: 1rem; }
+.mb-6 { margin-bottom: 1.5rem; }
+.mb-8 { margin-bottom: 2rem; }
+.mb-12 { margin-bottom: 3rem; }
+.mt-1 { margin-top: 0.25rem; }
+.mt-2 { margin-top: 0.5rem; }
+.mt-4 { margin-top: 1rem; }
+.mt-6 { margin-top: 1.5rem; }
+.mt-8 { margin-top: 2rem; }
+.mt-12 { margin-top: 3rem; }
+.mr-1 { margin-right: 0.25rem; }
+.mr-2 { margin-right: 0.5rem; }
+.mr-3 { margin-right: 0.75rem; }
+.ml-2 { margin-left: 0.5rem; }
+.overflow-hidden { overflow: hidden; }
+
+/* 3. Display, Posição e Z-Index (sem alterações) */
+.hidden { display: none; }
+.block { display: block; }
+.inline-block { display: inline-block; }
+.flex { display: flex; }
+.inline-flex { display: inline-flex; }
+.grid { display: grid; }
+.relative { position: relative; }
+.absolute { position: absolute; }
+.fixed { position: fixed; }
+.inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+.top-4 { top: 1rem; }
+.right-0 { right: 0; }
+.right-4 { right: 1rem; }
+.bottom-0 { bottom: 0; }
+.bottom-6 { bottom: 1.5rem; }
+.left-0 { left: 0; }
+.-top-3 { top: -0.75rem; }
+.-right-3 { right: -0.75rem; }
+.-top-4 { top: -1rem; }
+.-right-4 { right: -1rem; }
+.-bottom-4 { bottom: -1rem; }
+.-left-4 { left: -1rem; }
+.z-10 { z-index: 10; }
+.z-40 { z-index: 40; }
+.z-50 { z-index: 50; }
+
+/* 4. Flexbox e Grid (sem alterações) */
+.items-center { align-items: center; }
+.items-start { align-items: flex-start; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.flex-col { flex-direction: column; }
+.flex-wrap { flex-wrap: wrap; }
+.flex-shrink-0 { flex-shrink: 0; }
+.gap-2 { gap: 0.5rem; }
+.gap-3 { gap: 0.75rem; }
+.gap-4 { gap: 1rem; }
+.gap-6 { gap: 1.5rem; }
+.gap-8 { gap: 2rem; }
+.gap-12 { gap: 3rem; }
+.space-y-3 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.75rem; }
+.space-y-4 > :not([hidden]) ~ :not([hidden]) { margin-top: 1rem; }
+.space-x-3 > :not([hidden]) ~ :not([hidden]) { margin-left: 0.75rem; }
+
+/* 5. Dimensionamento (Width e Height) (sem alterações) */
+.w-full { width: 100%; }
+.w-10 { width: 2.5rem; }
+.w-12 { width: 3rem; }
+.w-16 { width: 4rem; }
+.w-20 { width: 5rem; }
+.w-32 { width: 8rem; }
+.h-6 { height: 1.5rem; }
+.h-10 { height: 2.5rem; }
+.h-12 { height: 3rem; }
+.h-16 { height: 4rem; }
+.h-20 { height: 5rem; }
+.h-32 { height: 8rem; }
+.h-48 { height: 12rem; }
+.h-96 { height: 24rem; }
+.h-full { height: 100%; }
+.object-cover { object-fit: cover; }
+.object-contain { object-fit: contain; }
+.max-h-\[90vh\] { max-height: 90vh; }
+
+/* 6. Tipografia (sem alterações) */
+.font-sans { font-family: var(--tw-font-inter); }
+.text-xs { font-size: 0.75rem; line-height: 1rem; }
+.text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+.text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+.text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+.text-2xl { font-size: 1.5rem; line-height: 2rem; }
+.text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
+.text-4xl { font-size: 2.25rem; line-height: 2.5rem; }
+.font-medium { font-weight: 500; }
+.font-semibold { font-weight: 600; }
+.font-bold { font-weight: 700; }
+.uppercase { text-transform: uppercase; }
+.italic { font-style: italic; }
+.leading-tight { line-height: 1.25; }
+.tracking-wide { letter-spacing: 0.025em; }
+.tracking-widest { letter-spacing: 0.1em; }
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.text-white { color: #fff; }
+.text-slate-400 { color: #94a3b8; }
+.text-slate-500 { color: #64748b; }
+.text-slate-600 { color: #475569; }
+.text-slate-700 { color: #334155; }
+.text-slate-800 { color: #1e293b; }
+.text-slate-900 { color: #0f172a; }
+.text-emerald-500 { color: #10b981; }
+.text-emerald-600 { color: #059669; }
+.text-emerald-700 { color: #047857; }
+.text-amber-400 { color: #fbbf24; }
+.text-amber-500 { color: #f59e0b; }
+.text-amber-600 { color: #d97706; }
+.text-amber-700 { color: #b45309; }
+.text-amber-800 { color: #92400e; }
+.text-rose-400 { color: #fb7185; }
+.text-rose-500 { color: #f43f5e; }
+.text-rose-600 { color: #e11d48; }
+.text-blue-600 { color: #2563eb; }
+.placeholder-slate-400::placeholder { color: #94a3b8; }
+.text-transparent { color: transparent; }
+.bg-clip-text { background-clip: text; -webkit-background-clip: text; }
+.font-poppins { font-family: 'Poppins', sans-serif; }
+.text-xs { font-size: 0.75rem; line-height: 1rem; }
+.text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+
+/* 7. Backgrounds */
+.bg-white { background-color: #fff; }
+.bg-slate-50 { background-color: #f8fafc; }
+.bg-slate-300 { background-color: #cbd5e1; }
+.bg-slate-900 { background-color: #0f172a; }
+.bg-emerald-50 { background-color: #ecfdf5; }
+.bg-emerald-100 { background-color: #d1fae5; }
+.bg-emerald-600 { background-color: #059669; }
+.bg-amber-50 { background-color: #fffbeb; }
+.bg-amber-100 { background-color: #fef3c7; }
+.bg-amber-500 { background-color: #f59e0b; }
+.bg-orange-50 { background-color: #fff7ed; }
+.bg-blue-100 { background-color: #dbeafe; }
+.bg-black { background-color: #000; }
+.bg-opacity-20 { background-color: rgba(0, 0, 0, 0.2); }
+.bg-opacity-30 { background-color: rgba(0, 0, 0, 0.3); }
+.bg-opacity-70 { background-color: rgba(0, 0, 0, 0.7); }
+.bg-opacity-80 { background-color: rgba(0, 0, 0, 0.8); }
+.bg-opacity-90 { background-color: rgba(0, 0, 0, 0.9); }
+.bg-cover { background-size: cover; }
+.bg-center { background-position: center; }
+.from-white { --tw-gradient-from: #fff; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 255, 255, 0)); }
+.from-amber-50 { --tw-gradient-from: #fffbeb; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 251, 235, 0)); }
+.to-slate-50 { --tw-gradient-to: #f8fafc; }
+.to-white { --tw-gradient-to: #fff; }
+.to-orange-50 { --tw-gradient-to: #fff7ed; }
+.bg-gradient-to-b { background-image: linear-gradient(to bottom, var(--tw-gradient-stops)); }
+.bg-gradient-to-r { background-image: linear-gradient(to right, var(--tw-gradient-stops)); }
+
+/* MUDANÇA: Adicionada regra para o background responsivo do Hero. 
+   Certifique-se de que os arquivos 'img/background-hero-640.webp' e 'img/background-hero.webp' existam. */
+.hero-background-image {
+  /* Mobile-first: carrega a imagem menor por padrão */
+  background-image: url('img/background-hero-640.webp');
 }
 
+/* 8. Bordas (sem alterações) */
+.rounded-lg { border-radius: 0.5rem; }
+.rounded-xl { border-radius: 0.75rem; }
+.rounded-2xl { border-radius: 1rem; }
+.rounded-full { border-radius: 9999px; }
+.border { border-width: 1px; }
+.border-2 { border-width: 2px; }
+.border-4 { border-width: 4px; }
+.border-slate-100 { border-color: #f1f5f9; }
+.border-slate-200 { border-color: #e2e8f0; }
+.border-white { border-color: #fff; }
+.border-emerald-200 { border-color: #a7f3d0; }
+.border-l-4 { border-left-width: 4px; }
+.border-amber-400 { border-color: #fbbf24; }
+.border-rose-500 { border-color: #f43f5e; }
+.border-emerald-500 { border-color: #10b981; }
+
+/* 9. Efeitos e Filtros (sem alterações) */
+.shadow-sm { box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); }
+.shadow-md { box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); }
+.shadow-lg { box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
+.shadow-xl { box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1); }
+.shadow-2xl { box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25); }
+.shadow-emerald-500\/30 { box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.3), 0 4px 6px -2px rgba(16, 185, 129, 0.3); }
+.opacity-0 { opacity: 0; }
+.opacity-5 { opacity: 0.05; }
+.opacity-70 { opacity: 0.7; }
+.grayscale { filter: grayscale(100%); }
+
+/* 10. Transições e Animações */
+.transition-all { transition-property: all; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 300ms; }
+.transition-colors { transition-property: color, background-color, border-color, text-decoration-color, fill, stroke; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 300ms; }
+.transition-transform { transition-property: transform; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 300ms; }
+.transition-opacity { transition-property: opacity; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 300ms; }
+.duration-300 { transition-duration: 300ms; }
+.duration-500 { transition-duration: 500ms; }
+.ease-in-out { transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); }
+.animate-bounce { animation: bounce 1s infinite; }
+.animate-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+@keyframes bounce { 0%, 100% { transform: translateY(-25%); animation-timing-function: cubic-bezier(0.8, 0, 1, 1); } 50% { transform: translateY(0); animation-timing-function: cubic-bezier(0, 0, 0.2, 1); } }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
+
+/* 11. Interatividade (Hover, Focus, Group-Hover) (sem alterações) */
+.hover\:bg-emerald-700:hover { background-color: #047857; }
+.hover\:text-emerald-800:hover { color: #065f46; }
+.hover\:text-amber-500:hover { color: #f59e0b; }
+.hover\:bg-amber-50:hover { background-color: #fffbeb; }
+.hover\:text-amber-400:hover { color: #fbbf24; }
+.hover\:scale-105:hover { transform: scale(1.05); }
+.hover\:scale-110:hover { transform: scale(1.1); }
+.hover\:-translate-y-1:hover { transform: translateY(-0.25rem); }
+.hover\:shadow-xl:hover { box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1); }
+.group:hover .group-hover\:bg-opacity-20 { background-color: rgba(0, 0, 0, 0.2); }
+.group:hover .group-hover\:scale-110 { transform: scale(1.1); }
+.focus\:ring-2:focus { --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color); --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color); box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000); }
+.focus\:ring-emerald-500:focus { --tw-ring-color: #10b981; }
+.focus\:border-transparent:focus { border-color: transparent; }
+
+/* 12. Estilos Customizados do Projeto (sem alterações) */
+#scrollBar { position: fixed; top: 0; left: 0; height: 4px; background: #f59e0b; width: 0%; z-index: 60; }
+.highlight-text { position: relative; display: inline-block; }
+.highlight-text::after { content: ''; position: absolute; bottom: 2px; left: 0; width: 100%; height: 8px; background-color: rgba(249, 115, 22, 0.3); z-index: -1; border-radius: 2px; }
+.shine { position: relative; overflow: hidden; }
+.shine::after { content: ""; position: absolute; top: 0; left: -100%; width: 200%; height: 100%; background: linear-gradient(70deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%); animation: shine 7s linear infinite; }
+@keyframes shine { 0% { left: -100%; } 100% { left: 100%; } }
+.faq-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+.rotate-180 { transform: rotate(180deg); }
+.feature-card { transition: all 0.3s ease; }
+.feature-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); }
+#formModal, #videoModal, #imagemModal { display: flex; }
+#formModal.hidden, #videoModal.hidden, #imagemModal.hidden { display: none; }
+.form-feedback { padding: 12px; border-radius: 8px; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+.form-feedback.erro { background-color: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
+
+/* 13. Responsividade */
 @media (min-width: 640px) {
-  .container {
-    max-width: 640px;
-  }
+  .sm\:py-12 { padding-top: 3rem; padding-bottom: 3rem; }
+  .sm\:text-5xl { font-size: 3rem; line-height: 1; }
+  .sm\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sm\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
-
 @media (min-width: 768px) {
-  .container {
-    max-width: 768px;
+  .md\:flex-row { flex-direction: row; }
+  .md\:w-1\/2 { width: 50%; }
+  .md\:w-1\/3 { width: 33.333333%; }
+  .md\:w-2\/3 { width: 66.666667%; }
+  .md\:w-2\/5 { width: 40%; }
+  .md\:text-5xl { font-size: 3rem; line-height: 1; }
+  .md\:py-24 { padding-top: 6rem; padding-bottom: 6rem; }
+  .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .md\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .md\:text-left { text-align: left; }
+  .md\:h-56 { height: 14rem; }
+
+  /* MUDANÇA: Carrega a imagem de fundo maior do hero para telas a partir de 768px */
+  .hero-background-image {
+    background-image: url('img/background-hero.webp');
   }
 }
-
 @media (min-width: 1024px) {
-  .container {
-    max-width: 1024px;
+  .lg\:hidden { display: none; }
+  .lg\:block { display: block; }
+  .lg\:flex { display: flex; }
+  .lg\:w-1\/2 { width: 50%; }
+  .lg\:w-1\/3 { width: 33.333333%; }
+  .lg\:py-24 { padding-top: 6rem; padding-bottom: 6rem; }
+  .lg\:text-6xl { font-size: 3.75rem; line-height: 1; }
+  .lg\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .lg\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+/* MUDANÇA: Adicionada media query para desativar animações para usuários que preferem movimento reduzido.
+   Isso melhora a acessibilidade e pode poupar recursos em dispositivos mais lentos. */
+@media (prefers-reduced-motion: reduce) {
+  .animate-bounce {
+    animation: none !important;
   }
+  /* Você pode adicionar outras classes de animação aqui se necessário */
 }
 
-@media (min-width: 1280px) {
-  .container {
-    max-width: 1280px;
-  }
+/* === INÍCIO DAS CORREÇÕES === */
+
+/* Fix mobile width util usada no HTML */
+.w-\[calc\(100\%-2rem\)\] {
+  width: calc(100% - 2rem);
 }
 
-@media (min-width: 1536px) {
-  .container {
-    max-width: 1536px;
-  }
+/* Aspect ratio util (moderna) */
+.aspect-video {
+  aspect-ratio: 16 / 9;
 }
 
-/* 3. Espaçamentos */
-.px-6 {
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-}
-
-.py-16 {
-  padding-top: 4rem;
-  padding-bottom: 4rem;
-}
-
-.mb-4 {
-  margin-bottom: 1rem;
-}
-
-.mt-6 {
-  margin-top: 1.5rem;
-}
-
-/* 4. Flexbox e Grid */
-.flex {
-  display: flex;
-}
-
-.items-center {
-  align-items: center;
-}
-
-.justify-center {
-  justify-content: center;
-}
-
-.justify-between {
-  justify-content: space-between;
-}
-
-.flex-col {
-  flex-direction: column;
-}
-
-.grid {
-  display: grid;
-}
-
-.grid-cols-2 {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.grid-cols-4 {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-}
-
-.gap-4 {
-  gap: 1rem;
-}
-
-.gap-8 {
-  gap: 2rem;
-}
-
-/* 5. Cores de fundo */
-.bg-white {
-  background-color: #fff;
-}
-
-.bg-slate-50 {
-  background-color: #f8fafc;
-}
-
-.bg-slate-900 {
-  background-color: #0f172a;
-}
-
-.bg-emerald-600 {
-  background-color: #059669;
-}
-
-.bg-amber-500 {
-  background-color: #f59e0b;
-}
-
-.bg-gradient-to-b {
-  background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
-}
-
-.from-white {
-  --tw-gradient-from: #fff;
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 255, 255, 0));
-}
-
-.to-slate-50 {
-  --tw-gradient-to: #f8fafc;
-}
-
-/* 6. Cores de texto */
-.text-white {
-  color: #fff;
-}
-
-.text-slate-900 {
-  color: #0f172a;
-}
-
-.text-slate-600 {
-  color: #475569;
-}
-
-.text-emerald-600 {
-  color: #059669;
-}
-
-.text-amber-500 {
-  color: #f59e0b;
-}
-
-/* 7. Tipografia */
-.text-xl {
-  font-size: 1.25rem;
-  line-height: 1.75rem;
-}
-
-.text-3xl {
-  font-size: 1.875rem;
-  line-height: 2.25rem;
-}
-
-.font-bold {
-  font-weight: 700;
-}
-
-.font-semibold {
-  font-weight: 600;
-}
-
-.leading-tight {
-  line-height: 1.25;
-}
-
-/* 8. Bordas e cantos arredondados */
-.rounded-lg {
-  border-radius: 0.5rem;
-}
-
-.rounded-xl {
-  border-radius: 0.75rem;
-}
-
-.border {
-  border-width: 1px;
-}
-
-.border-slate-200 {
-  border-color: #e2e8f0;
-}
-
-/* 9. Efeitos e sombras */
-.shadow-sm {
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-}
-
-.shadow-lg {
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-}
-
-/* 10. Transições e animações */
-.transition-all {
-  transition-property: all;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
-}
-
-.transition-colors {
-  transition-property: background-color, border-color, color, fill, stroke;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
-}
-
-.duration-300 {
-  transition-duration: 300ms;
-}
-
-.ease-in-out {
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.hover\:bg-emerald-700:hover {
-  background-color: #047857;
-}
-
-.hover\:scale-105:hover {
-  transform: scale(1.05);
-}
-
-/* 11. Utilitários específicos do projeto */
-/* Barra de progresso do scroll */
-#scrollBar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 4px;
-  background-color: #f59e0b;
-  width: 0%;
-  z-index: 60;
-  transition: width 120ms linear;
-}
-
-/* Efeito de highlight no texto */
-.highlight-text {
+/* Fallback universal para navegadores sem aspect-ratio */
+.aspect-16x9 {
   position: relative;
-  display: inline-block;
 }
-
-.highlight-text::after {
+.aspect-16x9::before {
   content: "";
+  display: block;
+  padding-top: 56.25%;
+}
+.aspect-16x9 > * {
   position: absolute;
-  left: 0;
-  bottom: 2px;
-  width: 100%;
-  height: 8px;
-  background: rgba(249, 115, 22, 0.3);
-  z-index: -1;
-  border-radius: 2px;
-}
-
-/* Modal otimizado */
-.modal {
-  position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 100;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
+  width: 100%;
+  height: 100%;
 }
 
-.modal.active {
-  opacity: 1;
-  pointer-events: all;
-}
-
-/* Carregamento lazy de imagens */
-.lazy-image {
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
-.lazy-image.loaded {
-  opacity: 1;
-}
-
-/* 12. Responsividade - Mobile First */
-@media (min-width: 640px) {
-  .sm\:grid-cols-2 {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  
-  .sm\:block {
-    display: block;
-  }
-}
-
-@media (min-width: 768px) {
-  .md\:grid-cols-2 {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  
-  .md\:flex-row {
-    flex-direction: row;
-  }
-  
-  .md\:w-1\/2 {
-    width: 50%;
-  }
-  
-  .md\:py-24 {
-    padding-top: 6rem;
-    padding-bottom: 6rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .lg\:grid-cols-3 {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-  
-  .lg\:grid-cols-4 {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-  
-  .lg\:hidden {
-    display: none;
-  }
-  
-  .lg\:block {
-    display: block;
-  }
-}
-
-/* 13. Animações personalizadas */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes gentleBounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
-}
-
-.animate-fadeIn {
-  animation: fadeIn 0.6s ease forwards;
-}
-
-.animate-gentleBounce {
-  animation: gentleBounce 2s ease infinite;
-}
-
-/* 14. Componentes específicos */
-/* Card de depoimentos */
-.depoimento-card {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.depoimento-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-}
-
-/* Botão CTA */
-.cta-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
-  font-weight: 600;
-  text-align: center;
-  transition: all 0.3s ease;
-  will-change: transform;
-}
-
-/* Modal do Formulário - Centralizado */
-#formModal {
-  display: none; /* Garante que comece oculto */
-}
-
-#formModal.hidden {
-  display: none;
-}
-
-#formModal:not(.hidden) {
-  display: flex;
-}
-
-.cta-button:hover {
-  transform: scale(1.05);
-}
-
-/* 15. Overrides para performance */
-.transform {
-  will-change: transform;
-}
-
-.backface-hidden {
-  backface-visibility: hidden;
-}
-
-/* 16. Correções para mobile */
-@media (max-width: 640px) {
-  .mobile\:text-2xl {
-    font-size: 1.5rem;
-    line-height: 2rem;
-  }
-  
-  .mobile\:px-4 {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-  
-  .mobile\:py-12 {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-  }
-}
-
-/* Transições otimizadas para hardware */
-.faq-content {
-  will-change: max-height;
-  transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  overflow: hidden;
-}
-
-.depoimentos-track {
-  will-change: transform;
-  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Melhorias para mobile */
-@media (max-width: 767px) {
-  .depoimento-slide {
-    width: 85% !important;
-    margin: 0 7.5%;
-  }
-  
-  .faq-content {
-    transition-duration: 0.2s;
-  }
-}
+/* === FIM DAS CORREÇÕES === */
